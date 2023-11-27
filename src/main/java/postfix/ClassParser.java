@@ -1,6 +1,5 @@
 package postfix;
 
-
 import Token.Token;
 import Token.ClassType;
 import Token.TokenClass;
@@ -36,19 +35,66 @@ public class ClassParser {
             while ((current = bufferedReader.read()) != -1){
                 currentChar = (char) current;
                 switch (currentChar){
-                    case ' ':
+                    case ' ': case '\t':
                         continue;
-                    case '\n':
+                    case '\n': case '\r':
                         codeLine += 1;
                         continue;
-                    case 0: case 1: case 2: case 3: case 4:
-                    case 5: case 6: case 7: case 8: case 9:
-                        return NumToken(TokenClass.TK_NUM, current);
+                    case '0': case '1': case '2': case '3': case '4':
+                    case '5': case '6': case '7': case '8': case '9':
+                        return NumToken(TokenClass.TK_NUM, (int)currentChar);
                     case '=':
-                        return new Token(TokenClass.TK_EQUAL);
+                        if( checkNextChar('=')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_IF_EQUAL);
+                        }else return NomToken(TokenClass.TK_EQUAL);
                     case '[':
-                        return new Token(TokenClass.TK_open_bra);
-
+                        return NomToken(TokenClass.TK_open_bra);
+                    case ']':
+                        return NomToken(TokenClass.TK_close_bra);
+                    case '(':
+                        return NomToken(TokenClass.TK_open_par);
+                    case ')':
+                        return NomToken(TokenClass.TK_close_par);
+                    case '{':
+                        return NomToken(TokenClass.TK_LEFT_CURLY_BRACE);
+                    case '@':
+                        return NomToken(TokenClass.TK_at);
+                    case ',':
+                        return NomToken(TokenClass.TK_Comma);
+                    case ';':
+                        return NomToken(TokenClass.TK_semicolon);
+                    case '*':
+                        if( checkNextChar('=')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_multi_assign);
+                        }else return NomToken(TokenClass.TK_asterisk);
+                    case '+':
+                        if( checkNextChar('+')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_inc);
+                        }else if(checkNextChar('=')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_add_assign);
+                        }else return NomToken(TokenClass.TK_plus);
+                    case '-':
+                        if(checkNextChar('-')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_dec);
+                        }else if(checkNextChar('=')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_multi_assign);
+                        }else return NomToken(TokenClass.TK_minus);
+                    case '&':
+                        if(checkNextChar('&')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_and);
+                        }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
+                    case '|':
+                        if(checkNextChar('|')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_or);
+                        }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
 
                 }
             }
@@ -57,7 +103,10 @@ public class ClassParser {
             e.printStackTrace();
         }
 
-        return new Token(TokenClass.TK_EOF);
+        return NomToken(TokenClass.TK_EOF);
+    }
+    private Token NomToken(TokenClass tokenClass){
+        return new Token(tokenClass);
     }
 
     private Token NumToken(TokenClass tokenClass, int num){
