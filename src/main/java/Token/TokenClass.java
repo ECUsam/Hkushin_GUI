@@ -21,4 +21,11 @@ enum TokenClass {
     TK_NOT_EQ,
     TK_LEFT_CURLY_BRACE,
     TK_RIGHT_CURLY_BRACE,
+    TK_IF,
+    TK_ELSE,
+    TK_FUNC_NAME,
+    TK_open_par,
+    TK_close_par,
+    TK_open_bra,
+    TK_close_bra
 }

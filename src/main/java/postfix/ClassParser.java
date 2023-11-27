@@ -46,6 +46,8 @@ public class ClassParser {
                         return NumToken(TokenClass.TK_NUM, current);
                     case '=':
                         return new Token(TokenClass.TK_EQUAL);
+                    case '[':
+                        return new Token(TokenClass.TK_open_bra);
 
 
                 }
@@ -73,5 +75,6 @@ public class ClassParser {
         bufferedReader.reset();
         return isMatch;
     }
+
 }
 
