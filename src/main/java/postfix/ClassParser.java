@@ -1,5 +1,6 @@
 package postfix;
 
+import Constants.Constants;
 import Token.Token;
 import Token.ClassType;
 import Token.TokenClass;
@@ -32,7 +33,7 @@ public class ClassParser {
         try {
             int current;
             int lookahead;
-            while ((current = bufferedReader.read()) != -1){
+            while ((current = bufferedReader.read()) != Constants.EOZ){
                 currentChar = (char) current;
                 switch (currentChar){
                     case ' ': case '\t':
@@ -40,9 +41,6 @@ public class ClassParser {
                     case '\n': case '\r':
                         codeLine += 1;
                         continue;
-                    case '0': case '1': case '2': case '3': case '4':
-                    case '5': case '6': case '7': case '8': case '9':
-                        return NumToken(TokenClass.TK_NUM, (int)currentChar);
                     case '=':
                         if( checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
@@ -58,17 +56,36 @@ public class ClassParser {
                         return NomToken(TokenClass.TK_close_par);
                     case '{':
                         return NomToken(TokenClass.TK_LEFT_CURLY_BRACE);
+                    case '}':
+                        return NomToken(TokenClass.TK_RIGHT_CURLY_BRACE);
                     case '@':
                         return NomToken(TokenClass.TK_at);
                     case ',':
-                        return NomToken(TokenClass.TK_Comma);
+                        return NomToken(TokenClass.TK_comma);
                     case ';':
                         return NomToken(TokenClass.TK_semicolon);
+                    case ':':
+                        return NomToken(TokenClass.TK_colon);
+                    case '<':
+                        if(checkNextChar('=')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_IF_LT_OR_EQ);
+                        }else return NomToken(TokenClass.TK_IF_LT);
+                    case '>':
+                        if(checkNextChar('=')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_IF_GT_OR_EQ);
+                        }else return NomToken(TokenClass.TK_IF_GT);
                     case '*':
                         if( checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.TK_multi_assign);
                         }else return NomToken(TokenClass.TK_asterisk);
+                    case '/':
+                        if( checkNextChar('=')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.Tk_divide_assign);
+                        }else return NomToken(TokenClass.Tk_divide);
                     case '+':
                         if( checkNextChar('+')){
                             currentChar = (char) bufferedReader.read();
@@ -85,6 +102,11 @@ public class ClassParser {
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.TK_multi_assign);
                         }else return NomToken(TokenClass.TK_minus);
+                    case '!':
+                        if(checkNextChar('=')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_NOT_EQ);
+                        }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
                     case '&':
                         if(checkNextChar('&')){
                             currentChar = (char) bufferedReader.read();
@@ -95,7 +117,38 @@ public class ClassParser {
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.TK_or);
                         }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
+                    default:
+                        if(Character.isDigit(currentChar)){
+                            int value = Character.getNumericValue(currentChar);
+                            while (checkNextCharisInt()){
+                                currentChar = (char) bufferedReader.read();
+                                value = value * 10 + Character.getNumericValue(currentChar);
+                            }
+                            return NumToken(TokenClass.TK_NUM, value);
+                        }
+                        if(Character.isLetter(currentChar)||currentChar=='_'){
+                            StringBuilder word_builder = new StringBuilder("" + currentChar);
+                            while (checkNextCharisLetterOr_()){
+                                currentChar = (char) bufferedReader.read();
+                                word_builder.append(current);
+                            }
+                            String word = word_builder.toString();
+                            switch (word) {
+                                case "break":
+                                    return StringToken(TokenClass.TK_BREAK, word);
+                                case "while":
+                                    return StringToken(TokenClass.TK_WHILE, word);
+                                case "if":
+                                    return StringToken(TokenClass.TK_IF, word);
+                                case "else":
+                                    return StringToken(TokenClass.TK_ELSE, word);
+                                default:
+                                    if(Constants.class_type.contains(word))
+                                        return  StringToken(TokenClass.TK_classname, word);
+                                    return StringToken(TokenClass.TK_NAME, word);
+                            }
 
+                        }
                 }
             }
 
@@ -121,6 +174,21 @@ public class ClassParser {
         bufferedReader.mark(1);
         int nextChar = bufferedReader.read();
         boolean isMatch = (char) nextChar == char2beCheck;
+        bufferedReader.reset();
+        return isMatch;
+    }
+    private boolean checkNextCharisInt() throws IOException{
+        bufferedReader.mark(1);
+        int nextChar = bufferedReader.read();
+        boolean isMatch = Character.isDigit ((char) nextChar);
+        bufferedReader.reset();
+        return isMatch;
+    }
+
+    private boolean checkNextCharisLetterOr_() throws IOException{
+        bufferedReader.mark(1);
+        char nextChar = (char) bufferedReader.read();
+        boolean isMatch = (Character.isLetter(nextChar) || nextChar == '_');
         bufferedReader.reset();
         return isMatch;
     }

@@ -3,11 +3,12 @@ package Token;
 @SuppressWarnings("unused")
 public
 enum TokenClass {
-    TK_Classname,
-    TK_String,
-    TK_Comma,
-    Tk_Feature,
-    TK_Var,
+    TK_NAME,
+    TK_classname,
+    TK_string,
+    TK_comma,
+    Tk_feature,
+    TK_var,
     TK_NUM,
     TK_EOF,
     TK_EQUAL,
@@ -41,5 +42,8 @@ enum TokenClass {
     TK_subtract_assign,
     TK_and,
     TK_or,
-
+    TK_new_line,
+    TK_colon,
+    TK_WHILE,
+    TK_BREAK
 }
