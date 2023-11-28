@@ -1,5 +1,6 @@
 package postfix;
 
+import Token.TokenFeature;
 import Token.TokenCommand;
 import Token.CommandType;
 import Constants.Constants;
@@ -21,24 +22,29 @@ public class ClassParser {
     private BufferedReader bufferedReader;
     private int codeLine = 0;
     private List<Token> tokenList;
+    private boolean isSourceDetail = false;
 
     public ClassParser(String source){
         this.source = source;
         stringReader = new StringReader(source);
         bufferedReader = new BufferedReader(stringReader);
         tokenList = new ArrayList<>();
+
     }
     public void updateSource(String source) {
         this.source = source;
         stringReader = new StringReader(source);
         bufferedReader = new BufferedReader(stringReader);
+        tokenList = new ArrayList<>();
     }
     private Token Parser(){
         try {
             int current;
             while ((current = bufferedReader.read()) != Constants.EOZ){
                 currentChar = (char) current;
+                System.out.print(currentChar);
                 switch (currentChar){
+                    //可以换成skipSpace();，但是也可能再改
                     case ' ': case '\t':
                         continue;
                     case '\n': case '\r':
@@ -105,6 +111,7 @@ public class ClassParser {
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.TK_multi_assign);
                         }else return NomToken(TokenClass.TK_minus);
+                        //TODO:codeLine肯定要改
                     case '!':
                         if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
@@ -133,7 +140,7 @@ public class ClassParser {
                             StringBuilder word_builder = new StringBuilder("" + currentChar);
                             while (checkNextCharisLetterOr_()){
                                 currentChar = (char) bufferedReader.read();
-                                word_builder.append(current);
+                                word_builder.append(currentChar);
                             }
                             String word = word_builder.toString();
                             switch (word) {
@@ -148,19 +155,35 @@ public class ClassParser {
                                 default:
                                     if(Constants.class_type.contains(word)){
                                         classType = word;
+                                        if(word.equals("detail"))isSourceDetail=true;
                                         return StringToken(TokenClass.TK_classname, word);
+                                    }
+                                    CommandType commandType = checkWordType();
+                                    if(commandType == CommandType.command){
+                                        return parseCommandToken(word);
+                                    }
+                                    if(commandType == CommandType.feature){
+                                        return parseFeatureToken(word);
                                     }
                                     return StringToken(TokenClass.TK_NAME, word);
                             }
                         }
                 }
             }
-
         }catch (Exception e){
             e.printStackTrace();
         }
 
         return NomToken(TokenClass.TK_EOF);
+    }
+
+    public List<Token> getTokenList() {
+        return tokenList;
+    }
+    public void printTokenList(){
+        for (Token token : tokenList){
+            System.out.print(token);
+        }
     }
 
     public void ParseSource(){
@@ -169,6 +192,19 @@ public class ClassParser {
             token = Parser();
             tokenList.add(token);
         } while (token.tokenType != TokenClass.TK_EOF);
+    }
+
+    private void skipSpace() throws IOException {
+        while (currentChar==' '|| currentChar=='\r'||currentChar=='\t'||currentChar=='\n') {
+            currentChar = (char) bufferedReader.read();
+            if(currentChar=='\r'||currentChar=='\n')codeLine+=1;
+        }
+    }
+
+    private void skipSpaceWithoutEnter() throws IOException {
+        while (currentChar==' '|| currentChar=='\t'){
+            currentChar = (char) bufferedReader.read();
+        }
     }
 
     private String getAnyWordFromStream() throws IOException {
@@ -225,32 +261,75 @@ public class ClassParser {
         return isMatch;
     }
 
-    private CommandType checkWordType() throws IOException {
+    private boolean checkNextCharisSpecialWithoutEnter() throws IOException{
         bufferedReader.mark(1);
-        char nextChar;
-        do {
-            nextChar = (char) bufferedReader.read();
-        } while (nextChar == ' ' || nextChar == '\n' || nextChar == '\r' || nextChar == '\t');
+        char nextChar = (char) bufferedReader.read();
+        boolean isMatch = (Constants.special_char_without_enter.contains(nextChar));
         bufferedReader.reset();
-        if (nextChar == '(')return CommandType.command;
-        else if (nextChar == '=')return CommandType.feature;
-        else return CommandType.normal;
+        return isMatch;
     }
 
+    private CommandType checkWordType() throws IOException {
+        bufferedReader.mark(10);
+        skipSpace();
+        if (currentChar == '(') return CommandType.command;
+        else if (currentChar == '=') return CommandType.feature;
+        else {
+            bufferedReader.reset();
+            return CommandType.normal;
+        }
+    }
     private void skip2AnyWord() throws IOException {
         while (!checkNextCharisSpecial()){
             currentChar = (char) bufferedReader.read();
         }
     }
 
+    private void skip2AnyWordWithoutEnter() throws IOException {
+        while (!checkNextCharisSpecial()){
+            currentChar = (char) bufferedReader.read();
+        }
+    }
+
     private TokenCommand parseCommandToken(String word) throws IOException {
+        currentChar = (char) bufferedReader.read();
+        skipSpace();
+        if(checkNextChar(')')){
+            currentChar = (char) bufferedReader.read();
+            return new TokenCommand(word);
+        }
         List<String> strings = new ArrayList<>();
         do {
             skip2AnyWord();
             strings.add(getAnyWordFromStream());
+            skipSpace();
         }while (checkNextChar(','));
+        currentChar = (char) bufferedReader.read();
+        assert currentChar==')': "Unexpected character: " + currentChar;
         return new TokenCommand(word, strings.toArray(String[]::new));
     }
 
+    private TokenFeature parseFeatureToken(String word) throws IOException{
+        currentChar = (char) bufferedReader.read();
+        skipSpaceWithoutEnter();
+
+        if(currentChar == '@')return new TokenFeature(word);
+        if(isSourceDetail){
+            StringBuilder stringBuilder = new StringBuilder();
+            skipSpace();
+            while (currentChar!=';'){
+                stringBuilder.append(currentChar);
+                currentChar = (char) bufferedReader.read();
+            }
+            return new TokenFeature(word, stringBuilder.toString());
+        }
+        List<String> strings = new ArrayList<>();
+        do{
+            skip2AnyWord();
+            strings.add(getAnyWordFromStream());
+            skipSpaceWithoutEnter();
+        }while (currentChar != '\n');
+        return new TokenFeature(word, strings.toArray(String[]::new));
+    }
 }
 

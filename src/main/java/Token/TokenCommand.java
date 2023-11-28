@@ -7,6 +7,7 @@ public class TokenCommand extends Token{
         super(TokenClass.TK_COMMAND);
         this.commandName = commandName;
         this.features = strings;
+        this.__tokenType = __TokenType.TK_STRINGS;
     }
     public String[] getFeatures(){return features;}
     private String getCommandName(){return commandName;}

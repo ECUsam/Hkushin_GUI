@@ -7,6 +7,7 @@ import java.util.List;
 public class Constants {
     public static final int EOZ = -1;   //文件末尾
     public static final int POOL_SIZE = 10000;  //对象池大小
+    //*:已删，勿Q
     public static final List<Character> special_char = Arrays.asList(
             '{',
             '}',
@@ -27,7 +28,29 @@ public class Constants {
             '+',
             '\\',
             '~',
-            '*',
+            ',',
+            '\n'
+    );
+
+    public static final List<Character> special_char_without_enter = Arrays.asList(
+            '{',
+            '}',
+            '(',
+            ')',
+            '=',
+            ']',
+            '[',
+            ':',
+            ' ',
+            '\t',
+            '>',
+            '<',
+            '&',
+            '|',
+            '-',
+            '+',
+            '\\',
+            '~',
             ','
     );
     //类名

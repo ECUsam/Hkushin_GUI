@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 @SuppressWarnings("unused")
 public class ClassGetterFromFile {
     public String encoding;
-    List<String> scriptClass = new ArrayList<>();
+    public List<String> scriptClass = new ArrayList<>();
     public ClassGetterFromFile(String encoding){
         this.encoding = encoding;
     }
@@ -77,8 +77,8 @@ public class ClassGetterFromFile {
                     curly_num += 1;
                 }else if (currentChar == '}') curly_num-=1;
                 if( name_mattered && curly_num ==0){
-                    System.out.print(classBuffer);
-                    System.out.print("\n---------------------\n");
+                    //System.out.print(classBuffer);
+                    //System.out.print("\n---------------------\n");
                     scriptClass.add(classBuffer.toString());
                     classBuffer.setLength(0);
                     name_mattered = false;
@@ -89,7 +89,7 @@ public class ClassGetterFromFile {
 
     public void Folder2Class(String folderPath) {
         try (
-            Stream<Path> paths = Files.walk(Paths.get(folderPath));
+            Stream<Path> paths = Files.walk(Paths.get(folderPath))
         ){
             paths.filter(Files::isRegularFile).filter(path -> path.toString().endsWith(".dat")).forEach(path -> {
                 try {
