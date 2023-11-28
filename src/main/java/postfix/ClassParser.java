@@ -164,6 +164,7 @@ public class ClassParser {
                                     if(commandType == CommandType.feature){
                                         return parseFeatureToken(word);
                                     }
+
                                     return StringToken(TokenClass.TK_NAME, word);
                             }
                         }
@@ -287,7 +288,10 @@ public class ClassParser {
         if (currentChar == '(') return CommandType.command;
         else if (currentChar == '=') {
             Token token = getLastToken();
-            if(token.tokenType != TokenClass.TK_NAME)return CommandType.normal;
+            if(token.tokenType != TokenClass.TK_NAME){
+                bufferedReader.reset();
+                return CommandType.normal;
+            }
             return CommandType.feature;
         }
         else {
@@ -308,6 +312,11 @@ public class ClassParser {
     }
 
     private TokenCommand parseCommandToken(String word) throws IOException {
+        //为什么检测了两遍？
+        if(checkNextChar(')')){
+            currentChar = (char) bufferedReader.read();
+            return new TokenCommand(word);
+        }
         currentChar = (char) bufferedReader.read();
         skipSpace();
         if(checkNextChar(')')){
