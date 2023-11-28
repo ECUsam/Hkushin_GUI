@@ -67,7 +67,8 @@ public class Constants {
             "scenario",
             "voice",
             "spot",
-            "unit"
+            "unit",
+            "detail"
     );
     //函数列表
     public static final List<String> functionTypes = Arrays.asList(

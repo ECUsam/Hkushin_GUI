@@ -1,5 +1,7 @@
 package Token;
 
+import java.util.Arrays;
+
 public class TokenCommand extends Token{
     private final String commandName;
     private final String[] features;
@@ -11,4 +13,9 @@ public class TokenCommand extends Token{
     }
     public String[] getFeatures(){return features;}
     private String getCommandName(){return commandName;}
+
+    @Override
+    public String toString() {
+        return "Token(type: " + tokenType + ", commandName: " + commandName + ", feature: " + Arrays.toString(features) +")\n";
+    }
 }
