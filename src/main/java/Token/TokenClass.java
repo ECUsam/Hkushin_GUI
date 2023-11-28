@@ -3,6 +3,7 @@ package Token;
 @SuppressWarnings("unused")
 public
 enum TokenClass {
+    TK_COMMAND,
     TK_NAME,
     TK_classname,
     TK_string,

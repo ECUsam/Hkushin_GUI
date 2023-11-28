@@ -1,7 +1,7 @@
 package Token;
 
 public class Token {
-    TokenClass tokenType;
+    public TokenClass tokenType;
     int value;
     String string;
     public Token(TokenClass tokenType){

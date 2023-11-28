@@ -7,7 +7,30 @@ import java.util.List;
 public class Constants {
     public static final int EOZ = -1;   //文件末尾
     public static final int POOL_SIZE = 10000;  //对象池大小
-
+    public static final List<Character> special_char = Arrays.asList(
+            '{',
+            '}',
+            '(',
+            ')',
+            '=',
+            ']',
+            '[',
+            ':',
+            ' ',
+            '\t',
+            '\r',
+            '>',
+            '<',
+            '&',
+            '|',
+            '-',
+            '+',
+            '\\',
+            '~',
+            '*',
+            ','
+    );
+    //类名
     public static final List<String> class_type = Arrays.asList(
             "story",
             "skill",
@@ -23,7 +46,7 @@ public class Constants {
             "spot",
             "unit"
     );
-
+    //函数列表
     public static final List<String> functionTypes = Arrays.asList(
             "playBGM",
             "volume",
