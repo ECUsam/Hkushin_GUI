@@ -22,6 +22,7 @@ enum TokenClass {
     TK_LEFT_CURLY_BRACE,
     TK_RIGHT_CURLY_BRACE,
     TK_IF,
+    TK_RIF,
     TK_ELSE,
     TK_FUNC_NAME,
     TK_open_par,

@@ -11,9 +11,10 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class ClassParser {
+public class ClassLexer {
     public String classType;
     public String source;
     private char currentChar;
@@ -23,25 +24,25 @@ public class ClassParser {
     private List<Token> tokenList;
     private boolean isSourceDetail = false;
 
-    public ClassParser(String source){
+    public ClassLexer(String source){
         this.source = source;
         stringReader = new StringReader(source);
         bufferedReader = new BufferedReader(stringReader);
         tokenList = new ArrayList<>();
-
     }
+
     public void updateSource(String source) {
         this.source = source;
         stringReader = new StringReader(source);
         bufferedReader = new BufferedReader(stringReader);
         tokenList = new ArrayList<>();
     }
-    private Token Parser(){
+    private Token Advance(){
         try {
             int current;
             while ((current = bufferedReader.read()) != Constants.EOZ){
                 currentChar = (char) current;
-//                System.out.print(currentChar);
+                //System.out.print(currentChar);
                 switch (currentChar){
                     //可以换成skipSpace();，但是也可能再改
                     case ' ': case '\t':
@@ -151,6 +152,8 @@ public class ClassParser {
                                     return StringToken(TokenClass.TK_IF, word);
                                 case "else":
                                     return StringToken(TokenClass.TK_ELSE, word);
+                                case "rif":
+                                    return StringToken(TokenClass.TK_RIF, word);
                                 default:
                                     if(Constants.class_type.contains(word) && classType == null){
                                         classType = word;
@@ -189,7 +192,7 @@ public class ClassParser {
     public void ParseSource(){
         Token token;
         do {
-            token = Parser();
+            token = Advance();
             tokenList.add(token);
             System.out.print(token);
         } while (token.tokenType != TokenClass.TK_EOF);
@@ -283,12 +286,12 @@ public class ClassParser {
 
     private CommandType checkWordType() throws IOException {
         bufferedReader.mark(10);
-        skipSpace();
-        currentChar = (char) bufferedReader.read();
+        if(checkNextChar(' '))skipSpace();
+        else currentChar = (char) bufferedReader.read();
+
         if (currentChar == '(') return CommandType.command;
         else if (currentChar == '=') {
-            Token token = getLastToken();
-            if(token.tokenType != TokenClass.TK_NAME){
+            if(checkNextChar('=')){
                 bufferedReader.reset();
                 return CommandType.normal;
             }
@@ -328,7 +331,7 @@ public class ClassParser {
             skip2AnyWord();
             strings.add(getAnyWordFromStream());
             skipSpace();
-        }while (checkNextChar(',') &&  (currentChar = (char) bufferedReader.read())==',');
+        }while (checkNextChar(',') && (currentChar = (char) bufferedReader.read())==',');
         currentChar = (char) bufferedReader.read();
         assert currentChar==')': "Unexpected character: " + currentChar;
         return new TokenCommand(word, strings.toArray(String[]::new));
@@ -339,7 +342,7 @@ public class ClassParser {
         skipSpaceWithoutEnter();
 
         if(currentChar == '@')return new TokenFeature(word);
-        if(isSourceDetail){
+        if(isSourceDetail||(Objects.equals(classType, "scenario") && Objects.equals(word, "text"))){
             StringBuilder stringBuilder = new StringBuilder();
             skipSpace();
             while (currentChar!=';'){
@@ -353,7 +356,7 @@ public class ClassParser {
             skip2AnyWord();
             strings.add(getAnyWordFromStream());
             skipSpaceWithoutEnter();
-        }while (currentChar != '\n' && currentChar != '\r');
+        }while (currentChar != '\n' && currentChar != '\r'&& (currentChar = (char) bufferedReader.read())==',');
         return new TokenFeature(word, strings.toArray(String[]::new));
     }
 }

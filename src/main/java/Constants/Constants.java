@@ -7,6 +7,10 @@ import java.util.List;
 public class Constants {
     public static final int EOZ = -1;   //文件末尾
     public static final int POOL_SIZE = 10000;  //对象池大小
+    public static final int GUI_height = 800;
+    public static final int GUI_width = 800;
+    public static final int TabWidth = 100;
+    public static final int TabHeight = 50;
     //*:已删，勿Q
     public static final List<Character> special_char = Arrays.asList(
             '{',
@@ -68,7 +72,10 @@ public class Constants {
             "voice",
             "spot",
             "unit",
-            "detail"
+            "detail",
+            "context",
+            "sound",
+            "attribute"
     );
     //函数列表
     public static final List<String> functionTypes = Arrays.asList(

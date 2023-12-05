@@ -1,5 +1,7 @@
 package postfix;
 
+import Token.Token;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -13,6 +15,7 @@ import java.util.stream.Stream;
 @SuppressWarnings("unused")
 public class ClassGetterFromFile {
     public String encoding;
+
     public List<String> scriptClass = new ArrayList<>();
     public ClassGetterFromFile(String encoding){
         this.encoding = encoding;
@@ -77,8 +80,6 @@ public class ClassGetterFromFile {
                     curly_num += 1;
                 }else if (currentChar == '}') curly_num-=1;
                 if( name_mattered && curly_num ==0){
-                    //System.out.print(classBuffer);
-                    //System.out.print("\n---------------------\n");
                     scriptClass.add(classBuffer.toString());
                     classBuffer.setLength(0);
                     name_mattered = false;
