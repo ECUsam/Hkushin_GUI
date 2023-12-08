@@ -10,6 +10,7 @@ enum TokenClass {
     TK_comma,
     Tk_feature,
     TK_var,
+    TK_string_var,
     TK_NUM,
     TK_EOF,
     TK_EQUAL,

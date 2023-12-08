@@ -4,7 +4,6 @@ import Token.TokenClass;
 import Token.Token;
 import Token.ClassType;
 import OPcode.*;
-
 import java.util.Stack;
 
 
@@ -50,6 +49,7 @@ public class ClassParse {
                         assert currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
                     }else throw new ParseException(codeLevel, currentToken.toString());
                     parseCurrentToken();
+                //估计用不到
                 case TK_open_par: case TK_open_bra: case TK_LEFT_CURLY_BRACE:
                     codeLevel += 1;
                     tokenStack.add(currentToken);
@@ -69,28 +69,87 @@ public class ClassParse {
                     TreeNode CF_node = new TreeNode(currentToken.tokenType.toString(), currentToken);
                     currentNode.addChild(CF_node);
                 case TK_IF: case TK_RIF:
-                    TreeNode if_node = new TreeNode("if");
+                    TreeNode if_node = new TreeNode(currentToken.string);
                     currentNode.addChild(if_node);
                     currentNode = if_node;
+                    next();
+                    parseLogic();
+                    //现在指向‘)’
+                    next();
+                    //指向‘}’
+                    parseBlock();
+                case TK_ELSE:
+
+                case TK_WHILE:
+                    TreeNode while_node = new TreeNode(currentToken.string);
+                    currentNode.addChild(while_node);
+                    currentNode = while_node;
+                    next();
+                    parseLogic();
+                    next();
+                    parseBlock();
 
             }
         //}while (currentToken.tokenType != TokenClass.TK_EOF);
     }
     // 现在Token为逻辑字符，接下来要解析括号内内容
-    private void parseLogic(){
+    //结束之时指向‘)’
+    private void parseLogic() {
+        assert currentToken.tokenType == TokenClass.TK_open_par;
+        parseCurrentToken();
+        do {
+            next();
+            switch (currentToken.tokenType) {
+                case TK_open_bra -> parseLogic();
+                case TK_close_bra -> {
+                    LogManager.addLog("WARNING:逻辑体为空");
+                    currentNode.addChild(new TreeNode("Logic", null));
+                    return;
+                }
+                default -> {
+                    parseExpr();
+                }
+
+            }
+        }while (true);
+    }
+
+    private void parseBlock(){
 
     }
 
+    private void parseExpr(){
+
+    }
+
+    private void parseEqual(){
+
+    }
+
+    private void parseStringVar(){
+        assert currentToken.tokenType == TokenClass.TK_at;
+        tokenStack.add(currentToken);
+        next();
+        if(currentToken.tokenType==TokenClass.TK_NAME){
+            currentToken.tokenType = TokenClass.TK_string_var;
+        }
+    }
+    // 冲刺！冲刺！
     public void advance(){
         next();
         parseCurrentToken();
     }
 
-
-
     private void next(){
         lexer.Advance();
         currentToken = lexer.currentToken;
     }
-
+    //有必要吗？
+    private void consume(TokenClass tokenClass){
+        if(tokenClass == currentToken.tokenType){
+            parseCurrentToken();
+            next();
+        }
+        else throw new ParseException(codeLevel, currentToken.toString());
+    }
 }
