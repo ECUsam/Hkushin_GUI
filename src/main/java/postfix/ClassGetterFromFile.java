@@ -1,6 +1,6 @@
 package postfix;
 
-import Token.Token;
+import Constants.Constants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -65,6 +65,7 @@ public class ClassGetterFromFile {
                     else if(lookahead == '*'){
                         popStringBuffer(allContextBuffer);
                         do{
+                            if(pointer == Constants.EOZ)break;
                             pointer = reader.read();
                             currentChar = (char) pointer;
                         }
@@ -75,6 +76,7 @@ public class ClassGetterFromFile {
 
                 }
                 classBuffer.append(currentChar);
+
                 if(currentChar == '{'){
                     name_mattered = true;
                     curly_num += 1;

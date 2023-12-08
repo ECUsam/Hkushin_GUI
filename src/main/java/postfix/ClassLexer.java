@@ -20,9 +20,10 @@ public class ClassLexer {
     private char currentChar;
     private StringReader stringReader;
     private BufferedReader bufferedReader;
-    private int codeLine = 0;
+    public int codeLine = 0;
     private List<Token> tokenList;
     private boolean isSourceDetail = false;
+    public Token currentToken;
 
     public ClassLexer(String source){
         this.source = source;
@@ -36,8 +37,12 @@ public class ClassLexer {
         stringReader = new StringReader(source);
         bufferedReader = new BufferedReader(stringReader);
         tokenList = new ArrayList<>();
+        currentToken = null;
+        currentChar = '\u0000';
     }
-    private Token Advance(){
+    // 返回Token是初期的错误做法,请前进后直接获取currentToken
+    // TODO:错误检测
+    public Token Advance(){
         try {
             int current;
             while ((current = bufferedReader.read()) != Constants.EOZ){
@@ -45,9 +50,9 @@ public class ClassLexer {
                 //System.out.print(currentChar);
                 switch (currentChar){
                     //可以换成skipSpace();，但是也可能再改
-                    case ' ': case '\t':
+                    case ' ': case '\t': case '\r':
                         continue;
-                    case '\n': case '\r':
+                    case '\n':
                         codeLine += 1;
                         continue;
                     case '=':
@@ -192,10 +197,10 @@ public class ClassLexer {
     public void ParseSource(){
         Token token;
         do {
-            token = Advance();
-            tokenList.add(token);
-            System.out.print(token);
-        } while (token.tokenType != TokenClass.TK_EOF);
+            Advance();
+            tokenList.add(currentToken);
+            System.out.print(currentToken);
+        } while (currentToken.tokenType != TokenClass.TK_EOF);
     }
 
     private void skipSpace() throws IOException {
@@ -228,21 +233,24 @@ public class ClassLexer {
     }
 
     private Token NomToken(TokenClass tokenClass){
-        return new Token(tokenClass);
+        currentToken = new Token(tokenClass);
+        return currentToken;
     }
 
     private Token NumToken(TokenClass tokenClass, int num){
-        return new Token(tokenClass, num);
+        currentToken = new Token(tokenClass, num);
+        return currentToken;
+    }
+
+    private Token StringToken(TokenClass tokenClass, String s){
+        currentToken = new Token(tokenClass, s);
+        return currentToken;
     }
 
     public Token getLastToken(){
         int lastIndex = tokenList.size() - 1;
         if (lastIndex<0)return null;
         return tokenList.get(lastIndex);
-    }
-
-    private Token StringToken(TokenClass tokenClass, String s){
-        return new Token(tokenClass, s);
     }
 
     private boolean checkNextChar(char char2beCheck) throws IOException {
@@ -318,13 +326,15 @@ public class ClassLexer {
         //为什么检测了两遍？
         if(checkNextChar(')')){
             currentChar = (char) bufferedReader.read();
-            return new TokenCommand(word);
+            currentToken = new TokenCommand(word);
+            return (TokenCommand) currentToken;
         }
         currentChar = (char) bufferedReader.read();
         skipSpace();
         if(checkNextChar(')')){
             currentChar = (char) bufferedReader.read();
-            return new TokenCommand(word);
+            currentToken = new TokenCommand(word);
+            return (TokenCommand) currentToken;
         }
         List<String> strings = new ArrayList<>();
         do {
@@ -334,7 +344,8 @@ public class ClassLexer {
         }while (checkNextChar(',') && (currentChar = (char) bufferedReader.read())==',');
         currentChar = (char) bufferedReader.read();
         assert currentChar==')': "Unexpected character: " + currentChar;
-        return new TokenCommand(word, strings.toArray(String[]::new));
+        currentToken = new TokenCommand(word, strings.toArray(String[]::new));
+        return (TokenCommand) currentToken;
     }
 
     private TokenFeature parseFeatureToken(String word) throws IOException{
@@ -349,7 +360,8 @@ public class ClassLexer {
                 stringBuilder.append(currentChar);
                 currentChar = (char) bufferedReader.read();
             }
-            return new TokenFeature(word, stringBuilder.toString());
+            currentToken = new TokenFeature(word, stringBuilder.toString());
+            return (TokenFeature) currentToken;
         }
         List<String> strings = new ArrayList<>();
         do{
@@ -357,7 +369,8 @@ public class ClassLexer {
             strings.add(getAnyWordFromStream());
             skipSpaceWithoutEnter();
         }while (currentChar != '\n' && currentChar != '\r'&& (currentChar = (char) bufferedReader.read())==',');
-        return new TokenFeature(word, strings.toArray(String[]::new));
+        currentToken = new TokenFeature(word, strings.toArray(String[]::new));
+        return (TokenFeature) currentToken;
     }
 }
 

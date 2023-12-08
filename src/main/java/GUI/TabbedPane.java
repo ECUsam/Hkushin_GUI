@@ -8,11 +8,13 @@ import java.awt.*;
 public class TabbedPane extends JTabbedPane {
     public TabbedPane(){
         super(JTabbedPane.LEFT);
-        addTabPane(Constants_GUI.get("context"), new JPanel());
+        addTabPane(Constants_GUI.get("context"), new ContextPanel());
         addTabPane(Constants_GUI.get("scenario"), new JPanel());
         addTabPane(Constants_GUI.get("story"), new JPanel());
         addTabPane(Constants_GUI.get("class"), new JPanel());
+        addTabPane(Constants_GUI.get("unit"), new JPanel());
         addTabPane(Constants_GUI.get("event"), new JPanel());
+        addTabPane(Constants_GUI.get("power"), new JPanel());
     }
 
     private void addTabPane(String title, JPanel panel){

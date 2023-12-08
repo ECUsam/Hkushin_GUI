@@ -3,7 +3,7 @@ package Token;
 public class Token {
     public TokenClass tokenType;
     protected int value;
-    protected String string;
+    public String string;
     protected  __TokenType __tokenType;
     public Token(TokenClass tokenType){
         this.tokenType = tokenType;
