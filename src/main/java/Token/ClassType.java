@@ -15,5 +15,6 @@ enum ClassType {
     scenario,
     voice,
     spot,
-    unit
+    unit,
+    sound
 }

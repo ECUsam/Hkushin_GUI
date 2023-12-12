@@ -1,5 +1,8 @@
 package Constants;
 
+import Token.TokenClass;
+import Token.TokenClass.*;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,6 +15,30 @@ public class Constants {
     public static final int TabWidth = 80;
     public static final int TabHeight = 40;
     public static final String FontName = "Microsoft YaHei";
+    public static final List<String> NodeKeyList = Arrays.asList(
+            "Logic",
+            "Block",
+            "if",
+            "rif",
+            "elseif",
+            "expr",
+            "expr_list",
+            "LogicSymbol",
+            "Feature",
+            "Command"
+    );
+    public static final List<TokenClass> LogicSymbol = Arrays.asList(
+            TokenClass.TK_and,
+            TokenClass.TK_or
+    );
+    public static final List<TokenClass> ComparisonOperators = Arrays.asList(
+            TokenClass.TK_EQUAL,
+            TokenClass.TK_NOT_EQ,
+            TokenClass.TK_IF_GT,
+            TokenClass.TK_IF_LT,
+            TokenClass.TK_IF_GT_OR_EQ,
+            TokenClass.TK_IF_LT_OR_EQ
+    );
     //*:已删，勿Q
     public static final List<Character> special_char = Arrays.asList(
             '{',

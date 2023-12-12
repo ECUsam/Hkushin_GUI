@@ -58,7 +58,7 @@ public class ClassLexer {
                     case '=':
                         if( checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_IF_EQUAL);
+                            return NomToken(TokenClass.TK_IF_EQUAL, "==");
                         }else return NomToken(TokenClass.TK_EQUAL);
                     case '[':
                         return NomToken(TokenClass.TK_open_bra);
@@ -83,54 +83,54 @@ public class ClassLexer {
                     case '<':
                         if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_IF_LT_OR_EQ);
+                            return NomToken(TokenClass.TK_IF_LT_OR_EQ, "<=");
                         }else return NomToken(TokenClass.TK_IF_LT);
                     case '>':
                         if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_IF_GT_OR_EQ);
+                            return NomToken(TokenClass.TK_IF_GT_OR_EQ, ">=");
                         }else return NomToken(TokenClass.TK_IF_GT);
                     case '*':
                         if( checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_multi_assign);
+                            return NomToken(TokenClass.TK_multi_assign, "*=");
                         }else return NomToken(TokenClass.TK_asterisk);
                     case '/':
                         if( checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.Tk_divide_assign);
+                            return NomToken(TokenClass.Tk_divide_assign, "/=");
                         }else return NomToken(TokenClass.Tk_divide);
                     case '+':
                         if( checkNextChar('+')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_inc);
+                            return NomToken(TokenClass.TK_inc, "++");
                         }else if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_add_assign);
+                            return NomToken(TokenClass.TK_add_assign, "+=");
                         }else return NomToken(TokenClass.TK_plus);
                     case '-':
                         if(checkNextChar('-')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_dec);
+                            return NomToken(TokenClass.TK_dec, "--");
                         }else if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_multi_assign);
+                            return NomToken(TokenClass.TK_multi_assign, "-=");
                         }else return NomToken(TokenClass.TK_minus);
                         //TODO:codeLine肯定要改
                     case '!':
                         if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_NOT_EQ);
+                            return NomToken(TokenClass.TK_NOT_EQ, "!=");
                         }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
                     case '&':
                         if(checkNextChar('&')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_and);
+                            return NomToken(TokenClass.TK_and, "&&");
                         }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
                     case '|':
                         if(checkNextChar('|')){
                             currentChar = (char) bufferedReader.read();
-                            return NomToken(TokenClass.TK_or);
+                            return NomToken(TokenClass.TK_or, "||");
                         }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
                     default:
                         if(Character.isDigit(currentChar)){
@@ -141,9 +141,11 @@ public class ClassLexer {
                             }
                             return NumToken(TokenClass.TK_NUM, value);
                         }
-                        if(Character.isLetter(currentChar)||currentChar=='_'){
+                        // Character.isLetter(currentChar)||currentChar=='_'
+                        if(!Constants.special_char.contains(currentChar)){
                             StringBuilder word_builder = new StringBuilder("" + currentChar);
-                            while (checkNextCharisLetterOr_OrDigit()){
+                            // checkNextCharisLetterOr_OrDigit()
+                            while (!checkNextCharisSpecial()){
                                 currentChar = (char) bufferedReader.read();
                                 word_builder.append(currentChar);
                             }
@@ -199,7 +201,7 @@ public class ClassLexer {
         do {
             Advance();
             tokenList.add(currentToken);
-            System.out.print(currentToken);
+            //System.out.print(currentToken);
         } while (currentToken.tokenType != TokenClass.TK_EOF);
     }
 
@@ -233,7 +235,11 @@ public class ClassLexer {
     }
 
     private Token NomToken(TokenClass tokenClass){
-        currentToken = new Token(tokenClass);
+        currentToken = new Token(tokenClass, ""+currentChar);
+        return currentToken;
+    }
+    private Token NomToken(TokenClass tokenClass, String string){
+        currentToken = new Token(tokenClass, string);
         return currentToken;
     }
 

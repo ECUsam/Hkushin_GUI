@@ -1,0 +1,202 @@
+{
+    "children": [
+        {
+            "value": "Token(type: TK_COMMAND, commandName: test, feature: [aaa])\n",
+            "key": "Command"
+        },
+        {
+            "children": [
+                {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "value": "Token(type: TK_NAME, string: 'a')\n",
+                                    "key": "TK_NAME"
+                                },
+                                {
+                                    "value": "Token(type: TK_IF_GT, string: '>')\n",
+                                    "key": "TK_IF_GT"
+                                },
+                                {
+                                    "value": "Token(type: TK_NAME, string: 'b')\n",
+                                    "key": "TK_NAME"
+                                }
+                            ],
+                            "key": "expr"
+                        },
+                        {
+                            "value": "Token(type: TK_or, string: '||')\n",
+                            "key": "LogicSymbol"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "value": "Token(type: TK_NAME, string: 'c')\n",
+                                    "key": "TK_NAME"
+                                },
+                                {
+                                    "value": "Token(type: TK_EQUAL, string: '=')\n",
+                                    "key": "TK_EQUAL"
+                                },
+                                {
+                                    "value": "Token(type: TK_NAME, string: 'a')\n",
+                                    "key": "TK_NAME"
+                                }
+                            ],
+                            "key": "expr"
+                        },
+                        {
+                            "value": "Token(type: TK_and, string: '&&')\n",
+                            "key": "LogicSymbol"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "value": "Token(type: TK_NAME, string: 'a')\n",
+                                    "key": "TK_NAME"
+                                },
+                                {
+                                    "value": "Token(type: TK_EQUAL, string: '=')\n",
+                                    "key": "TK_EQUAL"
+                                },
+                                {
+                                    "value": "Token(type: TK_NAME, string: 's')\n",
+                                    "key": "TK_NAME"
+                                }
+                            ],
+                            "key": "expr"
+                        }
+                    ],
+                    "key": "Logic"
+                },
+                {
+                    "children": [{
+                        "children": [
+                            {
+                                "children": [{
+                                    "children": [{
+                                        "value": "Token(type: TK_COMMAND, commandName: isaaa, feature: [])\n",
+                                        "key": "TK_COMMAND"
+                                    }],
+                                    "key": "expr"
+                                }],
+                                "key": "Logic"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "value": "Token(type: TK_COMMAND, commandName: test, feature: [])\n",
+                                        "key": "Command"
+                                    },
+                                    {
+                                        "value": "Token(type: TK_COMMAND, commandName: test, feature: [])\n",
+                                        "key": "Command"
+                                    },
+                                    {
+                                        "children": [
+                                            {
+                                                "children": [{
+                                                    "children": [
+                                                        {
+                                                            "value": "Token(type: TK_NAME, string: 'a')\n",
+                                                            "key": "TK_NAME"
+                                                        },
+                                                        {
+                                                            "value": "Token(type: TK_EQUAL, string: '=')\n",
+                                                            "key": "TK_EQUAL"
+                                                        },
+                                                        {
+                                                            "value": "Token(type: TK_NAME, string: 'b')\n",
+                                                            "key": "TK_NAME"
+                                                        }
+                                                    ],
+                                                    "key": "expr"
+                                                }],
+                                                "key": "Logic"
+                                            },
+                                            {
+                                                "children": [
+                                                    {
+                                                        "value": "Token(type: TK_COMMAND, commandName: is, feature: [])\n",
+                                                        "key": "Command"
+                                                    },
+                                                    {
+                                                        "value": "Token(type: TK_COMMAND, commandName: is, feature: [])\n",
+                                                        "key": "Command"
+                                                    },
+                                                    {
+                                                        "value": "Token(type: TK_COMMAND, commandName: is, feature: [])\n",
+                                                        "key": "Command"
+                                                    }
+                                                ],
+                                                "key": "Block"
+                                            }
+                                        ],
+                                        "key": "if"
+                                    }
+                                ],
+                                "key": "Block"
+                            }
+                        ],
+                        "key": "while"
+                    }],
+                    "key": "Block"
+                }
+            ],
+            "key": "if"
+        },
+        {
+            "children": [
+                {
+                    "children": [{
+                        "children": [
+                            {
+                                "value": "Token(type: TK_NAME, string: 'a')\n",
+                                "key": "TK_NAME"
+                            },
+                            {
+                                "value": "Token(type: TK_EQUAL, string: '=')\n",
+                                "key": "TK_EQUAL"
+                            },
+                            {
+                                "value": "Token(type: TK_NAME, string: 'b')\n",
+                                "key": "TK_NAME"
+                            }
+                        ],
+                        "key": "expr"
+                    }],
+                    "key": "Logic"
+                },
+                {
+                    "children": [
+                        {
+                            "value": "Token(type: TK_COMMAND, commandName: is, feature: [])\n",
+                            "key": "Command"
+                        },
+                        {
+                            "value": "Token(type: TK_COMMAND, commandName: is, feature: [])\n",
+                            "key": "Command"
+                        },
+                        {
+                            "value": "Token(type: TK_COMMAND, commandName: is, feature: [])\n",
+                            "key": "Command"
+                        }
+                    ],
+                    "key": "Block"
+                }
+            ],
+            "key": "elseif"
+        },
+        {
+            "value": "Token(type: TK_COMMAND, commandName: test, feature: [])\n",
+            "key": "Command"
+        },
+        {
+            "value": "Token(type: TK_COMMAND, commandName: test, feature: [])\n",
+            "key": "Command"
+        }
+    ],
+    "value": "test",
+    "key": "event"
+}

@@ -1,0 +1,1101 @@
+class rtsbase : base
+{
+	name = RTSベース
+	image = rtsplayer
+	fkey = rtsbuilding
+	skill = @
+	level = 10
+heal_max = -100
+w = 64
+h = 74
+radius = 20
+movetype = normal
+sex = neuter
+	race = rq_un
+//	break = missile4_nt_nt
+	member = @
+exp_mul = 150
+	multi = 0, attack, defense, magic, magdef, dext, hp, mp, hprec, mprec
+	radius = 20
+	same_friend = off
+	unique = on
+	same_call = off
+	attack_max = 100
+	defense_max = 100
+	magic_max = 100
+	magdef_max = 100
+	speed_max = 100
+	dext_max = 100
+	move_max = 100
+	hprec_max = 100
+	mprec_max = 100
+
+//consti = dispel*10, poi*10, para*10, ill*10, conf*10, sil*10, stone*10, suck*10, magsuck*10, drain*10, death*10, gun*7, dark*5, art*4, wall*4, fire*4, fear*10, charge*8
+	consti = sw*5, pl*5, ch*5, ar*7, gn*7, fire*5, wate*5, wind*5, eart*5, thun*5, ligh*5,
+		msw*5,mpl*5,mch*5,mar*7,mgn*7,mfire*5,mwate*5,mwind*5,meart*5,mthun*5,mligh*5,
+		poi*10,fear*10,ill*10,conf*10,stone*10,para*10,sil*10,drain*10, death*10, magsuck*10
+		
+		
+	exp_mul = 125
+
+mp = 100
+mprec = 0
+	hp = 160000
+hprec = 500
+	attack = 0
+	defense = 350
+	magdef = 1
+magic = 0
+	speed = 20
+	dext = 400
+	move = 0
+
+no_knock = on
+view_range = 30
+summon_max = 1
+summon_level = 100
+}
+
+
+//初期建造物
+
+class rtsplayer1c : rtsbase
+{
+	name = プレイヤー軍
+	image = rikkyo
+skill = hqkarate, hqmarina, hqretei, hqkimo, hqhono, hqgenri, hqunion
+//,muso_hq0
+mp = 3000000
+mprec = 0
+red = off
+handle = on
+radius = 20
+unit_keep_form = on
+breast_width = 10
+	speed = 100
+	
+	/*
+	attack = 100
+	magic = 100
+	hprec = 100000
+	view_range = 1000000
+*/
+}
+class rtsplayer2c : rtsbase
+{
+	name = 敵軍
+	image = honsha
+skill = @
+mp = 3000000
+red = on
+radius = 20
+unit_keep_form = on
+breast_width = 15
+	speed = 100
+	break = yattaze
+}
+class rtsplayer3c : rtsbase
+{
+	name = 味方軍
+	image = rikkyo
+skill = @
+mp = 3000000
+red = off
+handle = off
+radius = 20
+unit_keep_form = on
+breast_width = 15
+	speed = 100
+}
+
+unit rtsplayer1 : rtsplayer1c
+{
+class = rtsplayer1c
+}
+unit rtsplayer2 : rtsplayer2c
+{
+class = rtsplayer2c
+}
+unit rtsplayer3 : rtsplayer3c
+{
+class = rtsplayer3c
+}
+unit rtsplayer4 : rtsplayer2c
+{
+class = rtsplayer2c
+}
+
+class hqgene1 : hqgene
+{
+red = off
+}
+class hqgene2 : hqgene
+{
+red = on
+}
+
+class hqdefenemy : hqdef
+{
+red = on
+skill = rtsmg
+}
+class hqdefallie : hqdef
+{
+red = off
+skill = rtsmg
+}
+
+skill hqgeneeasy : hqgene
+{
+special = 1
+	mp = 0
+rush = 2
+check = 99999
+}
+
+
+
+//難易度ハード：3回だけMP15回復するジェネ3つ建設＋通常ジェネのスキルを追加
+skill hqgenehard : hqgene
+{
+special = 1
+	mp = 0
+rush = 3
+check = 99999
+add = hqgenehard
+}
+skill hqdefhard : hqdef
+{
+special = 1
+	mp = 0
+rush = 2
+check = 99999
+add = hqdef
+}
+class hqgenehard : hqgene
+{
+skill = c_mprtsdiff, c_mprts
+}
+skill c_mprtsdiff : c_mprts
+{
+special = 3
+	str = fix * 15
+range = 1000
+}
+/*
+class hqdefdiff : hqdef
+{
+skill = rtsmg, rtshougeki
+}
+*/
+
+
+//難易度アナル地獄：5回だけMP20回復するジェネ3つ建設＋発展型ジェネのスキルを追加＋1000カウントごとにジェネ1台ずつ増えていく
+skill hqgenedd : sk_ms
+{
+special = 1
+	mp = 0
+	joint_skill = on
+check = 99999
+next3 = hqgenedd_s1, hqgenedd_nt
+}
+skill hqgenedd_s1 : hqgene
+{
+rush = 3
+add = hqgenedd
+}
+skill hqgenedd_nt : sk_ms
+{
+w = 96
+h = 96
+time = 10
+homing = on
+//1000カウントごとにジェネ一台追加
+wait_time = 10000
+next3 = hqgenedd_nt2, hqgene
+attack_us = 7
+}
+
+skill hqgenedd_nt2 : sk_ms
+{
+joint_skill = on
+next = hqgenedd_nt
+homing = on
+}
+
+skill hqdefdd : hqdef
+{
+special = 1
+	mp = 0
+rush = 4
+check = 99999
+add = hqdef
+}
+class hqgenedd : hqgene
+{
+skill = c_mprtsdiff2, c_mprts2
+}
+skill c_mprtsdiff2 : c_mprts2
+{
+special = 5
+	str = fix * 20
+range = 1500
+}
+
+
+//難易度未知：5回だけMP25回復するジェネ4つ建設＋発展型ジェネのスキルを追加＋500カウントごとにジェネ1台ずつ増えていく
+skill hqgeneabyss : sk_ms
+{
+special = 1
+	mp = 0
+	joint_skill = on
+check = 99999
+next3 = hqgeneabyss_s1, hqgeneabyss_nt
+}
+skill hqgeneabyss_s1 : hqgene
+{
+rush = 4
+add = hqgeneabyss
+}
+skill hqgeneabyss_nt : sk_ms
+{
+w = 96
+h = 96
+time = 10
+homing = on
+//500カウントごとにジェネ一台追加
+wait_time = 5000
+next3 = hqgeneabyss_nt2, hqgene
+attack_us = 7
+}
+
+skill hqgeneabyss_nt2 : sk_ms
+{
+joint_skill = on
+next = hqgeneabyss_nt
+homing = on
+}
+
+
+
+class hqgeneabyss : hqgene
+{
+skill = c_mprtsdiff3, c_mprts2
+}
+skill c_mprtsdiff3 : c_mprts2
+{
+special = 5
+	str = fix * 25
+range = 3000
+}
+
+//最高司令部
+
+class hqkarate : rtsbase
+{
+	name = 迫真空手道場総本山
+	image = cas
+skill = hqinfkarate, hqcavkarate, hqgunkarate, hqmagkarate, hqartkarate, hqdefkarate, hqgene
+w = 96
+h = 96
+
+
+
+/*
+400,200, 30, 60, 90,120,150,180,210, 40, 70,100,130,160,190,220, 50, 80,110,140,170,200, 30
+3サイクル20ターン
+600,400,220, 40, 60, 80,100,120,140,160,180,200, 20, 40, 60, 80,100,120,140,160,180,200, 20
+3サイクル30ターン
+22ターンで並ぶ計算
+
+240, 40, 60, 80,100,120,140,160,180,200, 20, 40, 60, 80,100,120,140,160,180,200, 20, 40, 60, 80,100,120,140,160,180,200
+400,200, 15, 30, 45, 60, 75, 90,105,120,135,150,165,180,195,210, 25, 40, 55, 70, 85,100,115,130,145,160,175,190,205, 20
+*/
+
+mp = 240
+mprec = 20
+view_unit = on
+element_lost = off
+summon_max = 18
+}
+class hqmarina : hqkarate
+{
+	name = マリナーズ傭兵団最高司令部
+	skill = hqinfmarina, hqcavmarina, hqmagmarina, hqartmarina, hqreimarina, hqdefmarina, hqgene, hqheal
+	//, hqbidairobo
+}
+class hqretei : hqkarate
+{
+	name = レスリング帝国軍最高司令部
+	skill = hqinfretei, hqcavretei, hqrearetei, hqartretei, hqreiretei, hqdefretei, hqgeneadv
+}
+class hqkimo : hqkarate
+{
+	name = キモティカ陸軍最高司令部
+	skill = hqinfkimo, hqcavkimo, hqreakimo, hqartkimo, hqdefkimo, hqgene, hqtame
+//, hqoldkimo
+}
+class hqhono : hqkarate
+{
+	name = 国教ほのぼの神道総本山
+	skill = hqinfhono, hqreahono, hqarthono, hqreihono, hqinqhono, hqmarhono, hqoldhono, hqdefhono, hqgene
+}
+class hqgenri : hqkarate
+{
+	name = クッキー☆原理主義党親衛隊最高司令部
+	skill = hqinfgenri, hqcavgenri, hqreagenri, hqreigenri, hqartgenri, hqtadora, hqdefgenri, hqgene
+	//,hqtiger
+	mp = 400
+	mprec = 15
+}
+class hqoback : hqkarate
+{
+	name = オーバック・カンパニー本拠地
+	skill = hqinfoback, hqreaoback, hqartoback, hqcavoback, hqbaseoback, hqdefoback, hqgene
+	mp = 240
+	mprec = 12
+	summon_max = 10
+}
+
+class hqokasi : hqkarate
+{
+	name = お菓子の材料屋さん総本店
+	skill = hqinfokasi, hqreaokasi, hqartokasi, hqcavokasi, hqbaseokasi, hqdefokasi, hqgene
+	mp = 240
+	mprec = 12
+	summon_max = 10
+}
+
+
+
+//共通施設
+class hqdef : rtsbase
+{
+	name = 防衛司令部
+	image = wall11
+skill = rtssent, rtstur, rtsart
+w = 64
+h = 74
+
+mp = 100
+mprec = 5
+	hp = 80000
+hprec = 200
+	attack = 450
+	defense = 350
+magic = 450
+	magdef = 1
+	speed = 20
+dext = 80
+
+view_unit = on
+element_lost = off
+summon_max = 5
+}
+
+class hqdefmarina : hqdef
+{
+	name = 防衛司令部
+	image = wall11
+skill = rtssent, rtstur, rtsart, rtsmisamari
+}
+
+class hqdefkarate : hqdef
+{
+skill = rtssent, rtstur, rtsart, rtsramen
+}
+
+class hqdefretei : hqdef
+{
+skill = rtssent, rtstur, rtsart, rtscannon
+}
+
+class hqdefkimo : hqdef
+{
+skill = rtssent, rtstur, rtsart, rtskuso
+}
+
+class hqdefhono : hqdef
+{
+skill = rtssent, rtstur, rtsart, rtsharimiko
+}
+
+class hqdefgenri : hqdef
+{
+skill = rtssent, rtstur, rtsart, rtshougeki
+}
+
+class hqdefoback : hqdefmarina
+{
+skill = rtssent, rtstur, rtsart, rtsharpoon
+}
+
+
+class hqdefokasi : hqdefmarina
+{
+skill = rtssent, rtstur, rtsart, rtsichigo
+}
+
+
+
+class hqgene : rtsbase
+{
+	name = ジェネレーター
+	image = objsp51
+skill = c_mprts
+w = 64
+h = 74
+
+mp = 300
+mprec = 30
+	hp = 40000
+hprec = 100
+	defense = 200
+magic = 1000
+
+view_unit = on
+element_lost = off
+summon_max = 0
+}
+
+class hqgeneadv : hqgene
+{
+name = ハッテン♂型ジェネレーター
+skill = c_mprts2
+}
+
+class hqheal : rtsbase
+{
+	name = コンサート会場
+	image = holy1
+skill = c_allallrts, c_allhprts
+w = 64
+h = 74
+
+mp = 100
+mprec = 20
+	hp = 100000
+hprec = 250
+magic = 2000
+
+view_unit = on
+element_lost = off
+summon_max = 0
+}
+class hqtame : rtsbase
+{
+	name = 調教センター
+	image = bwall
+	w = 64
+	h = 74
+	mp = 100
+	mprec = 10
+	skill = tamerts
+	
+	hp = 100000
+hprec = 250
+
+view_unit = on
+element_lost = off
+summon_max = 0
+}
+
+class hqbaseoback : rtsbase
+{
+	name = オーバック拡大拠点
+	image = oback
+skill =  hqprefab
+w = 64
+h = 64
+mp = 300
+mprec = 5
+	hp = 50000
+hprec = 150
+
+view_unit = on
+element_lost = off
+summon_max = 999
+line = back
+}
+class hqbaseokasi : hqbaseoback
+{
+	name = 材料屋拡大拠点
+	image = zairyoya
+skill =  hqzairyoya
+}
+class hqprefab : rtsbase
+{
+	name = オーバック・カンパニー前線拠点
+	image = oback
+	skill = healhokyurts, curehokyurts, s_harpoon_rts
+	w = 64
+	h = 64
+mp = 100
+mprec = 10
+	hp = 100000
+hprec = 250
+	attack = 0
+	defense = 600
+magic = 2000
+
+view_unit = on
+element_lost = off
+summon_max = 0
+}
+class hqzairyoya : rtsbase
+{
+	name = お菓子の材料屋さん支店
+	image = zairyoya
+	skill = healhokyurts, curehokyurts, s_milk_rts
+	w = 60
+	h = 48
+mp = 100
+mprec = 10
+	hp = 100000
+hprec = 250
+magic = 2000
+
+view_unit = on
+element_lost = off
+summon_max = 0
+}
+
+class sentrts : rtsbase
+{
+	name = 歩哨塔
+	image = wall2b
+	w = 64
+	h = 74
+	hp = 40000
+	mp = 200
+	attack = 600
+	magic = 500
+	speed = 120
+	mprec = 15
+	skill = b_gun, m_heal, b_all
+}
+
+
+class turrts : rtsbase
+{
+	name = 弓櫓
+	image = yagura1
+	w = 64
+	h = 74
+	hp = 40000
+	mp = 200
+	attack = 600
+	magic = 500
+	speed = 120
+	mprec = 15
+	skill = b_arrow, b_arrow2, m_heal, b_all
+}
+
+
+class artrts : rtsbase
+{
+	name = 砲台
+	image = wall2
+	w = 64
+	h = 74
+	hp = 40000
+	mp = 200
+	attack = 600
+	magic = 500
+	speed = 120
+	mprec = 15
+	skill = tuyo_cannon, m_heal, b_all
+}
+
+class ramenrts : rtsbase
+{
+	name = 多連装ラーメンロケット砲台
+	image = wall2
+	w = 64
+	h = 74
+	hp = 40000
+	mp = 200
+	attack = 600
+	magic = 500
+	speed = 120
+	mprec = 15
+	skill = b_rocket_ramen, m_heal, b_all
+}
+
+class misamarirts : rtsbase
+{
+	name = 多連装マジックミサイル砲台
+	image = wall2
+	w = 64
+	h = 74
+	hp = 40000
+	attack = 600
+	magic = 500
+	speed = 120
+	mp = 200
+	mprec = 15
+	skill = misairu_rts, m_heal, b_all
+}
+
+class cannonrts : rtsbase
+{
+	name = キャノン♂砲台
+	image = wall2
+	w = 64
+	h = 74
+	hp = 40000
+	mp = 200
+	attack = 600
+	magic = 500
+	speed = 120
+	mprec = 15
+	skill = re_cannon, m_heal, b_all
+}
+
+class kusorts : rtsbase
+{
+	name = 汚物投擲砲台
+	image = wall2
+	w = 64
+	h = 74
+	hp = 40000
+	mp = 200
+	attack = 600
+	magic = 500
+	speed = 120
+	mprec = 15
+	skill = kuso_mugen, m_heal, b_all
+}
+
+class harimikorts : rtsbase
+{
+	name = パスウェイジョンニードル砲台
+	image = wall2
+	w = 64
+	h = 74
+	hp = 40000
+	mp = 200
+	attack = 600
+	magic = 500
+	speed = 120
+	mprec = 15
+	skill = harimiko_gun, m_heal, b_all
+}
+
+class harpoonrts : rtsbase
+{
+	name = 多連装銛撃砲台
+	image = wall2
+	w = 64
+	h = 74
+	hp = 40000
+	mp = 200
+	attack = 600
+	magic = 500
+	speed = 120
+	mprec = 15
+	skill = harpoon3, m_heal, b_all
+}
+
+class ichigorts : rtsbase
+{
+	name = いちご砲台
+	image = wall2
+	w = 64
+	h = 74
+	hp = 40000
+	mp = 200
+	attack = 600
+	magic = 500
+	speed = 120
+	mprec = 15
+	skill = ichigo_cannon, m_heal, b_all
+}
+
+class hqinfkarate : rtsbase
+{
+	name = 空手道場前衛部隊指揮所
+	image = rtsinf
+skill = ra0202, ra0203, ra0012
+//, ra0002
+w = 64
+h = 74
+
+mp = 300
+mprec = 30
+	hp = 50000
+hprec = 150
+	attack = 0
+	defense = 500
+	magdef = 1
+magic = 0
+	speed = 20
+	dext = 200
+	move = 0
+
+view_unit = on
+element_lost = off
+summon_max = 999
+line = front
+summon_level = 120
+}
+
+
+class hqcavkarate : rtsbase
+{
+	name = 空手道場騎兵部隊指揮所
+	image = rtscav
+skill = r_a0222, ra1722, ra0022
+w = 64
+h = 74
+
+mp = 300
+mprec = 30
+	hp = 50000
+hprec = 150
+
+view_unit = on
+element_lost = off
+summon_max = 999
+line = front
+summon_level = 120
+}
+
+class hqgunkarate : rtsbase
+{
+	name = 空手道場射撃部隊指揮所
+	image = rtsgun
+skill =  ra0242, ra0243, ra0032
+//, ra0042
+w = 64
+h = 74
+
+mp = 300
+mprec = 30
+	hp = 50000
+hprec = 150
+
+view_unit = on
+element_lost = off
+summon_max = 999
+line = back
+summon_level = 120
+}
+
+class hqmagkarate : rtsbase
+{
+	name = 空手道場魔導部隊指揮所
+	image = rtsmag
+skill =  ra9992, ra0092,ra17b2
+//, ra0062, ra0072, ra0082
+w = 64
+h = 74
+
+mp = 300
+mprec = 30
+	hp = 50000
+hprec = 150
+
+view_unit = on
+element_lost = off
+summon_max = 999
+line = back
+summon_level = 120
+}
+
+
+class hqartkarate : rtsbase
+{
+	name = 空手道場砲兵部隊指揮所
+	image = rtsart
+skill =  r_ra0222
+//, ra0052
+w = 64
+h = 74
+
+mp = 300
+mprec = 30
+	hp = 50000
+hprec = 150
+
+view_unit = on
+element_lost = off
+summon_max = 999
+line = back
+summon_level = 120
+}
+
+class hqinfmarina : hqinfkarate
+{
+	name = 傭兵団前衛部隊指揮所
+summon_level = 100
+	skill = ra0102
+	//, ra0002
+}
+class hqcavmarina : hqcavkarate
+{
+	name = 傭兵団騎兵部隊指揮所
+summon_level = 100
+	skill = ra0122, ra0123
+}
+class hqmagmarina : hqmagkarate
+{
+	name = 傭兵団魔道部隊指揮所
+summon_level = 100
+	skill = ra0162, ra0092
+//, ra0062, ra0072, ra0082
+}
+class hqartmarina : hqgunkarate
+{
+	name = 傭兵団砲兵部隊指揮所
+summon_level = 100
+	image = rtsart
+	skill = ra0182
+}
+class hqreimarina : hqinfkarate
+{
+	name = ALC一派部隊指揮所
+summon_level = 100
+	image = rtsrei
+line = back
+	skill = ra01a2, ra0702, ra0722, rha1603
+}
+
+
+
+class hqinfretei : hqinfkarate
+{
+	name = 帝国軍前衛部隊指揮所
+summon_level = 100
+	skill = ra0802, ra0803
+	//, ra0012
+}
+class hqcavretei : hqcavkarate
+{
+	name = 帝国軍機甲部隊指揮所
+summon_level = 100
+	image = rtsarm
+	skill = ra0872
+}
+class hqrearetei : hqgunkarate
+{
+	name = 帝国軍後衛部隊指揮所
+summon_level = 100
+	image = rtsrea
+	skill = ra0592, ra0032, ra0092
+//, ra0062, ra0072, ra0082
+}
+class hqartretei : hqgunkarate
+{
+	name = 帝国軍砲兵部隊指揮所
+summon_level = 100
+	image = rtsart
+	skill = ra0852
+}
+class hqreiretei : hqinfkarate
+{
+	name = ダーク♂レスラー部隊指揮所
+summon_level = 100
+	image = rtsrei
+line = back
+	skill = ra080b2, ra00b2, ra0342
+}
+
+
+
+class hqinfkimo : hqinfkarate
+{
+	name = キモティカ陸軍前衛部隊指揮所
+summon_level = 100
+	skill = ra0302, ra0012, roa1803
+	//, ra0002, rslave
+}
+class hqoldkimo : hqinfkarate
+{
+	name = キモティカ陸軍近衛部隊指揮所
+summon_level = 100
+	image = rtsold
+	skill = ra0323, rha0343, roa1803
+}
+class hqcavkimo : hqcavkarate
+{
+	name = キモティカ陸軍騎兵部隊指揮所
+summon_level = 100
+	skill = ra0322, ra0022, ra0323
+}
+class hqreakimo : hqgunkarate
+{
+	name = キモティカ陸軍後衛部隊指揮所
+	image = rtsrea
+	skill = ra0342, ra0032, ra0042, ra0092, rha0343
+summon_level = 100
+}
+class hqartkimo : hqgunkarate
+{
+	name = キモティカ陸軍砲兵部隊指揮所
+summon_level = 100
+	image = rtsart
+	skill = ra005b2, ra0052
+}
+
+
+
+class hqinfhono : hqinfkarate
+{
+	name = 神官兵団前衛部隊指揮所
+summon_level = 100
+	skill = ra0403,ra0413,ra0492
+}
+class hqreahono : hqgunkarate
+{
+	name = 神官兵団後衛部隊指揮所
+summon_level = 100
+	image = rtsrea
+	skill = ra0433,ra04a3,ra04b3
+}
+class hqarthono : hqgunkarate
+{
+	name = 神官兵団砲兵部隊指揮所
+summon_level = 100
+	image = rtsart
+	skill = ra0442
+}
+class hqinqhono : hqgunkarate
+{
+	name = 異端審問部隊指揮所
+summon_level = 100
+	image = rtsinq
+	skill = rba0413,ra0462
+}
+class hqoldhono : hqinfkarate
+{
+	name = 統理直属部隊指揮所
+summon_level = 100
+	image = rtsold
+	skill = rka0403
+}
+class hqmarhono : hqcavkarate
+{
+	name = 海兵隊指揮所
+summon_level = 100
+	image = rtsmar
+	skill = rna0423,ra0422
+}
+class hqreihono : hqinfkarate
+{
+	name = サセバトミサタ族部隊指揮所
+summon_level = 100
+	image = rtsrei
+line = back
+	skill = ra1102, ra1172, ra1122, ra0592
+}
+
+
+
+class hqinfgenri : hqinfkarate
+{
+	name = SS前衛部隊指揮所
+summon_level = 100
+	skill = rss1012, rss0303
+	//, ra0002, ra0012
+}
+class hqcavgenri : hqcavkarate
+{
+	name = SS機甲部隊指揮所
+summon_level = 100
+	image = rtsarm
+	skill = ra02622
+}
+class hqreagenri : hqgunkarate
+{
+	name = SS後衛部隊指揮所
+summon_level = 100
+	skill = rss1032, rss1033, rss0092
+//, ra0062, ra0072, ra0082, ra0032, ra0042
+	image = rtsrea
+}
+class hqartgenri : hqgunkarate
+{
+//	name = SS戦略砲兵部隊指揮所
+	name = 技術開発局工廠
+	line = front
+summon_level = 100
+	skill = rtiger3
+	//ra2652,
+	image = rtstec
+	mp = 400
+mprec = 10
+}
+class hqreigenri : hqinfkarate
+{
+	name = 突撃隊指揮所
+summon_level = 100
+	image = rtsSA
+line = back
+	skill = rsa0462, rsa0422, rsa0442, ra26b2
+}
+
+
+
+class hqinfoback : hqinfkarate
+{
+	name = オーバック所属前衛部隊指揮所
+summon_level = 100
+	skill = ra2502, ra0012
+	//, ra0002
+}
+class hqcavoback : hqcavkarate
+{
+	name = オーバック所属騎兵部隊指揮所
+summon_level = 100
+	image = rtscav
+	skill = ra2532, ra0022, ra2022, rsichosha3
+}
+class hqreaoback : hqgunkarate
+{
+	name = オーバック所属後衛部隊指揮所
+summon_level = 100
+	skill = ra2502b, ra0032, ra0042, ra0092
+//, ra0062, ra0072, ra0082
+	image = rtsrea
+}
+class hqartoback : hqgunkarate
+{
+	name = オーバック所属砲兵部隊指揮所
+summon_level = 100
+	skill = rharpoon2
+	image = rtsart
+}
+
+
+
+class hqinfokasi : hqinfkarate
+{
+	name = お菓子の前衛部隊屋さん
+summon_level = 100
+	skill = ra2122
+	//, ra0002
+}
+class hqcavokasi : hqcavkarate
+{
+	name = お菓子の機甲部隊屋さん
+summon_level = 100
+	image = rtsarm
+	skill = ra2153
+}
+class hqreaokasi : hqgunkarate
+{
+	name = お菓子の後衛部隊屋さん
+summon_level = 100
+	skill = ra2192, ra0092
+//, ra0062, ra0072, ra0082
+	image = rtsrea
+}
+class hqartokasi : hqgunkarate
+{
+	name = お菓子の砲兵部隊屋さん
+summon_level = 100
+	skill = ra2182
+	image = rtsart
+}
+
