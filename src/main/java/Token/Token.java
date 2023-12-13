@@ -20,6 +20,14 @@ public class Token {
         this.__tokenType = __TokenType.TK_STRING;
     }
 
+    public String toCode(){
+        return switch (__tokenType){
+            case TK_INT -> ""+value;
+            case TK_STRING -> string;
+            default -> string;
+        };
+    }
+
     @Override
     public String toString() {
         return switch (__tokenType) {

@@ -14,6 +14,20 @@ public class TokenCommand extends Token{
     public String[] getFeatures(){return features;}
     private String getCommandName(){return commandName;}
 
+    public String toCode(){
+        String string = "";
+        boolean first = true;
+        for(String fea : features){
+            if(first){
+                string+= fea;
+                first = false;
+            }else {
+                string += ','+fea;
+            }
+        }
+        return commandName+"("+string+")";
+    }
+
     @Override
     public String toString() {
         return "Token(type: " + tokenType + ", commandName: " + commandName + ", feature: " + Arrays.toString(features) +")\n";

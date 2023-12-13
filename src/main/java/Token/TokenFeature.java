@@ -7,6 +7,7 @@ public class TokenFeature extends Token {
     public String[] strings_feature;
     public String FeatureName;
 
+    // 数字？什么数字？
     public TokenFeature(String word, int num_feature) {
         super(TokenClass.Tk_feature);
         FeatureName = word;
@@ -25,6 +26,25 @@ public class TokenFeature extends Token {
         super(TokenClass.Tk_feature);
         FeatureName = word;
     }
+
+    public String toCode(){
+        String string = "";
+        boolean first = true;
+        if(strings_feature.length==0)string="@";
+        else {
+            for (String fea : strings_feature){
+                if(first){
+                    string+=fea;
+                    first = false;
+                }
+                else {
+                    string+=","+fea;
+                }
+            }
+        }
+        return FeatureName + " = " +string;
+    }
+
 
     @Override
     public String toString() {

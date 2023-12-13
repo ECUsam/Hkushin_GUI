@@ -47,7 +47,7 @@ public class ClassLexer {
             int current;
             while ((current = bufferedReader.read()) != Constants.EOZ){
                 currentChar = (char) current;
-                //System.out.print(currentChar);
+//                System.out.print(currentChar);
                 switch (currentChar){
                     //可以换成skipSpace();，但是也可能再改
                     case ' ': case '\t': case '\r':
@@ -261,8 +261,8 @@ public class ClassLexer {
 
     private boolean checkNextChar(char char2beCheck) throws IOException {
         bufferedReader.mark(1);
-        int nextChar = bufferedReader.read();
-        boolean isMatch = (char) nextChar == char2beCheck;
+        char nextChar = (char) bufferedReader.read();
+        boolean isMatch =  nextChar == char2beCheck;
         bufferedReader.reset();
         return isMatch;
     }
@@ -298,6 +298,8 @@ public class ClassLexer {
         return isMatch;
     }
 
+    // 不能两次reset（告诫）
+
     private CommandType checkWordType() throws IOException {
         bufferedReader.mark(10);
         if(checkNextChar(' '))skipSpace();
@@ -305,10 +307,16 @@ public class ClassLexer {
 
         if (currentChar == '(') return CommandType.command;
         else if (currentChar == '=') {
-            if(checkNextChar('=')){
+            currentChar = (char) bufferedReader.read();
+            if(currentChar=='='){
                 bufferedReader.reset();
                 return CommandType.normal;
             }
+            bufferedReader.reset();
+
+            if(checkNextChar(' '))skipSpace();
+            else currentChar = (char) bufferedReader.read();
+
             return CommandType.feature;
         }
         else {

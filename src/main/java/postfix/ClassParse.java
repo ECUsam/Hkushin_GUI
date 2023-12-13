@@ -8,7 +8,6 @@ import OPcode.*;
 import org.json.JSONObject;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Stack;
 
 
@@ -16,6 +15,7 @@ import java.util.Stack;
 public class ClassParse {
     private ClassLexer lexer;
     private Token currentToken;
+    private Token pri;
     private String source;
     public Pcode currentOPcode;
     private ClassType classType;
@@ -46,7 +46,6 @@ public class ClassParse {
     //我不是要写递归下降吗？我在干什么？
     private void parseCurrentToken(){
         //do{
-        System.out.print(currentToken);
             switch (currentToken.tokenType){
                 case TK_classname:
                     classType = ClassType.valueOf(currentToken.string);
@@ -72,9 +71,6 @@ public class ClassParse {
                     tokenStack.add(currentToken);
                     break;
                 case TK_RIGHT_CURLY_BRACE:
-
-                    System.out.print(codeLevel);
-                    System.out.print("\n");
                     assert tokenStack.peek().tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
                     codeLevel -= 1;
                     tokenStack.pop();
@@ -99,7 +95,7 @@ public class ClassParse {
                     currentNode.addChild(F_node);
                     break;
                 case TK_IF: case TK_RIF:
-                    TreeNode if_node = new TreeNode(currentToken.string);
+                    TreeNode if_node = new TreeNode(currentToken.string, currentToken.string);
                     currentNode.addChild(if_node);
                     currentNode = if_node;
                     next();
@@ -126,7 +122,7 @@ public class ClassParse {
                         currentNode = currentNode.parent;
                     }
                     else if(currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE){
-                        TreeNode else_node = new TreeNode(currentToken.string);
+                        TreeNode else_node = new TreeNode(currentToken.string, currentToken.string);
                         currentNode.addChild(else_node);
                         currentNode = else_node;
                         parseBlock();
@@ -134,7 +130,7 @@ public class ClassParse {
                     }else throw new ParseException(lexer.codeLine, currentToken.toString());
                     break;
                 case TK_WHILE:
-                    TreeNode while_node = new TreeNode(currentToken.string);
+                    TreeNode while_node = new TreeNode(currentToken.string, currentToken.string);
                     currentNode.addChild(while_node);
                     currentNode = while_node;
                     next();
@@ -220,14 +216,19 @@ public class ClassParse {
         currentNode = exprNode;
         while (currentToken.tokenType != TokenClass.TK_close_par && !Constants.LogicSymbol.contains(currentToken.tokenType)) {
             if (currentToken.tokenType == TokenClass.TK_open_par) {
-                var expr_list_node = new TreeNode("expr_list");
-                currentNode.addChild(expr_list_node);
-                currentNode = expr_list_node;
+//                var expr_list_node = new TreeNode("expr_list");
+//                currentNode.addChild(expr_list_node);
+//                currentNode = expr_list_node;
+//                next();
+//                parseLogicExprList();
+//                currentNode = currentNode.parent;
                 next();
-                parseLogicExprList();
-                currentNode = currentNode.parent;
+                parseExpr();
             }
-            currentNode.addChild(new TreeNode(currentToken.tokenType.toString(), currentToken));
+            if(currentToken.tokenType == TokenClass.TK_at)
+                parseStringVar();
+            if(currentToken.tokenType != TokenClass.TK_close_par)
+                currentNode.addChild(new TreeNode(currentToken.tokenType.toString(), currentToken));
             next();
         }
         currentNode = currentNode.parent;
@@ -250,10 +251,13 @@ public class ClassParse {
 
     private void parseStringVar(){
         assert currentToken.tokenType == TokenClass.TK_at;
-        tokenStack.add(currentToken);
         next();
         if(currentToken.tokenType==TokenClass.TK_NAME){
             currentToken.tokenType = TokenClass.TK_string_var;
+            currentToken.string = "@" + currentToken.string;
+        }else{
+            pri = currentToken;
+            currentToken = new Token(TokenClass.TK_at);
         }
     }
     // 冲刺！冲刺！
@@ -263,6 +267,11 @@ public class ClassParse {
     }
 
     private void next(){
+        if(pri != null){
+            currentToken = pri;
+            pri = null;
+            return;
+        }
         lexer.Advance();
         currentToken = lexer.currentToken;
     }
@@ -277,6 +286,9 @@ public class ClassParse {
 
     public JSONObject getJson(){
         return baseNode.toJSON();
+    }
+    public String toCode(){
+        return baseNode.toCode();
     }
 }
 

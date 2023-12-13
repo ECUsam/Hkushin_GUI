@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="写解析的时候我都不知道我在干什么">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/OPcode/TreeToJsonConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/RTSbuilding.dat" afterDir="false" />
+    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="何でもできる四季ちゃん天才&#10;我要改linkedhashmap了">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token/ClassType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/ClassType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/TreeToJsonConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenFeature.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" afterDir="false" />
     </list>
@@ -214,7 +210,14 @@
       <option name="project" value="LOCAL" />
       <updated>1702030264183</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="何でもできる四季ちゃん天才&#10;我要改linkedhashmap了">
+      <created>1702398144531</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1702398144531</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,7 +244,8 @@
     <MESSAGE value="语法分析先放下，写gui" />
     <MESSAGE value="狂暴后入token流" />
     <MESSAGE value="写解析的时候我都不知道我在干什么" />
-    <option name="LAST_COMMIT_MESSAGE" value="写解析的时候我都不知道我在干什么" />
+    <MESSAGE value="何でもできる四季ちゃん天才&#10;我要改linkedhashmap了" />
+    <option name="LAST_COMMIT_MESSAGE" value="何でもできる四季ちゃん天才&#10;我要改linkedhashmap了" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
