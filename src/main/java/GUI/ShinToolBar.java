@@ -4,10 +4,7 @@ import Constants.Constants_GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class ShinToolBar extends JMenuBar {
 
@@ -29,7 +26,7 @@ public class ShinToolBar extends JMenuBar {
 
         fileButton = buttonMaker(Constants_GUI.get("file"));
         newProject = itemMaker(Constants_GUI.get("new_project"));
-        readProject = itemMaker(Constants_GUI.get("read_project"));
+        readProject = itemMaker(Constants_GUI.get("read_project"), true);
         closeProject = itemMaker(Constants_GUI.get("close_project"));
         saveProject = itemMaker(Constants_GUI.get("save_project"));
         exit = itemMaker(Constants_GUI.get("exit"));
@@ -42,6 +39,13 @@ public class ShinToolBar extends JMenuBar {
         exit.addActionListener(e -> {
             System.exit(0);
         });
+        readProject.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openFolderAndInit();
+            }
+        });
+
 
         fileButton.add(newProject);
         fileButton.add(readProject);
@@ -52,10 +56,31 @@ public class ShinToolBar extends JMenuBar {
         this.add(fileButton);
     }
 
+    private static void openFolderAndInit(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int result = fileChooser.showOpenDialog(null);
+
+        if(result == JFileChooser.APPROVE_OPTION){
+            // TODO:加载逻辑
+        }else {
+            JOptionPane.showMessageDialog(null, Constants_GUI.getDescription("load_error"));
+        }
+
+    }
+
     private JMenuItem itemMaker(String name){
         var item = new JMenuItem(name);
         item.setFont(font);
         item.setForeground(Color.GRAY);
+        return item;
+    }
+
+    private JMenuItem itemMaker(String name, boolean BLACK){
+        var item = new JMenuItem(name);
+        item.setFont(font);
+        if(BLACK)item.setForeground(Color.BLACK);
+        else item.setForeground(Color.GRAY);
         return item;
     }
 
@@ -77,9 +102,6 @@ public class ShinToolBar extends JMenuBar {
                 button.setBackground(null);
             }
         });
-
-
         return button;
     }
-
 }

@@ -34,6 +34,7 @@ public class PathManager {
         return basePath.resolve(rePath);
     }
 
+    // 失灵
     public BufferedReader open(String pathString) {
         Path path = Paths.get(pathString);
         if (path.isAbsolute()) {

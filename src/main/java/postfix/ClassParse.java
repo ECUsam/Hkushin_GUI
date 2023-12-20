@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-
+// TODO:用报错信息重写assert
 @SuppressWarnings("unused")
 public class ClassParse {
     private ClassLexer lexer;
@@ -51,6 +51,7 @@ public class ClassParse {
         do{
             advance();
         }while (currentToken.tokenType != TokenClass.TK_EOF);
+        DataManger.killOrphans();
     }
     //我不是要写递归下降吗？我在干什么？
     // TODO 写报错
@@ -65,13 +66,22 @@ public class ClassParse {
                     next();
                     if(currentToken.tokenType == TokenClass.TK_NAME){
                         var classname = new TreeNode("className", currentToken.string);
+
                         List<String> data = new ArrayList<>();
-                        data.add(path);data.add(""+lexer.codeLine);
+                        data.add(path);data.add(""+lexer.codeLine);data.add(null);
                         DataManger.putValue(currentToken.string, data);
+                        String tempParentName = currentToken.string;
                         baseNode.addChild(classname);
                         next();
-                        assert currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
-                    }else assert currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
+                        if(currentToken.tokenType == TokenClass.TK_colon){
+                            next();
+                            assert currentToken.tokenType == TokenClass.TK_NAME;
+                            data.set(3, currentToken.string);
+                            if(DataManger.searchClass(currentToken.string))DataManger.classGetChildren(tempParentName, currentToken.string);
+                            else DataManger.ThereIsOrphanFound(tempParentName, currentToken.string);
+                        }
+                    }
+                    assert currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
                     parseCurrentToken();
                     break;
                 //估计用不到
