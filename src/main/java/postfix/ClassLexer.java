@@ -6,6 +6,7 @@ import Token.CommandType;
 import Constants.Constants;
 import Token.Token;
 import Token.TokenClass;
+import Constants.Constants_GUI;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -211,7 +212,7 @@ public class ClassLexer {
                 || checkNextChar('\t') || checkNextChar('\n')) {
             do {
                 currentChar = (char) bufferedReader.read();
-                if (currentChar == '\r' || currentChar == '\n') codeLine += 1;
+                if (currentChar == '\n') codeLine += 1;
             } while (currentChar == ' ' || currentChar == '\r' || currentChar == '\t' || currentChar == '\n');
         }
     }
@@ -372,13 +373,20 @@ public class ClassLexer {
             skipSpace();
             while (currentChar!=';'){
                 stringBuilder.append(currentChar);
-                currentChar = (char) bufferedReader.read();
+                int temp =  bufferedReader.read();
+                if(temp==-1){
+                    LogManager.addError(Constants_GUI.getDescription("detail_parse_error")+codeLine);
+                    throw new ParseException(codeLine, "解析错误");
+                }
+                currentChar = (char) temp;
+                if (currentChar == '\n') codeLine += 1;
             }
             currentToken = new TokenFeature(word, stringBuilder.toString());
             return (TokenFeature) currentToken;
         }
         List<String> strings = new ArrayList<>();
         do{
+            if (currentChar == '\n') codeLine += 1;// 是这里吗？
             skip2AnyWord();
             strings.add(getAnyWordFromStream());
             skipSpaceWithoutEnter();

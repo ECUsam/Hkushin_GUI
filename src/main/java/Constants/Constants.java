@@ -9,7 +9,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Constants {
     public static final int EOZ = -1;   //文件末尾
-    public static final int POOL_SIZE = 10000;  //对象池大小
+    public static final int POOL_SIZE = 10000;  //对象池大小 没用
     public static final int GUI_height = 800;
     public static final int GUI_width = 800;
     public static final int TabWidth = 80;
@@ -25,7 +25,14 @@ public class Constants {
             "expr_list",
             "LogicSymbol",
             "Feature",
-            "Command"
+            "Command",
+            "classType"
+    );
+    public static final List<String> ClassNoName = Arrays.asList(
+            "context",
+            "attribute",
+            "sound",
+            "detail"
     );
     public static final List<TokenClass> LogicSymbol = Arrays.asList(
             TokenClass.TK_and,

@@ -8,21 +8,24 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import Constants.Constants_GUI;
+import FileManager.PathManager;
+
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
 public class ClassGetterFromFile {
     public String encoding;
+    private final PathManager pathManager;
+    public LinkedHashMap<String, Integer> scriptClass = new LinkedHashMap<>();
+    public ClassGetterFromFile(PathManager pathManager){
+        this.pathManager = pathManager;
+        this.encoding = pathManager.encoding;
+    }
+    private int baseCodeLine = 1;
 
-    public List<String> scriptClass = new ArrayList<>();
-    public ClassGetterFromFile(String encoding){
-        this.encoding = encoding;
-    }
-    public ClassGetterFromFile() {
-        this( "utf-16le");
-    }
 
     private void popStringBuffer(StringBuilder buffer){
         int length = buffer.length();
@@ -41,13 +44,18 @@ public class ClassGetterFromFile {
             int  lookahead;
             int curly_num = 0;
             boolean name_mattered = false;
-
+            int classLine = 0;
             while ( (pointer = reader.read()) != -1 ){
                 char currentChar = (char) pointer;
                 allContextBuffer.append(currentChar);
                 //跳过空行
                 if(currentChar == '\r' && classBuffer.length()==0) {
-                    do{currentChar = (char) reader.read();}while (currentChar == '\r' || currentChar == '\n');
+                    do{
+                        if(currentChar=='\n'){
+                            if(name_mattered) classLine+=1;else baseCodeLine+=1;
+                        }
+                        currentChar = (char) reader.read();
+                    }while (currentChar == '\r' || currentChar == '\n');
                 }
                 //跳过注释
                 if(currentChar == '/') {
@@ -65,7 +73,13 @@ public class ClassGetterFromFile {
                     else if(lookahead == '*'){
                         popStringBuffer(allContextBuffer);
                         do{
-                            if(pointer == Constants.EOZ)break;
+                            if(currentChar=='\n'){
+                                if(name_mattered)classLine+=1;else baseCodeLine+=1;
+                            }
+                            if(pointer == Constants.EOZ){
+                                LogManager.addWaring(Constants_GUI.getDescription("explain_to_end_warning") +(baseCodeLine+classLine));
+                                break;
+                            }
                             pointer = reader.read();
                             currentChar = (char) pointer;
                         }
@@ -73,7 +87,9 @@ public class ClassGetterFromFile {
                         int a = reader.read();
                         continue;
                     }
-
+                }
+                if(currentChar=='\n'){
+                    if(name_mattered)classLine+=1;else baseCodeLine+=1;
                 }
                 classBuffer.append(currentChar);
 
@@ -82,7 +98,9 @@ public class ClassGetterFromFile {
                     curly_num += 1;
                 }else if (currentChar == '}') curly_num-=1;
                 if( name_mattered && curly_num ==0){
-                    scriptClass.add(classBuffer.toString());
+                    scriptClass.put(classBuffer.toString(), baseCodeLine);
+                    baseCodeLine += classLine;
+                    classLine = 0;
                     classBuffer.setLength(0);
                     name_mattered = false;
                     }

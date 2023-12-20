@@ -1,37 +1,18 @@
 {
-    "children": [{
-        "children": [
-            {
-                "children": [{
-                    "children": [
-                        {
-                            "value": "Token(type: TK_NAME, string: 'a')\n",
-                            "key": "TK_NAME"
-                        },
-                        {
-                            "value": "Token(type: TK_IF_EQUAL, string: '==')\n",
-                            "key": "TK_IF_EQUAL"
-                        },
-                        {
-                            "value": "Token(type: TK_NAME, string: 'b')\n",
-                            "key": "TK_NAME"
-                        }
-                    ],
-                    "key": "expr"
-                }],
-                "key": "Logic"
-            },
-            {
-                "children": [{
-                    "value": "Token(type: Tk_feature, FeaName: a, feature: [b])\n",
-                    "key": "Feature"
-                }],
-                "key": "Block"
-            }
-        ],
-        "value": "if",
-        "key": "if"
-    }],
-    "value": "test",
-    "key": "event"
+    "children": [
+        {
+            "value": "Token(type: Tk_feature, FeaName: a, feature: [2])\n",
+            "key": "Feature"
+        },
+        {
+            "value": "Token(type: Tk_feature, FeaName: c, feature: [d])\n",
+            "key": "Feature"
+        },
+        {
+            "value": "Token(type: Tk_feature, FeaName: d, feature: [2])\n",
+            "key": "Feature"
+        }
+    ],
+    "value": "detail",
+    "key": "classType"
 }

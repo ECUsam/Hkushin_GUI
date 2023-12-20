@@ -12,7 +12,7 @@ public class TabbedPane extends JTabbedPane {
         addTabPane(Constants_GUI.get("scenario"), new JPanel());
         addTabPane(Constants_GUI.get("story"), new JPanel());
         addTabPane(Constants_GUI.get("class"), new JPanel());
-        addTabPane(Constants_GUI.get("unit"), new JPanel());
+        addTabPane(Constants_GUI.get("unit"), new UnitPanel());
         addTabPane(Constants_GUI.get("event"), new JPanel());
         addTabPane(Constants_GUI.get("power"), new JPanel());
     }

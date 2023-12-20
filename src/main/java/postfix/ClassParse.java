@@ -7,6 +7,7 @@ import Token.ClassType;
 import OPcode.*;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -23,11 +24,19 @@ public class ClassParse {
     private TreeNode currentNode;
     private Stack<Token> tokenStack = new Stack<>();
     private int codeLevel;
+    public String path;
 
     public ClassParse(String source){
         lexer = new ClassLexer(source);
         this.source = source;
         codeLevel = 0;
+        path = null;
+    }
+    public ClassParse(String source, String path){
+        lexer = new ClassLexer(source);
+        this.source = source;
+        codeLevel = 0;
+        this.path = path;
     }
 
     public void updateSource(String source){
@@ -44,21 +53,25 @@ public class ClassParse {
         }while (currentToken.tokenType != TokenClass.TK_EOF);
     }
     //我不是要写递归下降吗？我在干什么？
+    // TODO 写报错
     private void parseCurrentToken(){
         //do{
             switch (currentToken.tokenType){
+                // TODO：统一节点的key值
                 case TK_classname:
                     classType = ClassType.valueOf(currentToken.string);
+                    baseNode = new TreeNode("classType" ,classType.toString());
+                    currentNode = baseNode;
                     next();
-                    if(currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE){
-                        baseNode = new TreeNode(classType.toString());
-                        currentNode = baseNode;
-                    }else if(currentToken.tokenType == TokenClass.TK_NAME){
-                        baseNode = new TreeNode(classType.toString(), currentToken.string);
-                        currentNode = baseNode;
+                    if(currentToken.tokenType == TokenClass.TK_NAME){
+                        var classname = new TreeNode("className", currentToken.string);
+                        List<String> data = new ArrayList<>();
+                        data.add(path);data.add(""+lexer.codeLine);
+                        DataManger.putValue(currentToken.string, data);
+                        baseNode.addChild(classname);
                         next();
                         assert currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
-                    }else throw new ParseException(codeLevel, currentToken.toString());
+                    }else assert currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
                     parseCurrentToken();
                     break;
                 //估计用不到

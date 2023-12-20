@@ -6,6 +6,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+@SuppressWarnings("unused")
 public class LogManager {
     private static final Logger LOGGER = Logger.getLogger(LogManager.class.getName());
 
@@ -30,7 +31,7 @@ public class LogManager {
             LOGGER.warning("FileHandler initialization failed: " + e.getMessage());
         }
     }
-
+    // 这是什么？
     public static void addLog(String data, char[] current, int endPoint) {
         int length = Math.min(16, endPoint - current.length);
         String str = new String(current, 0, length);
@@ -38,12 +39,18 @@ public class LogManager {
                 data, new String(current), endPoint, (int) current[0], str));
     }
 
+
     public static void addLog(String data){
         LOGGER.info(data);
     }
+    public static void addWaring(String data){
+        LOGGER.warning(data);
+    }
+    public static void addError(String data){
+        LOGGER.warning("错误:"+data);
+    }
 
     public static void main(String[] args) {
-        char[] arr = {'a', 'b', 'c', 'd', 'e', 'f', 'g'};
-        LogManager.addLog("Test log", arr, 7);
+        LogManager.addLog("1111111111111");
     }
 }

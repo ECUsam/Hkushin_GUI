@@ -4,18 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="何でもできる四季ちゃん天才&#10;我要改linkedhashmap了">
+    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="放弃调顺序&#10;语法解析就这样&#10;代码还原不会">
+      <change afterPath="$PROJECT_DIR$/logs/logfile.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ShinGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ShinGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/TabbedPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/TabbedPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/TreeToJsonConverter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/Token.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenFeature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/ClassType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/ClassType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/ClassType_NoName.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/LogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/LogManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/language/zh_description.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language/zh_description.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,15 +80,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+    <configuration name="LogManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="postfix.LogManager" />
       <module name="Hkushin_GUI" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="postfix.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MyPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MyPanel" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Hkushin_GUI" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -103,10 +116,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.LogManager" />
         <item itemvalue="应用程序.ShinGUI" />
         <item itemvalue="应用程序.CharacterPanel" />
         <item itemvalue="应用程序.BasicPanel" />
-        <item itemvalue="应用程序.MyPanel" />
       </list>
     </recent_temporary>
   </component>
@@ -217,8 +230,18 @@
       <option name="project" value="LOCAL" />
       <updated>1702398144531</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="放弃调顺序&#10;语法解析就这样&#10;代码还原不会">
+      <created>1702447812745</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1702447812745</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.log" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -245,7 +268,8 @@
     <MESSAGE value="狂暴后入token流" />
     <MESSAGE value="写解析的时候我都不知道我在干什么" />
     <MESSAGE value="何でもできる四季ちゃん天才&#10;我要改linkedhashmap了" />
-    <option name="LAST_COMMIT_MESSAGE" value="何でもできる四季ちゃん天才&#10;我要改linkedhashmap了" />
+    <MESSAGE value="放弃调顺序&#10;语法解析就这样&#10;代码还原不会" />
+    <option name="LAST_COMMIT_MESSAGE" value="放弃调顺序&#10;语法解析就这样&#10;代码还原不会" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

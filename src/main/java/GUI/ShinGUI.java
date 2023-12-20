@@ -30,7 +30,6 @@ public class ShinGUI {
             }
         }
 
-
         SwingUtilities.invokeLater(() -> application = new ShinGUI());
     }
     private ShinGUI(){

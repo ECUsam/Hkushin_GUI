@@ -1,5 +1,6 @@
 package OPcode;
 
+import Constants.Constants;
 import Token.Token;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -49,16 +50,23 @@ public class TreeNode {
         return json;
     }
 
+    private boolean isNoNameType(){
+        return Constants.ClassNoName.contains(key);
+    }
+
     public String toCode(){
         StringBuilder code = new StringBuilder();
         if(value instanceof Token){
             code.append(((Token) value).toCode());
             if(!Objects.equals(this.parent.key, "expr")) code.append('\n');
         }else if(value!=null){
+            if(Objects.equals(key, "if"))code.append("(");
             code.append(value);
-            code.append('\n');
+            if(Objects.equals(this.key, "className")){code.append("{\n");}
+            code.append(" ");
+            if(Objects.equals(key, "classType")&&isNoNameType())code.append("\n{");
         }
-        if(!children.isEmpty())code.append('\t');
+
         for (TreeNode child : children) {
             code.append(child.toCode());
         }
