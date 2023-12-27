@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="为什么 传reader指针时 被回收了">
-      <change afterPath="$PROJECT_DIR$/src/main/java/FileChooserExample.java" afterDir="false" />
+    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="killOrphans(笑)&#10;怎么这里也有括号高亮（">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ShinToolBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ShinToolBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MyPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/language/zh_description.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language/zh_description.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +44,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/AJavadesu/Hkushin_GUI/src/main/resources&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.json.schema&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -71,15 +67,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ListExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ListExample" />
+    <configuration name="ListWithPanelsExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ListWithPanelsExample" />
       <module name="Hkushin_GUI" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ListWithPanelsExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ListWithPanelsExample" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Hkushin_GUI" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -101,10 +97,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.ShinGUI" />
+        <item itemvalue="应用程序.Main" />
         <item itemvalue="应用程序.FileChooserExample" />
         <item itemvalue="应用程序.ListWithPanelsExample" />
         <item itemvalue="应用程序.CardLayoutExample" />
-        <item itemvalue="应用程序.ListExample" />
       </list>
     </recent_temporary>
   </component>
@@ -229,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703088192748</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="killOrphans(笑)&#10;怎么这里也有括号高亮（">
+      <created>1703094041713</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1703094041713</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -262,7 +265,8 @@
     <MESSAGE value="何でもできる四季ちゃん天才&#10;我要改linkedhashmap了" />
     <MESSAGE value="放弃调顺序&#10;语法解析就这样&#10;代码还原不会" />
     <MESSAGE value="为什么 传reader指针时 被回收了" />
-    <option name="LAST_COMMIT_MESSAGE" value="为什么 传reader指针时 被回收了" />
+    <MESSAGE value="killOrphans(笑)&#10;怎么这里也有括号高亮（" />
+    <option name="LAST_COMMIT_MESSAGE" value="killOrphans(笑)&#10;怎么这里也有括号高亮（" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -273,5 +277,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

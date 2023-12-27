@@ -29,6 +29,18 @@ public class TreeNode {
         children.add(childNode);
         childNode.parent = this;
     }
+    // 调试用
+    public void getAllParents(){
+        System.out.print(this.key+"  ");
+        if(this.parent != null){
+            parent.getAllParents();
+        }
+
+    }
+
+    public boolean hasChild(){
+        return children.isEmpty();
+    }
 
     // 获取子节点列表
     public List<TreeNode> getChildren() {
@@ -54,6 +66,12 @@ public class TreeNode {
         return Constants.ClassNoName.contains(key);
     }
 
+    public String Tree2Code(){
+        if(value instanceof Token)return ((Token) value).toCode();
+        return (String) value;
+    }
+    // 节点返回表达式字符串就可以
+    @Deprecated
     public String toCode(){
         StringBuilder code = new StringBuilder();
         if(value instanceof Token){
@@ -73,3 +91,4 @@ public class TreeNode {
         return code.toString();
     }
 }
+

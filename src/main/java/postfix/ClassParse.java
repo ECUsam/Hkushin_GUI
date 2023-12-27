@@ -102,7 +102,8 @@ public class ClassParse {
                     assert tokenStack.peek().tokenType == TokenClass.TK_close_par;
                     codeLevel -= 1;
                     tokenStack.pop();
-                    currentNode = currentNode.parent;
+                    // SUS!!!!
+                    // currentNode = currentNode.parent;
                     break;
                 case TK_close_bra:
                     assert tokenStack.peek().tokenType == TokenClass.TK_close_bra;
@@ -128,6 +129,7 @@ public class ClassParse {
                     //指向‘}’
                     parseBlock();
                     currentNode = currentNode.parent;
+                    advance();
                     break;
                 case TK_ELSE:
                     //if -> block
@@ -143,6 +145,7 @@ public class ClassParse {
                         next();
                         parseBlock();
                         currentNode = currentNode.parent;
+                        advance();
                     }
                     else if(currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE){
                         TreeNode else_node = new TreeNode(currentToken.string, currentToken.string);
@@ -150,6 +153,7 @@ public class ClassParse {
                         currentNode = else_node;
                         parseBlock();
                         currentNode = currentNode.parent;
+                        advance();
                     }else throw new ParseException(lexer.codeLine, currentToken.toString());
                     break;
                 case TK_WHILE:
@@ -161,6 +165,7 @@ public class ClassParse {
                     next();
                     parseBlock();
                     currentNode = currentNode.parent;
+                    advance();
                     break;
             }
         //}while (currentToken.tokenType != TokenClass.TK_EOF);
@@ -216,7 +221,9 @@ public class ClassParse {
             parseExpr();
         }while (checkCurrentTokenType(Constants.LogicSymbol));
     }
+    // 大量}脱出
     private void parseBlock(){
+        int temp_level = tokenStack.toArray().length;
         var temp = currentNode.key;
         var blockNode = new TreeNode("Block");
         currentNode.addChild(blockNode);
@@ -226,7 +233,6 @@ public class ClassParse {
         do{
             advance();
         }while(currentToken.tokenType != TokenClass.TK_RIGHT_CURLY_BRACE);
-
         currentNode = currentNode.parent;
         assert currentNode.key.equals(temp);
     }
@@ -287,6 +293,9 @@ public class ClassParse {
     public void advance(){
         next();
         parseCurrentToken();
+        System.out.print(currentToken.toCode()+"    ");
+        currentNode.getAllParents();
+        System.out.print("\n");
     }
 
     private void next(){
@@ -310,8 +319,53 @@ public class ClassParse {
     public JSONObject getJson(){
         return baseNode.toJSON();
     }
+    // 还是递归好写
+    // 深度优先
     public String toCode(){
-        return baseNode.toCode();
+        int level = 0;
+        Stack<String> parStack = new Stack<>();
+
+        StringBuilder res = new StringBuilder();
+        TreeNode temp = baseNode;
+        return Node2Code(temp, res);
+    }
+
+    public String Node2Code(TreeNode node, StringBuilder res){
+        res.append(node.Tree2Code());
+        for(TreeNode child: node.getChildren()){
+            Node2Code(child, res);
+        }
+        return res.toString();
     }
 }
 
+class Tree2CodeTransformer{
+    private int level;
+    private StringBuilder res;
+    private Stack<String> parStack;
+
+    public Tree2CodeTransformer(){
+        level = 0;
+        res = new StringBuilder();
+        parStack = new Stack<>();
+    }
+
+    public void init(){
+        level = 0;
+        res = new StringBuilder();
+        parStack = new Stack<>();
+    }
+
+    public String Node2Code(TreeNode node){
+        res.append(node.Tree2Code());
+        if(node.hasChild()){
+            level +=1;
+            for(TreeNode child : node.getChildren()){
+                Node2Code(child);
+            }
+        }
+        return res.toString();
+    }
+
+
+}
