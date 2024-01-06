@@ -7,9 +7,7 @@ import Token.ClassType;
 import OPcode.*;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 // TODO:用报错信息重写assert
 @SuppressWarnings("unused")
@@ -137,7 +135,7 @@ public class ClassParse {
 //                    currentNode = currentNode.parent.parent;
                     next();
                     if(currentToken.tokenType == TokenClass.TK_IF || currentToken.tokenType == TokenClass.TK_RIF){
-                        TreeNode else_if_node = new TreeNode("elseif");
+                        TreeNode else_if_node = new TreeNode("elseif", "elseif");
                         currentNode.addChild(else_if_node);
                         currentNode = else_if_node;
                         next();
@@ -148,7 +146,7 @@ public class ClassParse {
                         advance();
                     }
                     else if(currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE){
-                        TreeNode else_node = new TreeNode(currentToken.string, currentToken.string);
+                        TreeNode else_node = new TreeNode("else", "else");
                         currentNode.addChild(else_node);
                         currentNode = else_node;
                         parseBlock();
@@ -293,9 +291,9 @@ public class ClassParse {
     public void advance(){
         next();
         parseCurrentToken();
-        System.out.print(currentToken.toCode()+"    ");
-        currentNode.getAllParents();
-        System.out.print("\n");
+//        System.out.print(currentToken.toCode()+"    ");
+//        currentNode.getAllParents();
+//        System.out.print("\n");
     }
 
     private void next(){
@@ -322,13 +320,20 @@ public class ClassParse {
     // 还是递归好写
     // 深度优先
     public String toCode(){
-        int level = 0;
-        Stack<String> parStack = new Stack<>();
-
-        StringBuilder res = new StringBuilder();
-        TreeNode temp = baseNode;
-        return Node2Code(temp, res);
+        Tree2CodeTransformer transformer = new Tree2CodeTransformer();
+        TreeNode tmp = baseNode;
+        return transformer.Node2Code(tmp);
     }
+
+
+//    public String toCode(){
+//        int level = 0;
+//        Stack<String> parStack = new Stack<>();
+//
+//        StringBuilder res = new StringBuilder();
+//        TreeNode temp = baseNode;
+//        return Node2Code(temp, res);
+//    }
 
     public String Node2Code(TreeNode node, StringBuilder res){
         res.append(node.Tree2Code());
@@ -338,34 +343,93 @@ public class ClassParse {
         return res.toString();
     }
 }
-
+@SuppressWarnings("unused")
 class Tree2CodeTransformer{
     private int level;
     private StringBuilder res;
     private Stack<String> parStack;
+    // 我在干什么？
+    private final List<String> spaceNeededKey = Arrays.asList(
+            "classType",
+            "className",
+            "if",
+            "rif",
+            "while",
+            "elseif",
+            "else"
+    );
+    private final List<String> enterNeededKey = Arrays.asList(
+            "Command", "Feature", "Logic", "className"
+    );
+    private final List<String> virtualKey = Arrays.asList(
+            "expr", "Logic"
+    );
+    private final List<String> logicKey = Arrays.asList(
+            "if", "rif", "while", "elseif", "else"
+    );
+    private boolean curlyNeeded;
 
     public Tree2CodeTransformer(){
         level = 0;
         res = new StringBuilder();
         parStack = new Stack<>();
+        curlyNeeded = false;
+    }
+
+    public Tree2CodeTransformer(boolean curlyNeeded){
+        level = 0;
+        res = new StringBuilder();
+        parStack = new Stack<>();
+        this.curlyNeeded = curlyNeeded;
     }
 
     public void init(){
         level = 0;
         res = new StringBuilder();
         parStack = new Stack<>();
+        curlyNeeded = false;
+    }
+
+    public void init(boolean curlyNeeded){
+        level = 0;
+        res = new StringBuilder();
+        parStack = new Stack<>();
+        this.curlyNeeded = curlyNeeded;
     }
 
     public String Node2Code(TreeNode node){
-        res.append(node.Tree2Code());
+        if(Objects.equals(node.key, "Block")){
+            for (int i = 0; i < level+1; i++) res.append("  ");
+            res.append("{\n");
+        }
+        if(Objects.equals(node.key, "Logic"))res.append("(");
+        if(node.Tree2Code()!=null) {
+            if (node.parent!=null && !virtualKey.contains(node.parent.key) && !Objects.equals(node.key, "className"))
+                for (int i = 0; i < level; i++) res.append("  ");
+            res.append(node.Tree2Code());
+            if (spaceNeededKey.contains(node.key)) res.append(" ");
+            if(Objects.equals(node.key, "else"))res.append("\n");
+        }
+
+        if(Objects.equals(node.key, "className"))
+            res.append("\n{");
         if(node.hasChild()){
             level +=1;
             for(TreeNode child : node.getChildren()){
                 Node2Code(child);
             }
+            level -= 1;
         }
+        if(Objects.equals(node.key, "Logic"))res.append(")");
+        if (enterNeededKey.contains(node.key)) {
+            res.append("\n");
+        }
+        if(Objects.equals(node.key, "Block")){
+            for (int i = 0; i < level+1; i++) res.append("  ");
+            res.append("}\n");
+        }
+        if(Objects.equals(node.key, "classType"))
+            res.append("}");
         return res.toString();
     }
-
-
 }

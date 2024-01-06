@@ -39,7 +39,7 @@ public class TreeNode {
     }
 
     public boolean hasChild(){
-        return children.isEmpty();
+        return !children.isEmpty();
     }
 
     // 获取子节点列表

@@ -28,7 +28,7 @@ public class Main {
         ClassParse c = new ClassParse(secondEntry.getKey());
         c.run();
         var json = c.getJson();
-        System.out.print(json.toString(2));
+        // System.out.print(json.toString(2));
         System.out.print(c.toCode());
         try (FileWriter file = new FileWriter("output.json")) {
             file.write(json.toString(4));

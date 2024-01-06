@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="killOrphans(笑)&#10;怎么这里也有括号高亮（">
+    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="修改了语法分析树不正确的部分bug（笑">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
@@ -52,7 +52,7 @@
       <recent name="D:\AJavadesu\Hkushin_GUI\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.ShinGUI">
+  <component name="RunManager" selected="应用程序.Main">
     <configuration name="CardLayoutExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="CardLayoutExample" />
       <module name="Hkushin_GUI" />
@@ -96,8 +96,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.ShinGUI" />
         <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.ShinGUI" />
         <item itemvalue="应用程序.FileChooserExample" />
         <item itemvalue="应用程序.ListWithPanelsExample" />
         <item itemvalue="应用程序.CardLayoutExample" />
@@ -232,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703094041713</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="修改了语法分析树不正确的部分bug（笑">
+      <created>1703694589817</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1703694589817</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -266,7 +273,8 @@
     <MESSAGE value="放弃调顺序&#10;语法解析就这样&#10;代码还原不会" />
     <MESSAGE value="为什么 传reader指针时 被回收了" />
     <MESSAGE value="killOrphans(笑)&#10;怎么这里也有括号高亮（" />
-    <option name="LAST_COMMIT_MESSAGE" value="killOrphans(笑)&#10;怎么这里也有括号高亮（" />
+    <MESSAGE value="修改了语法分析树不正确的部分bug（笑" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改了语法分析树不正确的部分bug（笑" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
