@@ -10,32 +10,33 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        PathManager pathManager = new PathManager("E:\\download\\新約迫真戦記―ほのぼの神話ver0.52 豪華版", "x-SJIS_0213");
+        PathManager pathManager = new PathManager("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版", "x-SJIS_0213");
         ClassGetterFromFile a = new ClassGetterFromFile(pathManager);
         //Ai戦闘制御_追加部分.dat
-        a.File2Class("E:\\download\\新約迫真戦記―ほのぼの神話ver0.52 豪華版\\a_default\\script\\Ai戦闘制御_追加部分.dat");
-        ClassLexer b = new ClassLexer(a.scriptClass.entrySet().iterator().next().getKey());
+        a.File2Class("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版\\a_default\\script\\2023_イベント_リュージ騎士団\\event_23_RPG.dat");
         // 迭代器选择
         Iterator<Map.Entry<String, Integer>> iterator = a.scriptClass.entrySet().iterator();
-        Map.Entry<String, Integer> firstEntry  = iterator.next();
-        Map.Entry<String, Integer> secondEntry = iterator.next();
+        ClassParse c = new ClassParse("null", "");
 
+        while (iterator.hasNext()){
+            var next = iterator.next();
+            // System.out.print(next.getKey());
+            c.updateSource(next.getKey(), "", next.getValue());
+            c.run();
+            var json = c.getJson();
+            // System.out.print(json.toString(2));
+            System.out.print(c.toCode());
+            try (FileWriter file = new FileWriter("output.json")) {
+                file.write(json.toString(4));
+                file.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
        //  System.out.print(secondEntry.getKey());
 
-        b.ParseSource();
+        // b.ParseSource();
         // b.printTokenList();
-
-        ClassParse c = new ClassParse(secondEntry.getKey());
-        c.run();
-        var json = c.getJson();
-        // System.out.print(json.toString(2));
-        System.out.print(c.toCode());
-        try (FileWriter file = new FileWriter("output.json")) {
-            file.write(json.toString(4));
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 }

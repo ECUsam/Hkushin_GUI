@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.util.*;
 
 // TODO:用报错信息重写assert
+// 原来生产环境不执行assert
 @SuppressWarnings("unused")
 public class ClassParse {
     private ClassLexer lexer;
@@ -23,19 +24,32 @@ public class ClassParse {
     private Stack<Token> tokenStack = new Stack<>();
     private int codeLevel;
     public String path;
+    public int baseCodeLine;
 
     public ClassParse(String source){
         lexer = new ClassLexer(source);
+        lexer.get_ClassParse(this);
         this.source = source;
         codeLevel = 0;
-        path = null;
+        path = "";
     }
     public ClassParse(String source, String path){
         lexer = new ClassLexer(source);
+        lexer.get_ClassParse(this);
         this.source = source;
         codeLevel = 0;
         this.path = path;
     }
+
+    public ClassParse(String source, String path, int baseCodeLine){
+        lexer = new ClassLexer(source);
+        lexer.get_ClassParse(this);
+        this.source = source;
+        codeLevel = 0;
+        this.path = path;
+        this.baseCodeLine = baseCodeLine;
+    }
+
 
     public void updateSource(String source){
         lexer.updateSource(source);
@@ -43,6 +57,25 @@ public class ClassParse {
         codeLevel = 0;
         tokenStack = new Stack<>();
         baseNode = null;
+    }
+
+    public void updateSource(String source, String path){
+        lexer.updateSource(source);
+        this.source = source;
+        codeLevel = 0;
+        tokenStack = new Stack<>();
+        baseNode = null;
+        this.path = path;
+    }
+
+    public void updateSource(String source, String path, int baseCodeLine){
+        lexer.updateSource(source);
+        this.source = source;
+        codeLevel = 0;
+        tokenStack = new Stack<>();
+        baseNode = null;
+        this.path = path;
+        this.baseCodeLine = baseCodeLine;
     }
 
     public void run(){
@@ -58,13 +91,13 @@ public class ClassParse {
             switch (currentToken.tokenType){
                 // TODO：统一节点的key值
                 case TK_classname:
-                    classType = ClassType.valueOf(currentToken.string);
+                    if(currentToken.string.equals("class"))classType = ClassType.valueOf("class_unit");
+                    else classType = ClassType.valueOf(currentToken.string);
                     baseNode = new TreeNode("classType" ,classType.toString());
                     currentNode = baseNode;
                     next();
                     if(currentToken.tokenType == TokenClass.TK_NAME){
                         var classname = new TreeNode("className", currentToken.string);
-
                         List<String> data = new ArrayList<>();
                         data.add(path);data.add(""+lexer.codeLine);data.add(null);
                         DataManger.putValue(currentToken.string, data);
@@ -74,7 +107,7 @@ public class ClassParse {
                         if(currentToken.tokenType == TokenClass.TK_colon){
                             next();
                             assert currentToken.tokenType == TokenClass.TK_NAME;
-                            data.set(3, currentToken.string);
+                            data.set(2, currentToken.string);
                             if(DataManger.searchClass(currentToken.string))DataManger.classGetChildren(tempParentName, currentToken.string);
                             else DataManger.ThereIsOrphanFound(tempParentName, currentToken.string);
                         }
@@ -249,6 +282,7 @@ public class ClassParse {
 //                next();
 //                parseLogicExprList();
 //                currentNode = currentNode.parent;
+                parseCurrentToken();
                 next();
                 parseExpr();
             }
@@ -304,6 +338,7 @@ public class ClassParse {
         }
         lexer.Advance();
         currentToken = lexer.currentToken;
+        //System.out.print(currentToken);
     }
     //有必要吗？
     private void consume(TokenClass tokenClass){

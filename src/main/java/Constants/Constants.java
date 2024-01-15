@@ -71,26 +71,64 @@ public class Constants {
             '\n'
     );
 
+    public static final List<Character> special_char_not_space = Arrays.asList(
+            '{',
+            '}',
+            '(',
+            ')',
+            '=',
+            ':',
+            //' ',
+            //'\t',
+            //'\r',
+            //'>',
+            //'<',
+            //'&',
+            '|',
+            //'-',
+            '+',
+            '\\',
+            ','
+            //'\n'
+    );
+
+    public static final List<Character> special_char_not_space_feature = Arrays.asList(
+            '{',
+            '}',
+            '=',
+            ':',
+            //' ',
+            '\t',
+            '\r',
+            '>',
+            '<',
+            //'&',
+            '|',
+            //'-',
+            '+',
+            '\\',
+            ',',
+            '\n'
+    );
+
     public static final List<Character> special_char_without_enter = Arrays.asList(
             '{',
             '}',
             '(',
             ')',
             '=',
-            ']',
-            '[',
             ':',
-            ' ',
-            '\t',
-            '>',
-            '<',
-            '&',
+            //'&',
             '|',
-            '-',
             '+',
-            '\\',
-            '~',
-            ','
+            //'-',
+            '/',
+            '%',
+            ',',
+            '<',
+            '>',
+            '*',
+            '!'
     );
     //类名
     public static final List<String> class_type = Arrays.asList(

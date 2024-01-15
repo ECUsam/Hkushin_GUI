@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="修改了语法分析树不正确的部分bug（笑">
+      <change afterPath="$PROJECT_DIR$/src/main/java/FileManager/ScriptReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/logfile.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/logfile.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ParseException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ParseException.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,13 +61,6 @@
     </key>
   </component>
   <component name="RunManager" selected="应用程序.Main">
-    <configuration name="CardLayoutExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="CardLayoutExample" />
-      <module name="Hkushin_GUI" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="FileChooserExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FileChooserExample" />
       <module name="Hkushin_GUI" />
@@ -81,6 +82,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PathManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="FileManager.PathManager" />
+      <module name="Hkushin_GUI" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="FileManager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ShinGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.ShinGUI" />
       <module name="Hkushin_GUI" />
@@ -97,10 +111,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.PathManager" />
         <item itemvalue="应用程序.ShinGUI" />
         <item itemvalue="应用程序.FileChooserExample" />
         <item itemvalue="应用程序.ListWithPanelsExample" />
-        <item itemvalue="应用程序.CardLayoutExample" />
       </list>
     </recent_temporary>
   </component>
@@ -279,9 +293,13 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
+        <breakpoint type="java-exception">
           <properties class="java.util.EmptyStackException" package="java.util" />
           <option name="timeStamp" value="14" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.io.IOException" package="java.io" />
+          <option name="timeStamp" value="19" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -289,5 +307,8 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Hkushin_GUI$Main.ic" NAME="Main 覆盖结果" MODIFIED="1705227305489" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

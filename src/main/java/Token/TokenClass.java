@@ -48,5 +48,6 @@ enum TokenClass {
     TK_new_line,
     TK_colon,
     TK_WHILE,
-    TK_BREAK
+    TK_BREAK,
+    divide_plus
 }

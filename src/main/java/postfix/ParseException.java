@@ -10,6 +10,11 @@ public class ParseException extends RuntimeException {
         this.lineNumber = lineNumber;
     }
 
+    public ParseException(int lineNumber, String message, String path) {
+        super("Parse error at line " + lineNumber + ": " + message + " at path: " + path);
+        this.lineNumber = lineNumber;
+    }
+
     public ParseException(int lineNumber, int columnNumber, String message, String errorContext) {
         super("Parse error at line " + lineNumber + ", column " + columnNumber + ": " + message + ". Context: " + errorContext);
         this.lineNumber = lineNumber;

@@ -19,6 +19,7 @@ import java.util.stream.Stream;
 public class ClassGetterFromFile {
     public String encoding;
     private final PathManager pathManager;
+    // 代码 行数
     public LinkedHashMap<String, Integer> scriptClass = new LinkedHashMap<>();
     public ClassGetterFromFile(PathManager pathManager){
         this.pathManager = pathManager;
@@ -34,7 +35,11 @@ public class ClassGetterFromFile {
         }
     }
 
-    public void File2Class(String filePath) throws IOException {
+    public void update(){
+        scriptClass = new LinkedHashMap<>();
+    }
+
+    public void File2Class(String filePath) {
         try (
             BufferedReader reader = Files.newBufferedReader(Paths.get(filePath), Charset.forName(encoding))
         ){
@@ -65,8 +70,14 @@ public class ClassGetterFromFile {
                         do {
                             pointer = reader.read();
                             currentChar = (char) pointer;
+                            if(pointer==-1)break;
                         }
                         while (currentChar != '\n' && currentChar != '\r');
+
+
+                        if(name_mattered)classLine+=1;else baseCodeLine+=1;
+
+
                         int a = reader.read();
                         continue;
                     }
@@ -86,6 +97,9 @@ public class ClassGetterFromFile {
                         while (currentChar != '*' || ((char)reader.read()) != '/');
                         int a = reader.read();
                         continue;
+                    }else {
+                        classBuffer.append(currentChar);
+                        currentChar = (char) lookahead;
                     }
                 }
                 if(currentChar=='\n'){
@@ -105,7 +119,9 @@ public class ClassGetterFromFile {
                     name_mattered = false;
                     }
                 }
-            }
+            }catch (IOException e){
+            e.printStackTrace();
+        }
         }
 
     public void Folder2Class(String folderPath) {
@@ -113,11 +129,7 @@ public class ClassGetterFromFile {
             Stream<Path> paths = Files.walk(Paths.get(folderPath))
         ){
             paths.filter(Files::isRegularFile).filter(path -> path.toString().endsWith(".dat")).forEach(path -> {
-                try {
-                    File2Class(path.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                File2Class(path.toString());
             });
         } catch (IOException e) {
             System.out.println(folderPath);

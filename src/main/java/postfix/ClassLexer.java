@@ -25,6 +25,7 @@ public class ClassLexer {
     private List<Token> tokenList;
     private boolean isSourceDetail = false;
     public Token currentToken;
+    public ClassParse classParse;
 
     public ClassLexer(String source){
         this.source = source;
@@ -33,6 +34,7 @@ public class ClassLexer {
         tokenList = new ArrayList<>();
     }
 
+
     public void updateSource(String source) {
         this.source = source;
         stringReader = new StringReader(source);
@@ -40,7 +42,15 @@ public class ClassLexer {
         tokenList = new ArrayList<>();
         currentToken = null;
         currentChar = '\u0000';
+        classType = null;
+        codeLine = 0;
+        isSourceDetail = false;
     }
+
+    public void get_ClassParse(ClassParse c){
+        classParse = c;
+    }
+
     // 返回Token是初期的错误做法,请前进后直接获取currentToken
     // TODO:错误检测
     public Token Advance(){
@@ -97,9 +107,12 @@ public class ClassLexer {
                             return NomToken(TokenClass.TK_multi_assign, "*=");
                         }else return NomToken(TokenClass.TK_asterisk);
                     case '/':
-                        if( checkNextChar('=')){
+                        if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.Tk_divide_assign, "/=");
+                        }else if(checkNextChar('+')){
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.divide_plus, "/+");
                         }else return NomToken(TokenClass.Tk_divide);
                     case '+':
                         if( checkNextChar('+')){
@@ -122,22 +135,23 @@ public class ClassLexer {
                         if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.TK_NOT_EQ, "!=");
-                        }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
+                        }else throw new ParseException(codeLine+classParse.baseCodeLine, "Unexpected character: " + currentChar, classParse.path);
                     case '&':
                         if(checkNextChar('&')){
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.TK_and, "&&");
-                        }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
+                        }else throw new ParseException(codeLine+classParse.baseCodeLine, "Unexpected character: " + currentChar, classParse.path);
                     case '|':
                         if(checkNextChar('|')){
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.TK_or, "||");
-                        }else throw new ParseException(codeLine, "Unexpected character: " + currentChar);
+                        }else throw new ParseException(codeLine+classParse.baseCodeLine, "Unexpected character: " + currentChar, classParse.path);
                     default:
                         if(Character.isDigit(currentChar)){
                             int value = Character.getNumericValue(currentChar);
                             while (checkNextCharisInt()){
                                 currentChar = (char) bufferedReader.read();
+                                if (currentChar == '\n') codeLine += 1;
                                 value = value * 10 + Character.getNumericValue(currentChar);
                             }
                             return NumToken(TokenClass.TK_NUM, value);
@@ -148,6 +162,7 @@ public class ClassLexer {
                             // checkNextCharisLetterOr_OrDigit()
                             while (!checkNextCharisSpecial()){
                                 currentChar = (char) bufferedReader.read();
+                                if (currentChar == '\n') codeLine += 1;
                                 word_builder.append(currentChar);
                             }
                             String word = word_builder.toString();
@@ -221,14 +236,28 @@ public class ClassLexer {
 
             do {
                 currentChar = (char) bufferedReader.read();
+                if (currentChar == '\n') codeLine += 1;
             } while (currentChar == ' ' || currentChar == '\t');
         }
     }
     private String getAnyWordFromStream() throws IOException {
         StringBuilder wordBuild = new StringBuilder();
         wordBuild.append(currentChar);
-        while (!checkNextCharisSpecial()){
+        while (!checkNextCharisSpecial_not_space()){
             currentChar = (char) bufferedReader.read();
+            if (currentChar == '\n') codeLine += 1;
+            wordBuild.append(currentChar);
+        }
+        assert wordBuild.length() != 0;
+        return wordBuild.toString();
+    }
+
+    private String getAnyWordFromStream_feature() throws IOException {
+        StringBuilder wordBuild = new StringBuilder();
+        wordBuild.append(currentChar);
+        while (!checkNextCharisSpecial_not_space_feature()){
+            currentChar = (char) bufferedReader.read();
+            if (currentChar == '\n') codeLine += 1;
             wordBuild.append(currentChar);
         }
         assert wordBuild.length() != 0;
@@ -291,6 +320,22 @@ public class ClassLexer {
         return isMatch;
     }
 
+    private boolean checkNextCharisSpecial_not_space() throws IOException{
+        bufferedReader.mark(1);
+        char nextChar = (char) bufferedReader.read();
+        boolean isMatch = (Constants.special_char_not_space.contains(nextChar));
+        bufferedReader.reset();
+        return isMatch;
+    }
+
+    private boolean checkNextCharisSpecial_not_space_feature() throws IOException{
+        bufferedReader.mark(1);
+        char nextChar = (char) bufferedReader.read();
+        boolean isMatch = (Constants.special_char_not_space_feature.contains(nextChar));
+        bufferedReader.reset();
+        return isMatch;
+    }
+
     private boolean checkNextCharisSpecialWithoutEnter() throws IOException{
         bufferedReader.mark(1);
         char nextChar = (char) bufferedReader.read();
@@ -328,12 +373,14 @@ public class ClassLexer {
     private void skip2AnyWord() throws IOException {
         while (Constants.special_char.contains(currentChar)){
             currentChar = (char) bufferedReader.read();
+            if (currentChar == '\n') codeLine += 1;
         }
     }
 
     private void skip2AnyWordWithoutEnter() throws IOException {
         while (Constants.special_char_without_enter.contains(currentChar)){
             currentChar = (char) bufferedReader.read();
+            if (currentChar == '\n') codeLine += 1;
         }
     }
 
@@ -341,13 +388,16 @@ public class ClassLexer {
         //为什么检测了两遍？
         if(checkNextChar(')')){
             currentChar = (char) bufferedReader.read();
+            if (currentChar == '\n') codeLine += 1;
             currentToken = new TokenCommand(word);
             return (TokenCommand) currentToken;
         }
         currentChar = (char) bufferedReader.read();
+        if (currentChar == '\n') codeLine += 1;
         skipSpace();
         if(checkNextChar(')')){
             currentChar = (char) bufferedReader.read();
+            if (currentChar == '\n') codeLine += 1;
             currentToken = new TokenCommand(word);
             return (TokenCommand) currentToken;
         }
@@ -358,6 +408,7 @@ public class ClassLexer {
             skipSpace();
         }while (checkNextChar(',') && (currentChar = (char) bufferedReader.read())==',');
         currentChar = (char) bufferedReader.read();
+        if (currentChar == '\n') codeLine += 1;
         assert currentChar==')': "Unexpected character: " + currentChar;
         currentToken = new TokenCommand(word, strings.toArray(String[]::new));
         return (TokenCommand) currentToken;
@@ -365,6 +416,7 @@ public class ClassLexer {
 
     private TokenFeature parseFeatureToken(String word) throws IOException{
         currentChar = (char) bufferedReader.read();
+        if (currentChar == '\n') codeLine += 1;
         skipSpaceWithoutEnter();
 
         if(currentChar == '@')return new TokenFeature(word);
@@ -374,12 +426,12 @@ public class ClassLexer {
             while (currentChar!=';'){
                 stringBuilder.append(currentChar);
                 int temp =  bufferedReader.read();
+                if (currentChar == '\n') codeLine += 1;
                 if(temp==-1){
                     LogManager.addError(Constants_GUI.getDescription("detail_parse_error")+codeLine);
                     throw new ParseException(codeLine, "解析错误");
                 }
                 currentChar = (char) temp;
-                if (currentChar == '\n') codeLine += 1;
             }
             currentToken = new TokenFeature(word, stringBuilder.toString());
             return (TokenFeature) currentToken;
@@ -388,7 +440,7 @@ public class ClassLexer {
         do{
             if (currentChar == '\n') codeLine += 1;// 是这里吗？
             skip2AnyWord();
-            strings.add(getAnyWordFromStream());
+            strings.add(getAnyWordFromStream_feature());
             skipSpaceWithoutEnter();
         }while (currentChar != '\n' && currentChar != '\r'&& (currentChar = (char) bufferedReader.read())==',');
         currentToken = new TokenFeature(word, strings.toArray(String[]::new));
