@@ -50,7 +50,6 @@ public class ClassLexer {
     public void get_ClassParse(ClassParse c){
         classParse = c;
     }
-
     // 返回Token是初期的错误做法,请前进后直接获取currentToken
     // TODO:错误检测
     public Token Advance(){
@@ -107,6 +106,26 @@ public class ClassLexer {
                             return NomToken(TokenClass.TK_multi_assign, "*=");
                         }else return NomToken(TokenClass.TK_asterisk);
                     case '/':
+                        if(checkNextChar('/')){
+                            StringBuilder explain = new StringBuilder();
+                            do{
+                                explain.append(currentChar);
+                                currentChar = (char) bufferedReader.read();
+                                if (currentChar == '\n') codeLine += 1;
+                            }while (currentChar!='\r'&&currentChar!='\n');
+                            return NomToken(TokenClass.TK_explain_line, explain.toString());
+                        }else if(checkNextChar('*')){
+                            StringBuilder explain = new StringBuilder();
+                            do{
+                                explain.append(currentChar);
+                                currentChar = (char) bufferedReader.read();
+
+                                if (currentChar == '\n') codeLine += 1;
+                            }while (!(currentChar == '*' && checkNextChar('/')));
+                            explain.append("*/");
+                            currentChar = (char) bufferedReader.read();
+                            return NomToken(TokenClass.TK_explain_all, explain.toString());
+                        }else
                         if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.Tk_divide_assign, "/=");
@@ -130,7 +149,6 @@ public class ClassLexer {
                             currentChar = (char) bufferedReader.read();
                             return NomToken(TokenClass.TK_multi_assign, "-=");
                         }else return NomToken(TokenClass.TK_minus);
-                        //TODO:codeLine肯定要改
                     case '!':
                         if(checkNextChar('=')){
                             currentChar = (char) bufferedReader.read();
@@ -347,9 +365,15 @@ public class ClassLexer {
     // 不能两次reset（告诫）
 
     private CommandType checkWordType() throws IOException {
-        bufferedReader.mark(10);
-        if(checkNextChar(' '))skipSpace();
-        else currentChar = (char) bufferedReader.read();
+        bufferedReader.mark(50);
+        currentChar = (char) bufferedReader.read();
+        if(Constants.space_char.contains(currentChar)){
+            do{
+                currentChar = (char) bufferedReader.read();
+            }while (Constants.space_char.contains(currentChar));
+        }
+//        if(checkNextChar(' '))skipSpace();
+//        else currentChar = (char) bufferedReader.read();
 
         if (currentChar == '(') return CommandType.command;
         else if (currentChar == '=') {

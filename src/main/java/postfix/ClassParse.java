@@ -110,6 +110,8 @@ public class ClassParse {
                             data.set(2, currentToken.string);
                             if(DataManger.searchClass(currentToken.string))DataManger.classGetChildren(tempParentName, currentToken.string);
                             else DataManger.ThereIsOrphanFound(tempParentName, currentToken.string);
+                            classname.getFather(currentToken.string);
+                            next();
                         }
                     }
                     assert currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
@@ -197,6 +199,9 @@ public class ClassParse {
                     parseBlock();
                     currentNode = currentNode.parent;
                     advance();
+                    break;
+                case TK_explain_all:case TK_explain_line:
+                    currentNode.addChild(new TreeNode(currentToken.tokenType.toString(), currentToken.string));
                     break;
             }
         //}while (currentToken.tokenType != TokenClass.TK_EOF);
@@ -383,6 +388,7 @@ class Tree2CodeTransformer{
     private int level;
     private StringBuilder res;
     private Stack<String> parStack;
+    private boolean explainNeed = true;
     // 我在干什么？
     private final List<String> spaceNeededKey = Arrays.asList(
             "classType",
@@ -393,6 +399,9 @@ class Tree2CodeTransformer{
             "elseif",
             "else"
     );
+    private void setExplainNeed(boolean need){
+        explainNeed = need;
+    }
     private final List<String> enterNeededKey = Arrays.asList(
             "Command", "Feature", "Logic", "className"
     );
@@ -404,7 +413,7 @@ class Tree2CodeTransformer{
     );
     private boolean curlyNeeded;
 
-    public Tree2CodeTransformer(){
+    public Tree2CodeTransformer() {
         level = 0;
         res = new StringBuilder();
         parStack = new Stack<>();
@@ -433,21 +442,26 @@ class Tree2CodeTransformer{
     }
 
     public String Node2Code(TreeNode node){
+        if(!explainNeed&&(Objects.equals(node.key, "TK_explain_all")||Objects.equals(node.key, "TK_explain_line")))return "";
         if(Objects.equals(node.key, "Block")){
             for (int i = 0; i < level+1; i++) res.append("  ");
             res.append("{\n");
         }
         if(Objects.equals(node.key, "Logic"))res.append("(");
         if(node.Tree2Code()!=null) {
-            if (node.parent!=null && !virtualKey.contains(node.parent.key) && !Objects.equals(node.key, "className"))
+            if (node.parent!=null && !virtualKey.contains(node.parent.key) && !Objects.equals(node.key, "className") && !Objects.equals(node.key, "TK_explain_all"))
                 for (int i = 0; i < level; i++) res.append("  ");
             res.append(node.Tree2Code());
             if (spaceNeededKey.contains(node.key)) res.append(" ");
             if(Objects.equals(node.key, "else"))res.append("\n");
         }
 
-        if(Objects.equals(node.key, "className"))
+        if(Objects.equals(node.key, "className")){
+            if(node.hasFather()){
+                res.append(": ").append(node.takeFather());
+            }
             res.append("\n{");
+        }
         if(node.hasChild()){
             level +=1;
             for(TreeNode child : node.getChildren()){
@@ -455,6 +469,7 @@ class Tree2CodeTransformer{
             }
             level -= 1;
         }
+        if(Objects.equals(node.key, "TK_explain_all")||Objects.equals(node.key, "TK_explain_line"))res.append("\n");
         if(Objects.equals(node.key, "Logic"))res.append(")");
         if (enterNeededKey.contains(node.key)) {
             res.append("\n");

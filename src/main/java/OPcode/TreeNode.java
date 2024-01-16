@@ -13,6 +13,7 @@ public class TreeNode {
     public Object value;
     private List<TreeNode> children;
     public TreeNode parent;
+    private String father;
     public TreeNode(String key, Object value) {
         this.key = key;
         this.value = value;
@@ -24,6 +25,17 @@ public class TreeNode {
         this.value = null;
         this.children = new ArrayList<>();
     }
+
+    public void getFather(String father){
+        this.father = father;
+    }
+    public boolean hasFather(){
+        return !(father==null);
+    }
+    public String takeFather(){
+        return father;
+    }
+
 
     public void addChild(TreeNode childNode) {
         children.add(childNode);

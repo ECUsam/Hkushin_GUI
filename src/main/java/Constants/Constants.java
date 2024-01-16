@@ -47,15 +47,21 @@ public class Constants {
             TokenClass.TK_IF_LT_OR_EQ
     );
     //*:已删，勿Q
+    public static final List<Character> space_char = Arrays.asList(
+            ' ',
+            '\t',
+            '\r',
+            '\n'
+    );
     public static final List<Character> special_char = Arrays.asList(
             '{',
             '}',
             '(',
             ')',
             '=',
-            ']',
-            '[',
-            ':',
+            //']',
+            //'[',
+            //':',
             ' ',
             '\t',
             '\r',
@@ -68,7 +74,8 @@ public class Constants {
             '\\',
             '~',
             ',',
-            '\n'
+            '\n',
+            '!'
     );
 
     public static final List<Character> special_char_not_space = Arrays.asList(
@@ -77,7 +84,7 @@ public class Constants {
             '(',
             ')',
             '=',
-            ':',
+            //':',
             //' ',
             //'\t',
             //'\r',
@@ -96,7 +103,7 @@ public class Constants {
             '{',
             '}',
             '=',
-            ':',
+            //':',
             //' ',
             '\t',
             '\r',
@@ -117,7 +124,7 @@ public class Constants {
             '(',
             ')',
             '=',
-            ':',
+            //':',
             //'&',
             '|',
             '+',
@@ -127,8 +134,8 @@ public class Constants {
             ',',
             '<',
             '>',
-            '*',
-            '!'
+            '*'
+            //'!'
     );
     //类名
     public static final List<String> class_type = Arrays.asList(
@@ -148,7 +155,8 @@ public class Constants {
             "detail",
             "context",
             "sound",
-            "attribute"
+            "attribute",
+            "world"
     );
     public static final List<String> complexClass = Arrays.asList(
       "story",

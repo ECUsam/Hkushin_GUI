@@ -32,7 +32,7 @@ public class Token {
     public String toString() {
         return switch (__tokenType) {
             case TK_INT -> "Token(type: " + tokenType + ", value: " + value + ")\n";
-            case TK_STRING -> "Token(type: " + tokenType + ", string: '" + string + "')\n";
+            case TK_STRING -> "Token(type: " + tokenType + ", string: '" + string.replace("\r", "").replace("\n", "") + "')\n";
             default -> "Token(type: " + tokenType + ")\n";
         };
     }

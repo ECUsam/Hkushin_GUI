@@ -4,20 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="修改了语法分析树不正确的部分bug（笑">
-      <change afterPath="$PROJECT_DIR$/src/main/java/FileManager/ScriptReader.java" afterDir="false" />
+    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="我要重构classgetter了&#10;注释也是代码（">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/logfile.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/logfile.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/FileManager/ScriptReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager/ScriptReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/ClassType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/ClassType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/Token.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ParseException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ParseException.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +60,7 @@
       <recent name="D:\AJavadesu\Hkushin_GUI\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.Main">
+  <component name="RunManager" selected="应用程序.PathManager">
     <configuration name="FileChooserExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="FileChooserExample" />
       <module name="Hkushin_GUI" />
@@ -110,8 +110,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.Main" />
         <item itemvalue="应用程序.PathManager" />
+        <item itemvalue="应用程序.Main" />
         <item itemvalue="应用程序.ShinGUI" />
         <item itemvalue="应用程序.FileChooserExample" />
         <item itemvalue="应用程序.ListWithPanelsExample" />
@@ -253,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703694589817</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="我要重构classgetter了&#10;注释也是代码（">
+      <created>1705304938546</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1705304938546</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -288,7 +295,8 @@
     <MESSAGE value="为什么 传reader指针时 被回收了" />
     <MESSAGE value="killOrphans(笑)&#10;怎么这里也有括号高亮（" />
     <MESSAGE value="修改了语法分析树不正确的部分bug（笑" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改了语法分析树不正确的部分bug（笑" />
+    <MESSAGE value="我要重构classgetter了&#10;注释也是代码（" />
+    <option name="LAST_COMMIT_MESSAGE" value="我要重构classgetter了&#10;注释也是代码（" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -300,6 +308,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.io.IOException" package="java.io" />
           <option name="timeStamp" value="19" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.nio.charset.UnmappableCharacterException" package="java.nio.charset" />
+          <option name="timeStamp" value="22" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

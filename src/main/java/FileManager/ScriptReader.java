@@ -29,7 +29,7 @@ public class ScriptReader {
     public void readAll() {
         try {
         Stream<Path> pathStream = Files.walk(Path.of(script_path));
-        pathStream.filter(Files::isRegularFile).forEach(path -> {
+        pathStream.filter(Files::isRegularFile).filter(path -> path.toString().endsWith(".dat")).forEach(path -> {
             System.out.print(pathManager.rePath(path.toString()));
             System.out.print("\n");
             classGetterFromFile.File2Class(path.toString());

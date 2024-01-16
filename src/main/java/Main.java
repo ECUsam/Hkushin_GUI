@@ -1,6 +1,5 @@
 import FileManager.PathManager;
 import postfix.ClassGetterFromFile;
-import postfix.ClassLexer;
 import postfix.ClassParse;
 
 import java.io.FileWriter;
@@ -13,7 +12,7 @@ public class Main {
         PathManager pathManager = new PathManager("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版", "x-SJIS_0213");
         ClassGetterFromFile a = new ClassGetterFromFile(pathManager);
         //Ai戦闘制御_追加部分.dat
-        a.File2Class("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版\\a_default\\script\\2023_イベント_リュージ騎士団\\event_23_RPG.dat");
+        a.File2Class("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版\\a_default\\script\\7000_その他シナリオ\\free_ev_world.dat");
         // 迭代器选择
         Iterator<Map.Entry<String, Integer>> iterator = a.scriptClass.entrySet().iterator();
         ClassParse c = new ClassParse("null", "");

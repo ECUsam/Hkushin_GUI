@@ -17,5 +17,8 @@ enum ClassType {
     spot,
     unit,
     sound,
-    detail
+    detail,
+    world,
+    attribute,
+    context
 }
