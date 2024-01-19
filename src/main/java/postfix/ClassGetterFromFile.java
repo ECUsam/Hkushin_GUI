@@ -135,7 +135,8 @@ public class ClassGetterFromFile {
                     name_mattered = false;
                 }
             }
-        }catch (IOException e){
+        }
+        catch (IOException e){
             e.printStackTrace();
         }
     }

@@ -33,7 +33,6 @@ public class ShinGUI {
         SwingUtilities.invokeLater(() -> application = new ShinGUI());
     }
     private ShinGUI(){
-
         UIManager.put("ToolTip.background", Color.BLUE); // 设置背景色
         UIManager.put("ToolTip.foreground", Color.WHITE); // 设置前景色（字体颜色）
         UIManager.put("ToolTip.font", new Font("Microsoft YaHei", Font.BOLD, 14)); // 设置字体
@@ -50,11 +49,10 @@ public class ShinGUI {
         frame.setLocationRelativeTo(null);
         frame.setMinimumSize(new Dimension(800, 600));
 
-
         TabbedPane = new TabbedPane();
         frame.add(TabbedPane, BorderLayout.CENTER);
 
-        jMenuBar = new ShinToolBar();
+        jMenuBar = new ShinToolBar(frame);
         frame.setJMenuBar(jMenuBar);
         //frame.add(jMenuBar, BorderLayout.NORTH);
 

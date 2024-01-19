@@ -1,11 +1,17 @@
 package FileManager;
 
+import GUI.INFORMATION;
+import OPcode.TreeNode;
+import postfix.DataManger;
+import postfix.ParseException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,11 +22,17 @@ public class PathManager {
     public final String basePathString;
     public final String encoding;
     private final Path basePath;
+    private static PathManager instance;
 
     public PathManager(String basePath) {
         this.basePathString = basePath;
         this.basePath = Paths.get(basePath);
-        encoding = "utf-16";
+        encoding = "x-SJIS_0213";
+        instance = this;
+    }
+
+    public static PathManager getInstance() {
+        return instance;
     }
 
     public PathManager(String basePath, String encoding) {
@@ -37,8 +49,16 @@ public class PathManager {
         return basePath.resolve(rePath);
     }
 
+    public static String abPath(String rePathString, String basePathString){
+        return Path.of(basePathString).resolve(rePathString).toString();
+    }
+
     public Path rePath(String abPath){
         return basePath.relativize(Path.of(abPath));
+    }
+
+    public static String rePathString(String abPath, String basePathString){
+        return Path.of(basePathString).relativize(Path.of(abPath)).toString();
     }
 
     public static Path scriptPath_to_basePath(String scriptPath){
@@ -114,5 +134,8 @@ public class PathManager {
         ScriptReader scriptReader = new ScriptReader("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版\\a_default\\script");
         PathManager pathManager = new PathManager("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版");
         scriptReader.readAll();
+        for(Map.Entry<String, TreeNode> name : DataManger.dataMap.entrySet()){
+            System.out.print(name.getKey()+"\n");
+        }
     }
 }

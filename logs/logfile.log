@@ -10740,3 +10740,169 @@
 警告: 没有注释终止符。行数：166012
 1月 15, 2024 10:50:40 下午 postfix.LogManager addWaring
 警告: 没有注释终止符。行数：493913
+1月 16, 2024 9:44:54 上午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 9:54:31 上午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 9:54:46 上午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 1:10:43 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 1:16:40 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 1:16:57 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 1:17:07 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 1:29:02 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 1:31:40 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 1:32:21 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 16, 2024 5:00:55 下午 postfix.LogManager addLog
+信息: 打开配置文件失败
+1月 16, 2024 5:01:01 下午 postfix.LogManager addLog
+信息: Cannot invoke "java.util.Properties.getProperty(String, String)" because "Constants.Constants_GUI.config" is null
+1月 16, 2024 5:02:59 下午 postfix.LogManager addLog
+信息: 打开配置文件失败
+1月 16, 2024 5:03:02 下午 postfix.LogManager addLog
+信息: Cannot invoke "java.util.Properties.getProperty(String, String)" because "Constants.Constants_GUI.config" is null
+1月 16, 2024 5:04:31 下午 postfix.LogManager addLog
+信息: 打开配置文件失败
+1月 16, 2024 5:04:34 下午 postfix.LogManager addLog
+信息: Cannot invoke "java.util.Properties.getProperty(String, String)" because "Constants.Constants_GUI.config" is null
+1月 16, 2024 5:04:53 下午 postfix.LogManager addLog
+信息: 打开配置文件失败
+1月 16, 2024 5:04:58 下午 postfix.LogManager addLog
+信息: null
+1月 16, 2024 5:06:39 下午 postfix.LogManager addLog
+信息: java.nio.file.NoSuchFileException: FileManager.PathManager@4f377f5d
+1月 16, 2024 5:07:43 下午 postfix.LogManager addLog
+信息: java.nio.file.NoSuchFileException: FileManager.PathManager@42217647
+1月 16, 2024 5:08:38 下午 postfix.LogManager addLog
+信息: null
+1月 16, 2024 5:42:39 下午 postfix.LogManager addLog
+信息: java.nio.file.AccessDeniedException: D:\$RECYCLE.BIN\S-1-5-21-1689774564-655745873-2581268054-1001
+1月 16, 2024 5:52:42 下午 postfix.LogManager addLog
+信息: java.nio.file.AccessDeniedException: D:\$RECYCLE.BIN\S-1-5-21-1689774564-655745873-2581268054-1001
+1月 16, 2024 5:54:12 下午 postfix.LogManager addLog
+信息: java.nio.file.AccessDeniedException: D:\$RECYCLE.BIN\S-1-5-21-1689774564-655745873-2581268054-1001
+1月 16, 2024 5:54:55 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 16, 2024 5:56:44 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 16, 2024 5:57:32 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 16, 2024 6:01:48 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 16, 2024 6:02:49 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 16, 2024 6:03:04 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 16, 2024 6:05:21 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 16, 2024 6:05:23 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 6:18:56 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 6:18:57 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 6:18:57 下午 postfix.LogManager addLog
+信息: Message sent: NEW_PROJECT_CREATED
+1月 17, 2024 6:29:36 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 6:29:38 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 6:29:38 下午 postfix.LogManager addLog
+信息: Message sent: NEW_PROJECT_CREATED
+1月 17, 2024 6:29:57 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 6:29:58 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 6:29:58 下午 postfix.LogManager addLog
+信息: Message sent: NEW_PROJECT_CREATED
+1月 17, 2024 6:32:47 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 6:32:49 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 6:32:49 下午 postfix.LogManager addLog
+信息: Message sent: NEW_PROJECT_CREATED
+1月 17, 2024 6:34:35 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 6:34:36 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 6:34:36 下午 postfix.LogManager addLog
+信息: Message sent: NEW_PROJECT_CREATED
+1月 17, 2024 6:37:00 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 6:37:02 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 6:37:02 下午 postfix.LogManager addLog
+信息: Message sent: NEW_PROJECT_CREATED
+1月 17, 2024 7:33:49 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 7:33:50 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 7:33:50 下午 postfix.LogManager addLog
+信息: Message sent: NEW_PROJECT_CREATED
+1月 17, 2024 7:49:03 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 7:49:06 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 7:49:06 下午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script
+1月 17, 2024 7:55:03 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 7:55:05 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 7:55:05 下午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script
+1月 17, 2024 7:55:40 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 7:55:42 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 7:55:42 下午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script
+1月 17, 2024 7:56:14 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 7:56:17 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 7:56:17 下午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script
+1月 17, 2024 8:20:53 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 8:20:55 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 8:20:55 下午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script
+1月 17, 2024 9:06:36 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 9:06:37 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 9:06:37 下午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script
+1月 17, 2024 9:14:44 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 9:14:46 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 9:14:46 下午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script
+1月 17, 2024 9:23:38 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 9:23:40 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 9:23:40 下午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script
+1月 17, 2024 9:24:04 下午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 17, 2024 9:24:05 下午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 17, 2024 9:24:05 下午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script
+1月 19, 2024 11:17:51 上午 postfix.LogManager addLog
+信息: Config saved to file.
+1月 19, 2024 11:17:53 上午 postfix.LogManager addWaring
+警告: 没有注释终止符。行数：493913
+1月 19, 2024 11:17:53 上午 postfix.LogManager addLog
+信息: Message sent: D:\新約迫真戦記―ほのぼの神話ver0.55 軽量版\a_default\script

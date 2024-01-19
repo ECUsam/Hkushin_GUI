@@ -1,514 +1,62 @@
 {
     "children": [
         {
-            "value": "roam_levelup_free",
+            "value": "form_horagai_pr2",
             "key": "className"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: clear, feature: [@aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: wait_time, feature: [0])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: clear, feature: [@bbb])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: wait_time2, feature: [4])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo2b, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: homing, feature: [on])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: damage, feature: [3])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo7b, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: func, feature: [missile])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: center, feature: [on])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo11b, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: image, feature: [circle])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: anime, feature: [9])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo11c, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: anime_interval, feature: [3])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: time, feature: [25])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo11d, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: a, feature: [250])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: w, feature: [128])\n",
+            "key": "Feature"
         },
         {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo14b, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo16, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo17, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo19, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo21, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo24, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo28, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo29, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo30, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo31, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo33, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo37, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [sp50, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo52, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo53, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [sp53b, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo55, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo56, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo57, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo61, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo62, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo63b, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo67, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo68a, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo68b, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spohzn, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo73, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo76, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo79, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo80, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spofight, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spokmn2, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spokmn3, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo82, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: setLevel, feature: [@bbb, 1])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addLevel, feature: [@bbb, 4])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: clear, feature: [@aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: clear, feature: [@bbb])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo3, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo20, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo23, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo26, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo36, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo38b, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo41, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo42, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "//storeUnitOfSpot(spo43,@aaa)",
-            "key": "TK_explain_line"
-        },
-        {
-            "value": "//addv(@bbb,@aaa)",
-            "key": "TK_explain_line"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo44, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo46, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo48, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo51, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo60, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo63c, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo64, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo77, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [spo78, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: storeUnitOfSpot, feature: [sposam5, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addv, feature: [@bbb, @aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: setLevel, feature: [@bbb, 1])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: addLevel, feature: [@bbb, 9])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: clear, feature: [@aaa])\n",
-            "key": "Command"
-        },
-        {
-            "value": "Token(type: TK_COMMAND, commandName: clear, feature: [@bbb])\n",
-            "key": "Command"
+            "value": "Token(type: Tk_feature, FeaName: h, feature: [128])\n",
+            "key": "Feature"
         }
     ],
-    "value": "event",
+    "value": "skill",
     "key": "classType"
 }

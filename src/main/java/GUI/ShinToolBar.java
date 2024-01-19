@@ -1,12 +1,19 @@
 package GUI;
 
+import Constants.Constants;
 import Constants.Constants_GUI;
+import FileManager.PathManager;
+import FileManager.ScriptReader;
+import postfix.DataManger;
+import postfix.LogManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.nio.file.Path;
 
-public class ShinToolBar extends JMenuBar {
+public class ShinToolBar extends JMenuBar implements INTERFACE{
 
     public JMenu fileButton;
     public JMenuItem newProject;
@@ -15,15 +22,15 @@ public class ShinToolBar extends JMenuBar {
     public JMenuItem saveProject;
     public JMenuItem exit;
     private final Font font;
+    public JFrame Father;
 
-    public ShinToolBar(){
+    public ShinToolBar(JFrame F){
         font = new Font("Microsoft YaHei", Font.BOLD, 12);
         initToolBar();
+        Father = F;
     }
 
     public void initToolBar(){
-
-
         fileButton = buttonMaker(Constants_GUI.get("file"));
         newProject = itemMaker(Constants_GUI.get("new_project"));
         readProject = itemMaker(Constants_GUI.get("read_project"), true);
@@ -39,13 +46,7 @@ public class ShinToolBar extends JMenuBar {
         exit.addActionListener(e -> {
             System.exit(0);
         });
-        readProject.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openFolderAndInit();
-            }
-        });
-
+        readProject.addActionListener(e -> openFolderAndInit());
 
         fileButton.add(newProject);
         fileButton.add(readProject);
@@ -56,18 +57,49 @@ public class ShinToolBar extends JMenuBar {
         this.add(fileButton);
     }
 
-    private static void openFolderAndInit(){
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int result = fileChooser.showOpenDialog(null);
+    private static void openFolderAndInit() {
+        new Thread(() -> {
+            try {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-        if(result == JFileChooser.APPROVE_OPTION){
-            // TODO:加载逻辑
-        }else {
-            JOptionPane.showMessageDialog(null, Constants_GUI.getDescription("load_error"));
-        }
+                String lastSelectedPath = getLastSelectedPath();
+                if (lastSelectedPath != null) {
+                    fileChooser.setCurrentDirectory(new File(lastSelectedPath));
+                }
 
+                int result = fileChooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+                    saveLastSelectedPath(filePath);
+
+                    if(!(PathManager.checkIsDataFolder(Path.of(filePath)) || Path.of(filePath).getFileName().toString().equals("script")))
+                        JOptionPane.showMessageDialog(null, Constants_GUI.getDescription("load_file_error"));
+
+                    DataManger.pathManager = new PathManager(filePath);
+                    ScriptReader reader = new ScriptReader(DataManger.pathManager);
+                    reader.readAll();
+
+                    INFORMATION information = INFORMATION.getInstance();
+                    information.sendMessage(new INFOMessage(INFORMATION_TYPE.NEW_PROJECT_CREATED, filePath));
+                }
+            }catch (Exception e) {
+                JOptionPane.showMessageDialog(null, Constants_GUI.getDescription("load_error"));
+                LogManager.addLog(e.getMessage());
+                e.printStackTrace();
+            }
+        }).start();
     }
+
+    private static void saveLastSelectedPath(String path) {
+        Constants_GUI.config.setProperty(Constants.LAST_SELECTED_PATH_KEY, path);
+        Constants_GUI.saveConfigToFile();
+    }
+    private static String getLastSelectedPath() {
+        return Constants_GUI.config.getProperty(Constants.LAST_SELECTED_PATH_KEY, null);
+    }
+
+
 
     private JMenuItem itemMaker(String name){
         var item = new JMenuItem(name);
@@ -103,5 +135,10 @@ public class ShinToolBar extends JMenuBar {
             }
         });
         return button;
+    }
+
+    @Override
+    public void update(INFORMATION_TYPE informationType, Object message) {
+
     }
 }

@@ -3,18 +3,25 @@ package Constants;
 import Token.TokenClass;
 import Token.TokenClass.*;
 
+import java.awt.*;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("unused")
 public class Constants {
     public static final int EOZ = -1;   //文件末尾
     public static final int POOL_SIZE = 10000;  //对象池大小 没用
+    public static final String LAST_SELECTED_PATH_KEY = "lastSelectedPath";
     public static final int GUI_height = 800;
     public static final int GUI_width = 800;
     public static final int TabWidth = 80;
     public static final int TabHeight = 40;
     public static final String FontName = "Microsoft YaHei";
+    public static Font font = new Font("Microsoft YaHei", Font.PLAIN, 12);
+    public static Font fontB = new Font("Microsoft YaHei", Font.BOLD, 12);
+
+    public static final HashMap<String, String> featureMap = new HashMap<>(){};
     public static final List<String> NodeKeyList = Arrays.asList(
             "Logic",
             "Block",
@@ -61,7 +68,7 @@ public class Constants {
             '=',
             //']',
             //'[',
-            //':',
+            ':',
             ' ',
             '\t',
             '\r',

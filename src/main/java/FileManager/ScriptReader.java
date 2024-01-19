@@ -25,13 +25,15 @@ public class ScriptReader {
         this.pathManager = pathManager;
         this.classParse = new ClassParse("null");
         this.classGetterFromFile = new ClassGetterFromFile(pathManager);
+        this.script_path = pathManager.basePathString;
     }
     public void readAll() {
         try {
-        Stream<Path> pathStream = Files.walk(Path.of(script_path));
-        pathStream.filter(Files::isRegularFile).filter(path -> path.toString().endsWith(".dat")).forEach(path -> {
-            System.out.print(pathManager.rePath(path.toString()));
-            System.out.print("\n");
+            // System.out.print(script_path);
+            Stream<Path> pathStream = Files.walk(Path.of(script_path));
+            pathStream.filter(Files::isRegularFile).filter(path -> path.toString().endsWith(".dat")).forEach(path -> {
+            // System.out.print(pathManager.rePath(path.toString()));
+            // System.out.print("\n");
             classGetterFromFile.File2Class(path.toString());
             classGetterFromFile.scriptClass.forEach((s, integer) -> {
                 classParse.updateSource(s, path.toString());

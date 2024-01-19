@@ -7,6 +7,7 @@ import Token.ClassType;
 import OPcode.*;
 import org.json.JSONObject;
 
+import java.nio.file.Path;
 import java.util.*;
 
 // TODO:用报错信息重写assert
@@ -93,26 +94,44 @@ public class ClassParse {
                 case TK_classname:
                     if(currentToken.string.equals("class"))classType = ClassType.valueOf("class_unit");
                     else classType = ClassType.valueOf(currentToken.string);
+                    var tempClassType = currentToken.string;
                     baseNode = new TreeNode("classType" ,classType.toString());
                     currentNode = baseNode;
                     next();
                     if(currentToken.tokenType == TokenClass.TK_NAME){
                         var classname = new TreeNode("className", currentToken.string);
+                        DataManger.dataMap.put(currentToken.string, baseNode);
                         List<String> data = new ArrayList<>();
-                        data.add(path);data.add(""+lexer.codeLine);data.add(null);
+                        data.add(path);
+                        data.add((String) baseNode.value);
+                        data.add(""+lexer.codeLine);
+                        data.add(null);
                         DataManger.putValue(currentToken.string, data);
-                        String tempParentName = currentToken.string;
+                        var tempParentName = currentToken.string;
                         baseNode.addChild(classname);
                         next();
                         if(currentToken.tokenType == TokenClass.TK_colon){
                             next();
                             assert currentToken.tokenType == TokenClass.TK_NAME;
-                            data.set(2, currentToken.string);
+                            data.set(3, currentToken.string);
                             if(DataManger.searchClass(currentToken.string))DataManger.classGetChildren(tempParentName, currentToken.string);
                             else DataManger.ThereIsOrphanFound(tempParentName, currentToken.string);
                             classname.getFather(currentToken.string);
                             next();
                         }
+                    }else if(currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE){
+                        List<String> data = new ArrayList<>();
+                        data.add(path);
+                        data.add("all");
+                        data.add(""+lexer.codeLine);
+                        data.add(null);
+                        if(DataManger.checkExist(tempClassType)){
+                            Path path1 = Path.of(path);
+                            baseNode = DataManger.dataMap.get(tempClassType);
+                            tempClassType += ( "_"+path1.getFileName() );
+                        }
+                        DataManger.putValue(tempClassType, data);
+                        DataManger.dataMap.put(tempClassType, baseNode);
                     }
                     assert currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
                     parseCurrentToken();
@@ -205,6 +224,14 @@ public class ClassParse {
                     break;
             }
         //}while (currentToken.tokenType != TokenClass.TK_EOF);
+    }
+    public static TreeNode craft2Nodes(TreeNode node1, TreeNode node2){
+        if(Objects.equals(node1.key, node2.key)&&Objects.equals(node1.value, node2.value)){
+            for(TreeNode node:node2.getChildren()){
+                node1.addChild(node);
+            }
+            return node1;
+        }else return node2;
     }
 
     //写的什么破玩意
@@ -383,6 +410,7 @@ public class ClassParse {
         return res.toString();
     }
 }
+// 超级费时 我也不知道为什么
 @SuppressWarnings("unused")
 class Tree2CodeTransformer{
     private int level;

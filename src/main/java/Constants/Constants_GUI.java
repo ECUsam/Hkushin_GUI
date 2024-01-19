@@ -1,15 +1,22 @@
 package Constants;
 
+import postfix.LogManager;
+
+import java.io.*;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class Constants_GUI {
     private static ResourceBundle messages;
     private static ResourceBundle messages_description;
+    private static final String CONFIG_FILE_PATH = "config.properties";
+    public static Properties config;
 
     static {
         // 在类加载时，默认设置为中文资源
         switch_language(Locale.forLanguageTag("zh"));
+        loadConfigFromFile();
     }
 
     public static void switch_language(Locale locale) {
@@ -30,6 +37,25 @@ public class Constants_GUI {
             return messages_description.getString(key);
         }catch (Exception e){
             return key;
+        }
+    }
+
+    public static void saveConfigToFile() {
+        try (OutputStream output = new FileOutputStream(CONFIG_FILE_PATH)) {
+            config.store(output, "Config File");
+            LogManager.addLog("Config saved to file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadConfigFromFile() {
+        try (InputStream input = new FileInputStream(CONFIG_FILE_PATH)) {
+            config = new Properties();
+            config.load(input);
+        } catch (IOException e) {
+            LogManager.addLog("打开配置文件失败");
+            config = new Properties();
         }
     }
 }
