@@ -4,27 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="unit编写中……">
-      <change afterPath="$PROJECT_DIR$/src/main/java/MainPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/test.java" afterDir="false" />
+    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="unit编写中……&#10;继续编写">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/logfile.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/logfile.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FileManager/ScriptReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager/ScriptReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/INFORMATION_TYPE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/INFORMATION_TYPE.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ShinToolBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ShinToolBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ShinGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ShinGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TableExample.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/Token.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenFeature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/language/zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language/zh.properties" afterDir="false" />
     </list>
@@ -277,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705634746456</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="unit编写中……&#10;继续编写">
+      <created>1705797385435</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1705797385435</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -315,7 +308,8 @@
     <MESSAGE value="我要重构classgetter了&#10;注释也是代码（" />
     <MESSAGE value="编译通过（" />
     <MESSAGE value="unit编写中……" />
-    <option name="LAST_COMMIT_MESSAGE" value="unit编写中……" />
+    <MESSAGE value="unit编写中……&#10;继续编写" />
+    <option name="LAST_COMMIT_MESSAGE" value="unit编写中……&#10;继续编写" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -339,6 +333,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.IllegalArgumentException" package="java.lang" />
           <option name="timeStamp" value="26" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="30" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

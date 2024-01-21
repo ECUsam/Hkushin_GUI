@@ -22,6 +22,20 @@ public class Constants {
     public static Font fontB = new Font("Microsoft YaHei", Font.BOLD, 12);
 
     public static final HashMap<String, String> featureMap = new HashMap<>(){};
+    public static final List<String> attrBase = Arrays.asList(
+            "poi",
+            "para",
+            "ill",
+            "sil",
+            "conf",
+            "stone",
+            "fear",
+            "suck",
+            "magsuck",
+            "drain",
+            "death",
+            "wall"
+    );
     public static final List<String> NodeKeyList = Arrays.asList(
             "Logic",
             "Block",

@@ -1,10 +1,11 @@
 package postfix;
 
+import Constants.Constants;
 import FileManager.PathManager;
 import GUI.Utils;
 import OPcode.TreeNode;
 import Token.TokenFeature;
-
+import Constants.Constants_GUI;
 import java.util.*;
 
 public class DataManger {
@@ -48,6 +49,10 @@ public class DataManger {
     // attribute格式 meta_name <name, level>
     public static HashMap<String, AbstractMap.SimpleEntry<String, String>> getAttrMap(){
         HashMap<String, AbstractMap.SimpleEntry<String, String>> AttrMap = new HashMap<>();
+        for(String s : Constants.attrBase){
+            var entry = new AbstractMap.SimpleEntry<>(Constants_GUI.get(s), "0");
+            AttrMap.put(s, entry);
+        }
         for(Map.Entry<String, List<String>> a : classHashMap.entrySet()){
             String tempName = a.getKey();
             if(tempName.startsWith("attribute")){
@@ -56,7 +61,7 @@ public class DataManger {
                     if(fea.value instanceof TokenFeature tokenFeature){
                         String feaName = tokenFeature.FeatureName;
                         String[] feaS = Utils.getOutOfSpace(tokenFeature.strings_feature[0]).split("\\*");
-                        System.out.print(feaS[0]+"\n"+feaS[1]+"\n");
+                        // System.out.print(feaS[0]+"\n"+feaS[1]+"\n");
                         var entry = new AbstractMap.SimpleEntry<>(feaS[0], feaS[1]);
                         AttrMap.put(feaName, entry);
                     }

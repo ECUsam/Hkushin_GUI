@@ -13,6 +13,8 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.text.NumberFormatter;
 import javax.swing.tree.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -37,6 +39,8 @@ public class UnitPanel extends JPanel implements INTERFACE{
     private JPanel contentPanel;
     private basicSetting basicSetting;
     private JSplitPane splitPane;
+
+
     // 包私有
     public UnitPanel(){
         super();
@@ -65,6 +69,7 @@ public class UnitPanel extends JPanel implements INTERFACE{
                     if(e.getClickCount() == 2){
                         String unitName = path.getLastPathComponent().toString();
                         OPcode.TreeNode treeNode = DataManger.dataMap.get(unitName);
+                        basicSetting.clearData(basicSetting);
                         basicSetting.update(treeNode);
                     }
                 }
@@ -201,6 +206,9 @@ class basicSetting extends JPanel {
     private NumberFormatter numberFormatter;
     private skillPanel skillArea;
     private AttrTable table;
+    private JButton fatherButton;
+    private Boolean checkFather;
+    private OPcode.TreeNode currentNode;
 
     public basicSetting() {
         NumberFormat integerFormat = NumberFormat.getIntegerInstance();
@@ -226,6 +234,24 @@ class basicSetting extends JPanel {
 
         gbc.gridwidth = 2;
         adder(headImage, 0, 1);
+
+        gbc.gridwidth = 1;
+        fatherButton = new JButton("本类");
+        checkFather = false;
+        fatherButton.addActionListener(e -> {
+            if(fatherButton.getText().equals("本类")){
+                fatherButton.setText("溯源");
+                checkFather = true;
+            }else if(fatherButton.getText().equals("溯源")){
+                fatherButton.setText("本类");
+                checkFather = false;
+            }
+            clearData(this);
+            update(currentNode);
+        });
+
+        adder(fatherButton, 1, 0);
+        gbc.gridy++;
 
         LabelAdder_string("name");
         LabelAdder_string("help");
@@ -410,7 +436,7 @@ class basicSetting extends JPanel {
 
     public void displayImage(File file) {
         ImageIcon imageIcon = new ImageIcon(file.getPath());
-        System.out.print(file.getPath());
+        // System.out.print(file.getPath());
         Image scaledImage = imageIcon.getImage().getScaledInstance(
                 100, // 指定宽度
                 100, // 指定高度
@@ -473,7 +499,9 @@ class basicSetting extends JPanel {
     }
 
     public void update(OPcode.TreeNode treeNode){
-        clearData(this);
+        if(treeNode==null)return;
+        // clearData(this);
+
         for(OPcode.TreeNode node : treeNode.getChildren()){
             if(Objects.equals(node.key, "className")){
                 JTextField a = (JTextField) shared.componentHashMap.get(node.key);
@@ -491,8 +519,9 @@ class basicSetting extends JPanel {
                     }
                     if(Objects.equals(value.FeatureName, "consti")){
                         for(String con : value.strings_feature){
-                            String[] cons = con.split("\\*");
-                            // TODO
+                            String[] cons = Utils.getOutOfSpace(con).split("\\*");
+                            var map = DataManger.getAttrMap();
+                            table.addNewData2Row(new Object[]{map.get(cons[0]).getKey(), Integer.parseInt( cons[1] ) });
                         }
                     }
                     var a = shared.componentHashMap.get(value.FeatureName);
@@ -643,15 +672,6 @@ class AttrTable extends JTable{
             }
         };
 
-//        first_dce = new DefaultCellEditor(new JComboBox<>()){
-//            @Override
-//            public boolean isCellEditable(EventObject event) {
-//                if (event instanceof MouseEvent) {
-//                    return ((MouseEvent)event).getClickCount() == 2;
-//                }
-//                return true;
-//            }
-//        };
         first_dce = new DialogCellEditor();
 
         this.getColumnModel().getColumn(0).setCellEditor(first_dce);
