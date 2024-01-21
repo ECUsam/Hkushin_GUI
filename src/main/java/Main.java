@@ -12,7 +12,7 @@ public class Main {
         PathManager pathManager = new PathManager("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版", "x-SJIS_0213");
         ClassGetterFromFile a = new ClassGetterFromFile(pathManager);
         //Ai戦闘制御_追加部分.dat
-        a.File2Class("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版\\a_default\\Ai戦闘制御_軍楽隊入り版.dat");
+        a.File2Class("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版\\a_default\\script\\attribute.dat");
         // 迭代器选择
         Iterator<Map.Entry<String, Integer>> iterator = a.scriptClass.entrySet().iterator();
         ClassParse c = new ClassParse("null", "");

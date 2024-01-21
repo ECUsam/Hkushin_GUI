@@ -1,6 +1,7 @@
 package Token;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class TokenFeature extends Token {
 
@@ -20,6 +21,13 @@ public class TokenFeature extends Token {
         FeatureName = word;
         strings_feature = strings;
         this.__tokenType = __TokenType.TK_STRINGS;
+        if(strings.length==1){
+            this.string = strings[0];
+        }
+    }
+
+    public Object getValue(){
+        return strings_feature;
     }
 
     public TokenFeature(String word) {
@@ -28,17 +36,17 @@ public class TokenFeature extends Token {
     }
 
     public String toCode(){
-        String string = "";
+        StringBuilder string = new StringBuilder();
         boolean first = true;
-        if(strings_feature.length==0)string="@";
+        if(strings_feature.length==0) string = new StringBuilder("@");
         else {
             for (String fea : strings_feature){
                 if(first){
-                    string+=fea;
+                    string.append(fea);
                     first = false;
                 }
                 else {
-                    string+=","+fea;
+                    string.append(",").append(fea);
                 }
             }
         }

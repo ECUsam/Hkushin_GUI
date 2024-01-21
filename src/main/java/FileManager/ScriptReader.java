@@ -25,7 +25,7 @@ public class ScriptReader {
         this.pathManager = pathManager;
         this.classParse = new ClassParse("null");
         this.classGetterFromFile = new ClassGetterFromFile(pathManager);
-        this.script_path = pathManager.basePathString;
+        this.script_path = pathManager.get_to_scriptPath().toString();
     }
     public void readAll() {
         try {

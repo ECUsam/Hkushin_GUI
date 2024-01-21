@@ -1,12 +1,11 @@
 package postfix;
 
 import FileManager.PathManager;
+import GUI.Utils;
 import OPcode.TreeNode;
+import Token.TokenFeature;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class DataManger {
     // name - path      0
@@ -18,18 +17,53 @@ public class DataManger {
     // String[] - parent child
     // 名字 节点
     public static HashMap<String, TreeNode> dataMap;
+
+    public static HashMap<String, TreeNode> raceMap;
     public static List<String[]> orphanList;
     public static PathManager pathManager;
+
     static {
         classHashMap = new HashMap<>();
         orphanList = new ArrayList<>();
         dataMap = new HashMap<>();
+        raceMap = new HashMap<>();
     }
 
     public static void update(){
         classHashMap = new HashMap<>();
         orphanList = new ArrayList<>();
         dataMap = new HashMap<>();
+        raceMap = new HashMap<>();
+    }
+
+    public static HashMap<String, TreeNode> getRaceMap(){
+        for(Map.Entry<String, List<String>> a : classHashMap.entrySet()){
+            if(Objects.equals(a.getValue().get(1), "race")){
+                raceMap.put(a.getKey(), dataMap.get(a.getKey()));
+            }
+        }
+        return raceMap;
+    }
+
+    // attribute格式 meta_name <name, level>
+    public static HashMap<String, AbstractMap.SimpleEntry<String, String>> getAttrMap(){
+        HashMap<String, AbstractMap.SimpleEntry<String, String>> AttrMap = new HashMap<>();
+        for(Map.Entry<String, List<String>> a : classHashMap.entrySet()){
+            String tempName = a.getKey();
+            if(tempName.startsWith("attribute")){
+                TreeNode node = dataMap.get(tempName);
+                for(TreeNode fea : node.getChildren()){
+                    if(fea.value instanceof TokenFeature tokenFeature){
+                        String feaName = tokenFeature.FeatureName;
+                        String[] feaS = Utils.getOutOfSpace(tokenFeature.strings_feature[0]).split("\\*");
+                        System.out.print(feaS[0]+"\n"+feaS[1]+"\n");
+                        var entry = new AbstractMap.SimpleEntry<>(feaS[0], feaS[1]);
+                        AttrMap.put(feaName, entry);
+                    }
+                }
+            }
+        }
+        return AttrMap;
     }
 
     public static void putValue(String name, List<String> data){

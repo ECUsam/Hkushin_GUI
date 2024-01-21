@@ -490,6 +490,9 @@ class Tree2CodeTransformer{
             }
             res.append("\n{");
         }
+        if(Objects.equals(node.key, "classType") && !node.checkHasClassName()){
+            res.append("\n{\n");
+        }
         if(node.hasChild()){
             level +=1;
             for(TreeNode child : node.getChildren()){

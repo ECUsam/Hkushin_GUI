@@ -19,15 +19,13 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class PathManager {
-    public final String basePathString;
-    public final String encoding;
-    private final Path basePath;
+    public String basePathString;
+    public String encoding;
+    private Path basePath;
     private static PathManager instance;
 
     public PathManager(String basePath) {
-        this.basePathString = basePath;
-        this.basePath = Paths.get(basePath);
-        encoding = "x-SJIS_0213";
+        init(basePath, "x-SJIS_0213");
         instance = this;
     }
 
@@ -36,8 +34,20 @@ public class PathManager {
     }
 
     public PathManager(String basePath, String encoding) {
-        this.basePathString = basePath;
-        this.basePath = Paths.get(basePath);
+        init(basePath, encoding);
+        instance = this;
+    }
+
+    private void init(String path, String encoding){
+        Path testPath = Path.of(path);
+        while(!checkIsBasicFolder(String.valueOf(testPath))){
+            testPath = testPath.getParent();
+            if(testPath == null){
+                throw new RuntimeException();
+            }
+        }
+        basePath = testPath;
+        basePathString = testPath.toString();
         this.encoding = encoding;
     }
 
@@ -57,6 +67,11 @@ public class PathManager {
         return basePath.relativize(Path.of(abPath));
     }
 
+    public Path getDataNamePath(String name){
+        Path path = findDataFolder(basePathString);
+        assert path != null;
+        return path.resolve(name);
+    }
     public static String rePathString(String abPath, String basePathString){
         return Path.of(basePathString).relativize(Path.of(abPath)).toString();
     }
@@ -88,10 +103,19 @@ public class PathManager {
         return null;
     }
 
+    public static boolean checkIsBasicFolder(String pathString){
+        List<Path> paths = getPaths(pathString);
+        assert paths != null;
+        for(Path path : paths){
+            if(checkIsDataFolder(path))return true;
+        }
+        return false;
+    }
+
     public static boolean checkIsDataFolder(Path path){
         AtomicInteger count = new AtomicInteger();
         List<Path> paths = getPaths(path.toString());
-        assert paths != null;
+        if(paths==null)return false;
         paths.forEach(path1 -> {
             path1 = path1.getFileName();
             if(path1.toString().equals("script")||path1.toString().equals("image")||path1.toString().equals("picture")||path1.toString().equals("chip")) count.addAndGet(1);

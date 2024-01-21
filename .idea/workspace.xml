@@ -4,32 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="编译通过（">
-      <change afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/ClassTree.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/INFOMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/INFORMATION.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/INFORMATION_TYPE.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/INTERFACE.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/ShadowBorder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/Utils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/TableExample.java" afterDir="false" />
+    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="unit编写中……">
+      <change afterPath="$PROJECT_DIR$/src/main/java/MainPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/logfile.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/logfile.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Constants/Constants_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Constants/Constants_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FileChooserExample.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/FileManager/ScriptReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager/ScriptReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ShinGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ShinGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/INFORMATION_TYPE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/INFORMATION_TYPE.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ShinToolBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ShinToolBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/OPcode/TreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TableExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenFeature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenFeature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/language/zh_description.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language/zh_description.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/language/zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language/zh.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,38 +54,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "D:/AJavadesu/Hkushin_GUI/src/main/resources",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/AJavadesu/Hkushin_GUI/src/main/resources&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\AJavadesu\Hkushin_GUI\src\main\resources" />
     </key>
   </component>
   <component name="RunManager" selected="应用程序.ShinGUI">
-    <configuration name="BeautifulListExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="BeautifulListExample" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Hkushin_GUI" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ResistanceTableModel (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ResistanceTableModel" />
-      <module name="Hkushin_GUI" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ResistanceTableModel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ResistanceTableModel" />
+    <configuration name="MainPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainPanel" />
       <module name="Hkushin_GUI" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -114,13 +104,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test" />
+      <module name="Hkushin_GUI" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.ShinGUI" />
+        <item itemvalue="应用程序.test" />
+        <item itemvalue="应用程序.Main" />
+        <item itemvalue="应用程序.MainPanel" />
         <item itemvalue="应用程序.TableExample" />
-        <item itemvalue="应用程序.ResistanceTableModel" />
-        <item itemvalue="应用程序.ResistanceTableModel (1)" />
-        <item itemvalue="应用程序.BeautifulListExample" />
       </list>
     </recent_temporary>
   </component>
@@ -273,7 +270,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705368200025</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="unit编写中……">
+      <created>1705634746456</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1705634746456</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -310,7 +314,8 @@
     <MESSAGE value="修改了语法分析树不正确的部分bug（笑" />
     <MESSAGE value="我要重构classgetter了&#10;注释也是代码（" />
     <MESSAGE value="编译通过（" />
-    <option name="LAST_COMMIT_MESSAGE" value="编译通过（" />
+    <MESSAGE value="unit编写中……" />
+    <option name="LAST_COMMIT_MESSAGE" value="unit编写中……" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

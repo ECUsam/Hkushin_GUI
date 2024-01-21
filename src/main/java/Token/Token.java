@@ -1,5 +1,7 @@
 package Token;
 
+import java.util.Objects;
+
 public class Token {
     public TokenClass tokenType;
     protected int value;
@@ -18,6 +20,10 @@ public class Token {
         this.tokenType = tokenType;
         this.string = s;
         this.__tokenType = __TokenType.TK_STRING;
+    }
+
+    public Object getValue(){
+        return string;
     }
 
     public String toCode(){

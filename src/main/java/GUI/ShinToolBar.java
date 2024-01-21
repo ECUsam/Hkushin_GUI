@@ -47,6 +47,8 @@ public class ShinToolBar extends JMenuBar implements INTERFACE{
             System.exit(0);
         });
         readProject.addActionListener(e -> openFolderAndInit());
+        closeProject.setEnabled(false);
+        closeProject.addActionListener(e -> clearData());
 
         fileButton.add(newProject);
         fileButton.add(readProject);
@@ -57,7 +59,7 @@ public class ShinToolBar extends JMenuBar implements INTERFACE{
         this.add(fileButton);
     }
 
-    private static void openFolderAndInit() {
+    private void openFolderAndInit() {
         new Thread(() -> {
             try {
                 JFileChooser fileChooser = new JFileChooser();
@@ -82,6 +84,8 @@ public class ShinToolBar extends JMenuBar implements INTERFACE{
 
                     INFORMATION information = INFORMATION.getInstance();
                     information.sendMessage(new INFOMessage(INFORMATION_TYPE.NEW_PROJECT_CREATED, filePath));
+                    closeProject.setForeground(Color.BLACK);
+                    closeProject.setEnabled(true);
                 }
             }catch (Exception e) {
                 JOptionPane.showMessageDialog(null, Constants_GUI.getDescription("load_error"));
@@ -89,6 +93,12 @@ public class ShinToolBar extends JMenuBar implements INTERFACE{
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    public void clearData(){
+        INFORMATION information = INFORMATION.getInstance();
+        information.sendMessage(new INFOMessage(INFORMATION_TYPE.CLEAR_DATA, null));
+        closeProject.setForeground(Color.gray);
     }
 
     private static void saveLastSelectedPath(String path) {

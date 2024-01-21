@@ -11,6 +11,12 @@ public class TokenCommand extends Token{
         this.features = strings;
         this.__tokenType = __TokenType.TK_STRINGS;
     }
+
+    @Override
+    public Object getValue() {
+        return features;
+    }
+
     public String[] getFeatures(){return features;}
     private String getCommandName(){return commandName;}
 

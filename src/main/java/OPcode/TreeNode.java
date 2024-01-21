@@ -2,6 +2,7 @@ package OPcode;
 
 import Constants.Constants;
 import Token.Token;
+import Token.TokenFeature;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,25 @@ public class TreeNode {
         return father;
     }
 
+    public boolean checkHasClassName(){
+        if(!Objects.equals(key, "classType"))return false;
+        for(TreeNode c : children){
+            if(Objects.equals(c.key, "className"))return true;
+        }
+        return false;
+    }
+
+    public String getName(){
+        if(!Objects.equals(key, "classType"))return null;
+        if(children==null)return null;
+        for(TreeNode node : children){
+            if(Objects.equals(node.key, "Feature")){
+                TokenFeature tokenFeature = (TokenFeature)node.value;
+                if(Objects.equals(tokenFeature.FeatureName, "name"))return tokenFeature.string;
+            }
+        }
+        return null;
+    }
 
     public void addChild(TreeNode childNode) {
         children.add(childNode);

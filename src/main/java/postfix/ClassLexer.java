@@ -106,7 +106,7 @@ public class ClassLexer {
                             return NomToken(TokenClass.TK_multi_assign, "*=");
                         }else return NomToken(TokenClass.TK_asterisk);
                     case '/':
-                        if(checkNextChar('/')){
+                        if(checkNextChar('/') || checkNextChar('+')){
                             StringBuilder explain = new StringBuilder();
                             do{
                                 explain.append(currentChar);
