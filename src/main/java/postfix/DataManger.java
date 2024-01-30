@@ -98,7 +98,6 @@ public class DataManger {
         }
     }
 
-
     public static void classGetChildren(String cl, String ch){
         classHashMap.get(cl).add(ch);
     }

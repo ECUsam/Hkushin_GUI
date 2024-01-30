@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="unit编写中……&#10;继续编写">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/logfile.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/logfile.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Constants/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ShinGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ShinGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/UnitPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/language/zh.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language/zh.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705797385435</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="unit编写中……&#10;继续编写">
+      <created>1705851341645</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1705851341645</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="UnknownFeatures">
