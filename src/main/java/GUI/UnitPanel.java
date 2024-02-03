@@ -19,6 +19,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.text.NumberFormat;
 import java.util.*;
@@ -58,7 +59,7 @@ public class UnitPanel extends JPanel implements INTERFACE{
 
         // 使用JSplitPane分隔左右两边的组件
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createTreePanel(), contentPanel);
-        splitPane.setDividerLocation(200); // 设置初始分隔条位置
+        splitPane.setDividerLocation(200);
         this.add(splitPane, BorderLayout.CENTER);
 
         tree.addMouseListener(new MouseAdapter() {
@@ -66,21 +67,46 @@ public class UnitPanel extends JPanel implements INTERFACE{
             public void mouseClicked(MouseEvent e){
                 TreePath path = tree.getPathForLocation(e.getX(), e.getY());
                 if(path!=null){
+                    tree.setSelectionPath(path);
                     if(e.getClickCount() == 2){
                         String unitName = path.getLastPathComponent().toString();
                         OPcode.TreeNode treeNode = DataManger.dataMap.get(unitName);
                         basicSetting.clearData(basicSetting);
                         basicSetting.update(treeNode);
                     }
+
+                    if (SwingUtilities.isRightMouseButton(e)) {
+                        if (e.getClickCount() == 1) {
+                            showPopupMenuTree(e.getX(),e.getY(), path);
+                        }
+                    }
                 }
             }
         });
+    }
+
+    private void showPopupMenuTree(int x, int y, TreePath path) {
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem menuItem1 = new JMenuItem(Constants_GUI.getDescription("open_in_explorer"));
+        menuItem1.addActionListener(e -> {
+            PathManager pathManager = PathManager.getInstance();
+            var filePath = pathManager.getFullPathFromTree(path);
+            try {
+                boolean b = Utils.openFileManager(filePath);
+                if(!b)JOptionPane.showMessageDialog(null, "打开文件失败");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "打开文件失败");
+            }
+        });
+        popupMenu.add(menuItem1);
+        popupMenu.show(tree, x, y);
     }
 
     public void treeTableInit(){
         root = new DefaultMutableTreeNode("I am root");
         treeModel = new DefaultTreeModel(root);
         tree = new JTree(treeModel);
+
         tree.setRowHeight(25); // 设置行高
         Font font = new Font("Microsoft YaHei", Font.PLAIN, 12);
         tree.setFont(font);
@@ -404,7 +430,7 @@ class basicSetting extends JPanel {
         gbc.gridwidth = 1;
         JLabel label = new JLabel(name);
         var label_ = new JFormattedTextField(numberFormatter);
-        label_.setColumns(10);
+        label_.setColumns(20);
         label.setLabelFor(label_);
         shared.componentHashMap.put(meta_name, label_);
         gbc.gridy++;
@@ -419,7 +445,7 @@ class basicSetting extends JPanel {
         gbc.gridwidth = 1;
         JLabel label = new JLabel(name);
         var label_ = new JFormattedTextField();
-        label_.setColumns(10);
+        label_.setColumns(20);
         shared.componentHashMap.put(meta_name, label_);
         gbc.gridy++;
         gbc.gridx = 0;
@@ -499,6 +525,28 @@ class basicSetting extends JPanel {
     }
 
     public void update(OPcode.TreeNode treeNode){
+        currentNode = treeNode;
+        if(checkFather)updateFromFathers(treeNode);
+        else update_one_node(treeNode);
+    }
+
+    public void updateFromFathers(OPcode.TreeNode treeNode){
+        var t = treeNode;
+        Stack<OPcode.TreeNode> stackT = new Stack<>();
+        stackT.push(t);
+
+        while (DataManger.classHasFather(t)){
+            t = DataManger.classGetFather(t);
+            if(t==null)break;
+            stackT.push(t);
+        }
+        while (!stackT.isEmpty()){
+            System.out.print(t);
+            t = stackT.pop();
+            update_one_node(t);
+        }
+    }
+    private void update_one_node(OPcode.TreeNode treeNode){
         if(treeNode==null)return;
         // clearData(this);
 

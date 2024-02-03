@@ -2,7 +2,11 @@ package GUI;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class Utils {
     public static DefaultMutableTreeNode findNode(DefaultMutableTreeNode root, String target) {
@@ -36,5 +40,22 @@ public class Utils {
             }
         }
         return res;
+    }
+
+    public static boolean openFileManager(String filePath) throws IOException {
+        File file = new File(filePath);
+        if (file.exists()) {
+            Desktop desktop = Desktop.getDesktop();
+            if (desktop.isSupported(Desktop.Action.OPEN)) {
+                desktop.open(file);
+                return true;
+            } else {
+                System.out.println("不支持打开文件管理器的操作");
+                return false;
+            }
+        } else {
+            System.out.println("指定路径不存在");
+            return false;
+        }
     }
 }

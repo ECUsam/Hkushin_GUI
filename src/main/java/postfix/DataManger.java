@@ -30,6 +30,19 @@ public class DataManger {
         raceMap = new HashMap<>();
     }
 
+    public static boolean classHasFather(TreeNode node){
+        if(!Constants.class_type.contains(node.key))return false;
+        return (classHashMap.get((String) node.value).get(3) == null);
+    }
+
+    public static TreeNode classGetFather(TreeNode node){
+        if(classHasFather(node)){
+            String fatherName = classHashMap.get((String) node.value).get(3);
+            return dataMap.get(fatherName);
+        }
+        return null;
+    }
+
     public static void update(){
         classHashMap = new HashMap<>();
         orphanList = new ArrayList<>();
@@ -69,6 +82,10 @@ public class DataManger {
             }
         }
         return AttrMap;
+    }
+
+    public static String getNameFromClassTypeTreeNode(TreeNode treeNode){
+        return null;
     }
 
     public static void putValue(String name, List<String> data){

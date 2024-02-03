@@ -47,7 +47,7 @@ public class ShinGUI {
         frame.setTitle(Constants_GUI.get("app_title"));
         frame.setSize(Constants.GUI_width, Constants.GUI_height);
         frame.setLocationRelativeTo(null);
-        frame.setMinimumSize(new Dimension(1200, 600));
+        frame.setMinimumSize(new Dimension(1000, 600));
 
         TabbedPane = new TabbedPane();
         frame.add(TabbedPane, BorderLayout.CENTER);

@@ -5,7 +5,9 @@ import OPcode.TreeNode;
 import postfix.DataManger;
 import postfix.ParseException;
 
+import javax.swing.tree.TreePath;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -49,6 +51,18 @@ public class PathManager {
         basePath = testPath;
         basePathString = testPath.toString();
         this.encoding = encoding;
+    }
+
+    public String getFullPathFromTree(TreePath treePath){
+        Object[] pathArray = treePath.getPath();
+        StringBuilder filePathBuilder = new StringBuilder();
+        filePathBuilder.append(findDataFolder());
+        for (int i = 1; i < pathArray.length; i++) {
+            filePathBuilder.append(File.separator); // 使用文件分隔符
+            filePathBuilder.append(pathArray[i].toString());
+        }
+
+        return filePathBuilder.toString();
     }
 
     public String abPathString(String path) {
