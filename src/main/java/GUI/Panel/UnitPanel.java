@@ -71,7 +71,7 @@ public class UnitPanel extends JPanel implements INTERFACE {
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createTreePanel(), contentPanel);
         splitPane.setDividerLocation(250);
         this.add(splitPane, BorderLayout.CENTER);
-
+        // 添加点击事件，双击显示，右键菜单
         tree.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e){
@@ -99,7 +99,7 @@ public class UnitPanel extends JPanel implements INTERFACE {
             }
         });
     }
-
+    // 菜单栏
     private void showPopupMenuTree(int x, int y, TreePath path) {
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem menuItem1 = new JMenuItem(Constants_GUI.getDescription("open_in_explorer"));
@@ -116,7 +116,7 @@ public class UnitPanel extends JPanel implements INTERFACE {
         popupMenu.add(menuItem1);
         popupMenu.show(tree, x, y);
     }
-
+    // 单位树
     public void treeTableInit(){
         root = new DefaultMutableTreeNode(new NodeData("root", "script"));
         treeModel = new DefaultTreeModel(root);

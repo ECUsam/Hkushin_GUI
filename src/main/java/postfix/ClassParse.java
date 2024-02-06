@@ -162,13 +162,10 @@ public class ClassParse {
                     codeLevel -= 1;
                     tokenStack.pop();
                     break;
-                case TK_COMMAND:
-                    OPTreeNode C_node = new OPTreeNode("Command", currentToken);
+                    // 修改为了非硬编码，字符合集请查询ClassType
+                case TK_COMMAND, Tk_feature:
+                    OPTreeNode C_node = new OPTreeNode(currentToken.tokenType.toString(), currentToken);
                     currentNode.addChild(C_node);
-                    break;
-                case Tk_feature:
-                    OPTreeNode F_node = new OPTreeNode("Feature", currentToken);
-                    currentNode.addChild(F_node);
                     break;
                 case TK_IF: case TK_RIF:
                     OPTreeNode if_node = new OPTreeNode(currentToken.string, currentToken.string);
@@ -189,7 +186,7 @@ public class ClassParse {
 //                    currentNode = currentNode.parent.parent;
                     next();
                     if(currentToken.tokenType == TokenClass.TK_IF || currentToken.tokenType == TokenClass.TK_RIF){
-                        OPTreeNode else_if_node = new OPTreeNode("elseif", "elseif");
+                        OPTreeNode else_if_node = new OPTreeNode(currentToken.tokenType.toString(), "elseif");
                         currentNode.addChild(else_if_node);
                         currentNode = else_if_node;
                         next();
@@ -200,7 +197,7 @@ public class ClassParse {
                         advance();
                     }
                     else if(currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE){
-                        OPTreeNode else_node = new OPTreeNode("else", "else");
+                        OPTreeNode else_node = new OPTreeNode(currentToken.tokenType.toString(), "else");
                         currentNode.addChild(else_node);
                         currentNode = else_node;
                         parseBlock();

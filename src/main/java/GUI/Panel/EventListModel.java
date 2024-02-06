@@ -29,23 +29,26 @@ public class EventListModel extends DefaultListModel {
 
     public void addElement(EventCellData s){
         data.add(s);
+        super.addElement(s);
     }
 
     public void update(OPTreeNode node){
-        currentLevel = 0;
+        currentLevel = 1;
         if(Objects.equals(node.key, "classType")){
             for(OPTreeNode treeNode : node.getChildren()){
                 postfixNode(treeNode);
             }
         }
+        currentLevel = 1;
+        fireContentsChanged(this, 0, getSize() - 1);
     }
 
     public void postfixNode(OPTreeNode node){
-        this.addElement(new EventCellData());
+        currentLevel-=1;
         switch (node.key){
             case "className":
                 break;
-            case "Feature":
+            case "TK_Feature":
                 if(node.value instanceof TokenFeature feature){
                     var cellData = new EventCellData();
                     cellData.setLevel(currentLevel);
@@ -55,7 +58,7 @@ public class EventListModel extends DefaultListModel {
                     this.addElement(cellData);
                 }
                 break;
-            case "Command":
+            case "TK_COMMAND":
                 if(node.value instanceof TokenCommand command){
                     var cellData = new EventCellData();
                     cellData.setLevel(currentLevel);
@@ -70,6 +73,7 @@ public class EventListModel extends DefaultListModel {
                 cellData.setLevel(currentLevel);
                 cellData.setFunc((String) node.value);
                 cellData.setType(DataType.Command);
+                break;
             case "expr":
                 currentLevel+=1;
                 for(OPTreeNode exprC : node.getChildren()){

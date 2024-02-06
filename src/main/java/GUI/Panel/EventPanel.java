@@ -91,7 +91,9 @@ public class EventPanel extends JPanel implements INTERFACE {
 
     private void getContentPanelSetting(){
         ejList = new EventList<>();
-        contentPanel.add(ejList);
+        JScrollPane scrollPane = new JScrollPane(ejList);
+        contentPanel.setLayout(new BorderLayout()); // 设置contentPanel的布局管理器为BorderLayout
+        contentPanel.add(scrollPane, BorderLayout.CENTER); // 将ejList添加到contentPanel的中间位置
         ejList.model.addElement(new EventCellData());
     }
 
