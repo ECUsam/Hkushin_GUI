@@ -18,7 +18,7 @@ public class TokenCommand extends Token{
     }
 
     public String[] getFeatures(){return features;}
-    private String getCommandName(){return commandName;}
+    public String getCommandName(){return commandName;}
 
     public String toCode(){
         String string = "";

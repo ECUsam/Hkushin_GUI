@@ -3,7 +3,7 @@ package postfix;
 import Constants.Constants;
 import FileManager.PathManager;
 import GUI.Utils;
-import OPcode.TreeNode;
+import OPcode.OPTreeNode;
 import Token.TokenFeature;
 import Constants.Constants_GUI;
 import java.util.*;
@@ -17,9 +17,9 @@ public class DataManger {
     public static HashMap<String, List<String>> classHashMap;
     // String[] - parent child
     // 名字 节点
-    public static HashMap<String, TreeNode> dataMap;
+    public static HashMap<String, OPTreeNode> dataMap;
 
-    public static HashMap<String, TreeNode> raceMap;
+    public static HashMap<String, OPTreeNode> raceMap;
     public static List<String[]> orphanList;
     public static PathManager pathManager;
 
@@ -30,14 +30,17 @@ public class DataManger {
         raceMap = new HashMap<>();
     }
 
-    public static boolean classHasFather(TreeNode node){
-        if(!Constants.class_type.contains(node.key))return false;
-        return (classHashMap.get((String) node.value).get(3) == null);
+    public static boolean classHasFather(OPTreeNode node){
+        if(!Constants.class_type.contains((String) node.value))return false;
+        String className = getNameFromClassTypeTreeNode(node);
+        if(className == null)return false;
+        return !(classHashMap.get(className).get(3) == null);
     }
 
-    public static TreeNode classGetFather(TreeNode node){
+    public static OPTreeNode classGetFather(OPTreeNode node){
         if(classHasFather(node)){
-            String fatherName = classHashMap.get((String) node.value).get(3);
+            String className = getNameFromClassTypeTreeNode(node);
+            String fatherName = classHashMap.get(className).get(3);
             return dataMap.get(fatherName);
         }
         return null;
@@ -50,13 +53,26 @@ public class DataManger {
         raceMap = new HashMap<>();
     }
 
-    public static HashMap<String, TreeNode> getRaceMap(){
+    public static HashMap<String, OPTreeNode> getRaceMap(){
         for(Map.Entry<String, List<String>> a : classHashMap.entrySet()){
             if(Objects.equals(a.getValue().get(1), "race")){
                 raceMap.put(a.getKey(), dataMap.get(a.getKey()));
             }
         }
         return raceMap;
+    }
+
+    public static String searchFeatureFromClass_one(OPTreeNode classNode, String feaName){
+        if(!Objects.equals(classNode.key, "classType"))return null;
+        for(OPTreeNode treeNode : classNode.getChildren()){
+            var feature = treeNode.value;
+            if(feature instanceof TokenFeature tokenFeature){
+                if(Objects.equals(tokenFeature.FeatureName, feaName)){
+                    return tokenFeature.string;
+                }
+            }
+        }
+        return null;
     }
 
     // attribute格式 meta_name <name, level>
@@ -69,8 +85,8 @@ public class DataManger {
         for(Map.Entry<String, List<String>> a : classHashMap.entrySet()){
             String tempName = a.getKey();
             if(tempName.startsWith("attribute")){
-                TreeNode node = dataMap.get(tempName);
-                for(TreeNode fea : node.getChildren()){
+                OPTreeNode node = dataMap.get(tempName);
+                for(OPTreeNode fea : node.getChildren()){
                     if(fea.value instanceof TokenFeature tokenFeature){
                         String feaName = tokenFeature.FeatureName;
                         String[] feaS = Utils.getOutOfSpace(tokenFeature.strings_feature[0]).split("\\*");
@@ -84,7 +100,13 @@ public class DataManger {
         return AttrMap;
     }
 
-    public static String getNameFromClassTypeTreeNode(TreeNode treeNode){
+    public static String getNameFromClassTypeTreeNode(OPTreeNode OPTreeNode){
+        if(!Objects.equals(OPTreeNode.key, "classType"))return null;
+        for (OPTreeNode treeNode : OPTreeNode.getChildren()){
+            if(Objects.equals(treeNode.key, "className")){
+                return (String) treeNode.value;
+            }
+        }
         return null;
     }
 

@@ -20,8 +20,8 @@ public class ClassParse {
     private String source;
     public Pcode currentOPcode;
     private ClassType classType;
-    public TreeNode baseNode;
-    private TreeNode currentNode;
+    public OPTreeNode baseNode;
+    private OPTreeNode currentNode;
     private Stack<Token> tokenStack = new Stack<>();
     private int codeLevel;
     public String path;
@@ -95,11 +95,11 @@ public class ClassParse {
                     if(currentToken.string.equals("class"))classType = ClassType.valueOf("class_unit");
                     else classType = ClassType.valueOf(currentToken.string);
                     var tempClassType = currentToken.string;
-                    baseNode = new TreeNode("classType" ,classType.toString());
+                    baseNode = new OPTreeNode("classType" ,classType.toString());
                     currentNode = baseNode;
                     next();
                     if(currentToken.tokenType == TokenClass.TK_NAME){
-                        var classname = new TreeNode("className", currentToken.string);
+                        var classname = new OPTreeNode("className", currentToken.string);
                         DataManger.dataMap.put(currentToken.string, baseNode);
                         List<String> data = new ArrayList<>();
                         data.add(path);
@@ -114,7 +114,7 @@ public class ClassParse {
                             next();
                             assert currentToken.tokenType == TokenClass.TK_NAME;
                             data.set(3, currentToken.string);
-                            if(DataManger.searchClass(currentToken.string))DataManger.classGetChildren(tempParentName, currentToken.string);
+                            if(DataManger.searchClass(currentToken.string))DataManger.classGetChildren(currentToken.string, tempParentName);
                             else DataManger.ThereIsOrphanFound(tempParentName, currentToken.string);
                             classname.getFather(currentToken.string);
                             next();
@@ -163,15 +163,15 @@ public class ClassParse {
                     tokenStack.pop();
                     break;
                 case TK_COMMAND:
-                    TreeNode C_node = new TreeNode("Command", currentToken);
+                    OPTreeNode C_node = new OPTreeNode("Command", currentToken);
                     currentNode.addChild(C_node);
                     break;
                 case Tk_feature:
-                    TreeNode F_node = new TreeNode("Feature", currentToken);
+                    OPTreeNode F_node = new OPTreeNode("Feature", currentToken);
                     currentNode.addChild(F_node);
                     break;
                 case TK_IF: case TK_RIF:
-                    TreeNode if_node = new TreeNode(currentToken.string, currentToken.string);
+                    OPTreeNode if_node = new OPTreeNode(currentToken.string, currentToken.string);
                     currentNode.addChild(if_node);
                     currentNode = if_node;
                     next();
@@ -189,7 +189,7 @@ public class ClassParse {
 //                    currentNode = currentNode.parent.parent;
                     next();
                     if(currentToken.tokenType == TokenClass.TK_IF || currentToken.tokenType == TokenClass.TK_RIF){
-                        TreeNode else_if_node = new TreeNode("elseif", "elseif");
+                        OPTreeNode else_if_node = new OPTreeNode("elseif", "elseif");
                         currentNode.addChild(else_if_node);
                         currentNode = else_if_node;
                         next();
@@ -200,7 +200,7 @@ public class ClassParse {
                         advance();
                     }
                     else if(currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE){
-                        TreeNode else_node = new TreeNode("else", "else");
+                        OPTreeNode else_node = new OPTreeNode("else", "else");
                         currentNode.addChild(else_node);
                         currentNode = else_node;
                         parseBlock();
@@ -209,7 +209,7 @@ public class ClassParse {
                     }else throw new ParseException(lexer.codeLine, currentToken.toString());
                     break;
                 case TK_WHILE:
-                    TreeNode while_node = new TreeNode(currentToken.string, currentToken.string);
+                    OPTreeNode while_node = new OPTreeNode(currentToken.string, currentToken.string);
                     currentNode.addChild(while_node);
                     currentNode = while_node;
                     next();
@@ -220,14 +220,14 @@ public class ClassParse {
                     advance();
                     break;
                 case TK_explain_all:case TK_explain_line:
-                    currentNode.addChild(new TreeNode(currentToken.tokenType.toString(), currentToken.string));
+                    currentNode.addChild(new OPTreeNode(currentToken.tokenType.toString(), currentToken.string));
                     break;
             }
         //}while (currentToken.tokenType != TokenClass.TK_EOF);
     }
-    public static TreeNode craft2Nodes(TreeNode node1, TreeNode node2){
+    public static OPTreeNode craft2Nodes(OPTreeNode node1, OPTreeNode node2){
         if(Objects.equals(node1.key, node2.key)&&Objects.equals(node1.value, node2.value)){
-            for(TreeNode node:node2.getChildren()){
+            for(OPTreeNode node:node2.getChildren()){
                 node1.addChild(node);
             }
             return node1;
@@ -264,7 +264,7 @@ public class ClassParse {
         }
         var temp = currentNode.key;
 
-        var LogicNode = new TreeNode("Logic");
+        var LogicNode = new OPTreeNode("Logic");
         currentNode.addChild(LogicNode);
         currentNode = LogicNode;
 
@@ -278,7 +278,7 @@ public class ClassParse {
     private void parseLogicExprList(){
         do{
             if(checkCurrentTokenType(Constants.LogicSymbol)){
-                currentNode.addChild(new TreeNode("LogicSymbol", currentToken));
+                currentNode.addChild(new OPTreeNode("LogicSymbol", currentToken));
                 next();
             }
             parseExpr();
@@ -288,7 +288,7 @@ public class ClassParse {
     private void parseBlock(){
         int temp_level = tokenStack.toArray().length;
         var temp = currentNode.key;
-        var blockNode = new TreeNode("Block");
+        var blockNode = new OPTreeNode("Block");
         currentNode.addChild(blockNode);
         currentNode = blockNode;
         // 现在指向‘{’
@@ -303,7 +303,7 @@ public class ClassParse {
     // 解析的内容 a>b 之类的,现在指向a
     // 发电机死了，沉痛怀念
     private void parseExpr() {
-        TreeNode exprNode = new TreeNode("expr");
+        OPTreeNode exprNode = new OPTreeNode("expr");
         currentNode.addChild(exprNode);
         currentNode = exprNode;
         while (currentToken.tokenType != TokenClass.TK_close_par && !Constants.LogicSymbol.contains(currentToken.tokenType)) {
@@ -321,7 +321,7 @@ public class ClassParse {
             if(currentToken.tokenType == TokenClass.TK_at)
                 parseStringVar();
             if(currentToken.tokenType != TokenClass.TK_close_par)
-                currentNode.addChild(new TreeNode(currentToken.tokenType.toString(), currentToken));
+                currentNode.addChild(new OPTreeNode(currentToken.tokenType.toString(), currentToken));
             next();
         }
         currentNode = currentNode.parent;
@@ -388,7 +388,7 @@ public class ClassParse {
     // 深度优先
     public String toCode(){
         Tree2CodeTransformer transformer = new Tree2CodeTransformer();
-        TreeNode tmp = baseNode;
+        OPTreeNode tmp = baseNode;
         return transformer.Node2Code(tmp);
     }
 
@@ -402,9 +402,9 @@ public class ClassParse {
 //        return Node2Code(temp, res);
 //    }
 
-    public String Node2Code(TreeNode node, StringBuilder res){
+    public String Node2Code(OPTreeNode node, StringBuilder res){
         res.append(node.Tree2Code());
-        for(TreeNode child: node.getChildren()){
+        for(OPTreeNode child: node.getChildren()){
             Node2Code(child, res);
         }
         return res.toString();
@@ -469,7 +469,7 @@ class Tree2CodeTransformer{
         this.curlyNeeded = curlyNeeded;
     }
 
-    public String Node2Code(TreeNode node){
+    public String Node2Code(OPTreeNode node){
         if(!explainNeed&&(Objects.equals(node.key, "TK_explain_all")||Objects.equals(node.key, "TK_explain_line")))return "";
         if(Objects.equals(node.key, "Block")){
             for (int i = 0; i < level+1; i++) res.append("  ");
@@ -495,7 +495,7 @@ class Tree2CodeTransformer{
         }
         if(node.hasChild()){
             level +=1;
-            for(TreeNode child : node.getChildren()){
+            for(OPTreeNode child : node.getChildren()){
                 Node2Code(child);
             }
             level -= 1;

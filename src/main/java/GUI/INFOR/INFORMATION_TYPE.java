@@ -1,0 +1,8 @@
+package GUI.INFOR;
+
+public enum INFORMATION_TYPE {
+    NEW_PROJECT_CREATED,
+    CLEAR_DATA,
+    ORIGIN_SHOW,
+    NOT_ORIGIN_SHOW
+}

@@ -58,4 +58,34 @@ public class Utils {
             return false;
         }
     }
+
+    public static void sortTree(DefaultMutableTreeNode node) {
+        // 使用插入排序对子节点进行排序
+        int n = node.getChildCount();
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0; j--) {
+                DefaultMutableTreeNode child1 = (DefaultMutableTreeNode) node.getChildAt(j - 1);
+                DefaultMutableTreeNode child2 = (DefaultMutableTreeNode) node.getChildAt(j);
+                if (compareNodes(child1, child2) > 0) {
+                    node.insert(child2, j - 1);
+                    node.insert(child1, j);
+                }
+            }
+        }
+
+        // 递归对子节点进行排序
+        Enumeration<TreeNode> children = node.children();
+        while (children.hasMoreElements()) {
+            TreeNode child = children.nextElement();
+            if (child instanceof DefaultMutableTreeNode) {
+                sortTree((DefaultMutableTreeNode) child);
+            }
+        }
+    }
+
+    private static int compareNodes(DefaultMutableTreeNode node1, DefaultMutableTreeNode node2) {
+        String name1 = node1.toString();
+        String name2 = node2.toString();
+        return name1.compareToIgnoreCase(name2);
+    }
 }

@@ -2,6 +2,9 @@ package GUI;
 
 import Constants.Constants;
 import Constants.Constants_GUI;
+import GUI.Panel.EventPanel;
+import GUI.Panel.UnitPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,7 +16,7 @@ public class TabbedPane extends JTabbedPane {
         addTabPane(Constants_GUI.get("story"), new JPanel());
         addTabPane(Constants_GUI.get("class"), new JPanel());
         addTabPane(Constants_GUI.get("unit"), new UnitPanel());
-        addTabPane(Constants_GUI.get("event"), new JPanel());
+        addTabPane(Constants_GUI.get("event"), new EventPanel());
         addTabPane(Constants_GUI.get("power"), new JPanel());
     }
 

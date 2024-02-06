@@ -4,6 +4,13 @@ import Constants.Constants;
 import Constants.Constants_GUI;
 import FileManager.PathManager;
 import FileManager.ScriptReader;
+import GUI.INFOR.INFOMessage;
+import GUI.INFOR.INFORMATION;
+import GUI.INFOR.INFORMATION_TYPE;
+import GUI.INFOR.INTERFACE;
+import GUI.UI.CustomCheckMenuItem;
+import GUI.UI.CustomMenu;
+import GUI.UI.CustomMenuItem;
 import postfix.DataManger;
 import postfix.LogManager;
 
@@ -13,14 +20,23 @@ import java.awt.event.*;
 import java.io.File;
 import java.nio.file.Path;
 
-public class ShinToolBar extends JMenuBar implements INTERFACE{
+public class ShinToolBar extends JMenuBar implements INTERFACE {
 
-    public JMenu fileButton;
-    public JMenuItem newProject;
-    public JMenuItem readProject;
-    public JMenuItem closeProject;
-    public JMenuItem saveProject;
-    public JMenuItem exit;
+    public CustomMenu fileButton;
+    public CustomMenuItem newProject;
+    public CustomMenuItem readProject;
+    public CustomMenuItem closeProject;
+    public CustomMenuItem saveProject;
+    public CustomMenuItem exit;
+
+    public CustomMenu showWays;
+    public CustomCheckMenuItem showOfFiles;
+    public CustomCheckMenuItem showOfRaw;
+    public CustomCheckMenuItem showOfScenario;
+    public ButtonGroup showBoxGroup;
+
+    public CustomMenu showButton;
+    public CustomCheckMenuItem originNameShow;
     private final Font font;
     public JFrame Father;
 
@@ -38,8 +54,9 @@ public class ShinToolBar extends JMenuBar implements INTERFACE{
         saveProject = itemMaker(Constants_GUI.get("save_project"));
         exit = itemMaker(Constants_GUI.get("exit"));
 
-        fileButton.setMnemonic(KeyEvent.VK_F);
 
+
+        fileButton.setMnemonic(KeyEvent.VK_F);
         readProject.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
         saveProject.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
         exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK));
@@ -57,6 +74,38 @@ public class ShinToolBar extends JMenuBar implements INTERFACE{
         fileButton.addSeparator();
         fileButton.add(exit);
         this.add(fileButton);
+
+        showButton = buttonMaker(Constants_GUI.get("show_button"));
+        showButton.setMnemonic(KeyEvent.VK_S);
+
+        originNameShow = JCMaker(Constants_GUI.get("origin_show"));
+        originNameShow.setSelected(false);
+        originNameShow.addActionListener(e -> {
+            // 处理复选框状态变化的逻辑
+            boolean isSelected = originNameShow.isSelected();
+            INFORMATION information = INFORMATION.getInstance();
+            if(isSelected){
+                information.sendMessage(INFORMATION_TYPE.ORIGIN_SHOW);
+            }else {
+                information.sendMessage(INFORMATION_TYPE.NOT_ORIGIN_SHOW);
+            }
+        });
+        originNameShow.setHorizontalAlignment(SwingConstants.LEFT);
+        showButton.add(originNameShow);
+        showButton.addSeparator();
+
+
+        showWays = buttonMaker(Constants_GUI.get("show_ways"));
+        showWays.setForeground(Color.black);
+        showOfFiles = JCMaker(Constants_GUI.get("show_of_files"));
+        showBoxGroup = new ButtonGroup();
+        showBoxGroup.add(showOfFiles);
+        showOfFiles.setHorizontalAlignment(SwingConstants.LEFT);
+        showWays.setHorizontalAlignment(SwingConstants.LEFT);
+        showWays.add(showOfFiles);
+
+        showButton.add(showWays);
+        this.add(showButton);
     }
 
     private void openFolderAndInit() {
@@ -109,27 +158,33 @@ public class ShinToolBar extends JMenuBar implements INTERFACE{
         return Constants_GUI.config.getProperty(Constants.LAST_SELECTED_PATH_KEY, null);
     }
 
+    private CustomCheckMenuItem JCMaker(String name){
+        var item = new CustomCheckMenuItem(name);
+        item.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        item.setFont(font);
+        item.setForeground(Color.black);
+        return item;
+    }
 
-
-    private JMenuItem itemMaker(String name){
-        var item = new JMenuItem(name);
+    private CustomMenuItem itemMaker(String name){
+        var item = new CustomMenuItem(name);
         item.setFont(font);
         item.setForeground(Color.GRAY);
         return item;
     }
 
-    private JMenuItem itemMaker(String name, boolean BLACK){
-        var item = new JMenuItem(name);
+    private CustomMenuItem itemMaker(String name, boolean BLACK){
+        var item = new CustomMenuItem(name);
         item.setFont(font);
         if(BLACK)item.setForeground(Color.BLACK);
         else item.setForeground(Color.GRAY);
         return item;
     }
 
-    private JMenu buttonMaker(String name){
-        var button = new JMenu(name);
+    private CustomMenu buttonMaker(String name){
+        var button = new CustomMenu(name);
         button.setFont(font);
-        button.setForeground(Color.GRAY);
+        button.setForeground(Color.BLACK);
 
         button.addMouseListener(new MouseAdapter() {
             @Override

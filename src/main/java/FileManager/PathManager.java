@@ -1,9 +1,7 @@
 package FileManager;
 
-import GUI.INFORMATION;
-import OPcode.TreeNode;
+import OPcode.OPTreeNode;
 import postfix.DataManger;
-import postfix.ParseException;
 
 import javax.swing.tree.TreePath;
 import java.io.BufferedReader;
@@ -172,7 +170,7 @@ public class PathManager {
         ScriptReader scriptReader = new ScriptReader("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版\\a_default\\script");
         PathManager pathManager = new PathManager("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版");
         scriptReader.readAll();
-        for(Map.Entry<String, TreeNode> name : DataManger.dataMap.entrySet()){
+        for(Map.Entry<String, OPTreeNode> name : DataManger.dataMap.entrySet()){
             System.out.print(name.getKey()+"\n");
         }
     }
