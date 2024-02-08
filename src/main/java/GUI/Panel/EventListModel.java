@@ -5,31 +5,44 @@ import Token.TokenCommand;
 import Token.TokenFeature;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.Vector;
 
-public class EventListModel extends DefaultListModel {
-    private List<EventCellData> data;
+public class EventListModel extends DefaultListModel<EventCellData> {
+    private Vector<EventCellData> delegate;
     private int currentLevel;
 
     public EventListModel(){
-        data = new ArrayList<>();
+        delegate = new Vector<>();
     }
 
     @Override
     public int getSize() {
-        return data.size();
+        return delegate.size();
+    }
+
+    public void clearData(){
+        removeAllElements();
+        fireContentsChanged(this, 0, getSize() - 1);
+        currentLevel = 0;
+    }
+
+    public void removeAllElements() {
+        int index1 = delegate.size()-1;
+        delegate.removeAllElements();
+        if (index1 >= 0) {
+            fireIntervalRemoved(this, 0, index1);
+        }
     }
 
     @Override
     public EventCellData getElementAt(int index) {
-        return data.get(index);
+        return delegate.get(index);
     }
 
     public void addElement(EventCellData s){
-        data.add(s);
-        super.addElement(s);
+        delegate.add(s);
+        adjustListCellSize();
     }
 
     public void update(OPTreeNode node){
@@ -43,14 +56,21 @@ public class EventListModel extends DefaultListModel {
         fireContentsChanged(this, 0, getSize() - 1);
     }
 
+    private void adjustListCellSize() {
+        EventList list = new EventList();
+        list.setModel(this);
+        list.setFixedCellWidth(list.getWidth());
+        list.setPrototypeCellValue(list.getModel().getElementAt(0));
+    }
+
     public void postfixNode(OPTreeNode node){
-        currentLevel-=1;
+        var cellData = new EventCellData();
+        cellData.setTreeNode(node);
         switch (node.key){
             case "className":
                 break;
             case "TK_Feature":
                 if(node.value instanceof TokenFeature feature){
-                    var cellData = new EventCellData();
                     cellData.setLevel(currentLevel);
                     cellData.setFunc(feature.FeatureName);
                     cellData.setArgs(feature.strings_feature);
@@ -60,31 +80,40 @@ public class EventListModel extends DefaultListModel {
                 break;
             case "TK_COMMAND":
                 if(node.value instanceof TokenCommand command){
-                    var cellData = new EventCellData();
                     cellData.setLevel(currentLevel);
                     cellData.setFunc(command.getCommandName());
                     cellData.setArgs(command.getFeatures());
-                    cellData.setType(DataType.LogicSymbol);
+                    cellData.setType(DataType.Command);
                     this.addElement(cellData);
                 }
                 break;
             case "if": case "rif":
-                var cellData = new GUI.Panel.EventCellData();
                 cellData.setLevel(currentLevel);
                 cellData.setFunc((String) node.value);
-                cellData.setType(DataType.Command);
+                cellData.setType(DataType.LogicSymbol);
+                this.addElement(cellData);
+                for(OPTreeNode cNode : node.getChildren()){
+                    postfixNode(cNode);
+                }
                 break;
             case "expr":
+                parseExpr(node);
+             case "Logic": case "Block":
                 currentLevel+=1;
                 for(OPTreeNode exprC : node.getChildren()){
                     postfixNode(exprC);
                 }
+                currentLevel-=1;
                 break;
         }
-        for(OPTreeNode cNode : node.getChildren()){
-            postfixNode(cNode);
+    }
+    private void parseExpr(OPTreeNode node){
+        switch (node.key){
+            default :
+
         }
     }
+
 
 }
 

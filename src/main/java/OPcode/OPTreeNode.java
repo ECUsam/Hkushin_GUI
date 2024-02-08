@@ -49,7 +49,7 @@ public class OPTreeNode {
         if(!Objects.equals(key, "classType"))return null;
         if(children==null)return null;
         for(OPTreeNode node : children){
-            if(Objects.equals(node.key, "Feature")){
+            if(Objects.equals(node.key, "Tk_feature")){
                 TokenFeature tokenFeature = (TokenFeature)node.value;
                 if(Objects.equals(tokenFeature.FeatureName, "name"))return tokenFeature.string;
             }

@@ -22,7 +22,7 @@ public class Utils {
     public static String getOutOfSpace(String s){
         return s.replace("　", "").replace(" ", "").replace("\t", "");
     }
-    // 我在干嘛
+
     public static List<String> getSortedList(HashMap<String, AbstractMap.SimpleEntry<String, String>> map){
         List<Integer> n = new ArrayList<>();
         for(var entry : map.entrySet()){
@@ -86,6 +86,38 @@ public class Utils {
     private static int compareNodes(DefaultMutableTreeNode node1, DefaultMutableTreeNode node2) {
         String name1 = node1.toString();
         String name2 = node2.toString();
-        return name1.compareToIgnoreCase(name2);
+        var comparator = new WindowsFileManagerComparator();
+        return comparator.compare(name1, name2);
+    }
+
+    // Windows文件排序法
+    static class WindowsFileManagerComparator implements Comparator<String> {
+        @Override
+        public int compare(String fileName1, String fileName2) {
+            // 将文件名中的数字部分提取出来进行比较
+            String[] parts1 = fileName1.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
+            String[] parts2 = fileName2.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
+
+            int length = Math.min(parts1.length, parts2.length);
+            for (int i = 0; i < length; i++) {
+                // 如果两个部分都是数字，则按数字大小比较
+                if (Character.isDigit(parts1[i].charAt(0)) && Character.isDigit(parts2[i].charAt(0))) {
+                    int num1 = Integer.parseInt(parts1[i]);
+                    int num2 = Integer.parseInt(parts2[i]);
+                    if (num1 != num2) {
+                        return Integer.compare(num1, num2);
+                    }
+                } else {
+                    // 否则按字符串自然顺序比较
+                    int result = parts1[i].compareTo(parts2[i]);
+                    if (result != 0) {
+                        return result;
+                    }
+                }
+            }
+
+            return Integer.compare(fileName1.length(), fileName2.length());
+        }
     }
 }
+

@@ -26,7 +26,7 @@ public class EventPanel extends JPanel implements INTERFACE {
     private DefaultTreeModel treeModel;
     private JPanel contentPanel;
     private JSplitPane splitPane;
-    private EventList<EventCellData> ejList;
+    private EventList ejList;
 
     public EventPanel(){
         super();
@@ -59,6 +59,7 @@ public class EventPanel extends JPanel implements INTERFACE {
                             if (userObject instanceof NodeData nodeData) {
                                 String className = nodeData.getKey();
                                 OPTreeNode OPTreeNode = DataManger.dataMap.get(className);
+                                ejList.model.clearData();
                                 ejList.model.update(OPTreeNode);
                             }
                         }
@@ -90,11 +91,10 @@ public class EventPanel extends JPanel implements INTERFACE {
 
 
     private void getContentPanelSetting(){
-        ejList = new EventList<>();
+        ejList = new EventList();
         JScrollPane scrollPane = new JScrollPane(ejList);
         contentPanel.setLayout(new BorderLayout()); // 设置contentPanel的布局管理器为BorderLayout
         contentPanel.add(scrollPane, BorderLayout.CENTER); // 将ejList添加到contentPanel的中间位置
-        ejList.model.addElement(new EventCellData());
     }
 
     private JScrollPane createTreePanel() {

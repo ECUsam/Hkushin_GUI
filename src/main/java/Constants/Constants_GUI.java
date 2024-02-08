@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 public class Constants_GUI {
     private static ResourceBundle messages;
     private static ResourceBundle messages_description;
+    private static ResourceBundle messages_function;
     private static final String CONFIG_FILE_PATH = "config.properties";
     public static Properties config;
 
@@ -22,6 +23,7 @@ public class Constants_GUI {
     public static void switch_language(Locale locale) {
         messages = ResourceBundle.getBundle("language." + locale, locale);
         messages_description = ResourceBundle.getBundle("language."+ locale +"_description", locale);
+        messages_function = ResourceBundle.getBundle("language."+ locale +"_functions", locale);
     }
 
     public static String get(String key) {
@@ -39,6 +41,15 @@ public class Constants_GUI {
             return key;
         }
     }
+
+    public static String getFunction(String key){
+        try{
+            return messages_function.getString(key);
+        }catch (Exception e){
+            return key;
+        }
+    }
+
 
     public static void saveConfigToFile() {
         try (OutputStream output = new FileOutputStream(CONFIG_FILE_PATH)) {

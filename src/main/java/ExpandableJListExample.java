@@ -17,7 +17,7 @@ class CustomRendererExample {
             dataList.add(123);
             dataList.add(true);
 
-            EventList<EventCellData> customList = new EventList<>();
+            EventList customList = new EventList();
             customList.model.addElement(new EventCellData());
             customList.setCellRenderer(new CustomListCellRenderer());
 

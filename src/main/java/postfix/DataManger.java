@@ -75,6 +75,11 @@ public class DataManger {
         return null;
     }
 
+    public static String searchUnitNameFormFuncName(String funcName){
+        OPTreeNode node = dataMap.get(funcName);
+        return searchFeatureFromClass_one(node, "name");
+    }
+
     // attribute格式 meta_name <name, level>
     public static HashMap<String, AbstractMap.SimpleEntry<String, String>> getAttrMap(){
         HashMap<String, AbstractMap.SimpleEntry<String, String>> AttrMap = new HashMap<>();

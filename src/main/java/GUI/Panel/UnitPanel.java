@@ -637,7 +637,7 @@ class basicSetting extends JPanel {
                 JTextField a = (JTextField) shared.componentHashMap.get(node.key);
                 if(a!=null) a.setText((String) node.value);
             }
-            if(Objects.equals(node.key, "Feature")){
+            if(Objects.equals(node.key, "Tk_feature")){
                 if(node.value instanceof TokenFeature value){
                     // 脸
                     if(Objects.equals(value.FeatureName, "face")){

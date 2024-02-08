@@ -1,11 +1,18 @@
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import javax.swing.*;
 
 public class test {
     public static void main(String[] args) {
-        // 获取当前工作目录的相对路径
-        String currentRelativePath = "src/main/resources/image/biim.png";
-        boolean is = Path.of(currentRelativePath).toFile().exists();
-        System.out.println("Current relative path is: " + is);
+        JFrame frame = new JFrame("Test");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        String value = "要缩进的部分文本";
+
+        // 创建一个带有HTML格式的JLabel
+        JLabel label = new JLabel();
+        label.setText("<html><div style='margin-left: 30px;'>" + value + "</div></html>");
+
+        frame.getContentPane().add(label);
+        frame.pack();
+        frame.setVisible(true);
     }
 }

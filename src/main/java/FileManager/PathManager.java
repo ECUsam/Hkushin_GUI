@@ -84,6 +84,12 @@ public class PathManager {
         assert path != null;
         return path.resolve(name);
     }
+
+    public File getFaceFile(String faceName){
+        Path facePath = getDataNamePath("face").resolve(faceName);
+        return facePath.toFile();
+    }
+
     public static String rePathString(String abPath, String basePathString){
         return Path.of(basePathString).relativize(Path.of(abPath)).toString();
     }
