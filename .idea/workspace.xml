@@ -4,26 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="unit编写中……&#10;继续编写&#10;继续继续">
-      <change afterPath="$PROJECT_DIR$/src/main/java/CodeCounter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/GUI/UI/EventListCellRender.java" afterDir="false" />
+    <list default="true" id="ca14fa9a-fc67-48a3-bb0c-73a870b7fdd1" name="变更" comment="代码还原写完">
+      <change afterPath="$PROJECT_DIR$/logs/logfile.log.lck" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/logfile.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/logfile.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Constants/Constants_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Constants/Constants_GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ExpandableJListExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ExpandableJListExample.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/FileManager/PathManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventCellData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventCellData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventListCellRenderer.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventListModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventListModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Panel/UnitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Panel/UnitPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/OPTreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/OPcode/OPTreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/UI/EventListCellRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/UI/EventListCellRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/UIPreProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/UIPreProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/language/zh_functions.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language/zh_functions.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +29,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://C:/Program Files/Java/jdk-19/lib/src.zip!/java.base/java/lang/NullPointerException.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://C:/Program Files/Java/jdk-19/lib/src.zip!/java.base/java/lang/String.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -58,7 +52,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/AJavadesu/Hkushin_GUI/src/main/resources&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -385,11 +379,10 @@
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="30" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/GUI/Panel/UnitPanel.java</url>
-          <line>610</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="37" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

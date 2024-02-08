@@ -12,9 +12,12 @@ public class EventCellData{
     public DataType type;
     public String nodeKey;
     public OPTreeNode treeNode;
+    public boolean isSpacialType = false;
+    public String value;
 
     @Override
     public String toString(){
+        if(isSpacialType)return value;
         var res = new StringBuilder();
         res.append(" ".repeat(Math.max(0, level)));
         res.append(Constants_GUI.getFunction(func));

@@ -31,9 +31,12 @@ public class EventListCellRender extends DefaultListCellRenderer {
         //label.setPreferredSize(new Dimension(cellWidth, cellHeight));
         if(value instanceof EventCellData e){
             if(Objects.equals(e.func, "msg") && e.args.length==2){
+                // 没搜到 溯源，请
                 String name = DataManger.searchUnitNameFormFuncName(e.args[0]);
-                label.setText("<html>" + value.toString().replace(e.args[0], name).replace("$", "<br>") + "</html>");
-                return label;
+                if(name!=null){
+                    label.setText("<html>" + value.toString().replace(e.args[0], name).replace("$", "<br>") + "</html>");
+                    return label;
+                }
             }
         }
         label.setText("<html>" + value.toString().replace("$", "<br>") + "</html>");

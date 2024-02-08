@@ -1,6 +1,7 @@
 package GUI.Panel;
 
 import OPcode.OPTreeNode;
+import Token.Token;
 import Token.TokenCommand;
 import Token.TokenFeature;
 
@@ -108,13 +109,27 @@ public class EventListModel extends DefaultListModel<EventCellData> {
         }
     }
     private void parseExpr(OPTreeNode node){
-        switch (node.key){
-            default :
+        assert node.key == "expr";
+        var cellData = new EventCellData();
+        cellData.setTreeNode(node);
+        for(OPTreeNode cNode : node.getChildren()){
+            switch (cNode.key){
+                case "expr":
+                    parseExpr(cNode);
+                    break;
+                case "TK_COMMAND":
+                    if (cNode.value instanceof TokenCommand cToken) {
+                        cellData.value += cToken.toCode();
+                    }
 
+                default :
+                    if (cNode.value instanceof Token cToken) {
+                        cellData.value+= cToken.string;
+                    }
+            }
         }
+        this.addElement(cellData);
     }
-
-
 }
 
 enum DataType{

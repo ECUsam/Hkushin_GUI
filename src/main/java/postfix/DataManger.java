@@ -77,7 +77,13 @@ public class DataManger {
 
     public static String searchUnitNameFormFuncName(String funcName){
         OPTreeNode node = dataMap.get(funcName);
-        return searchFeatureFromClass_one(node, "name");
+        if (node==null)return null;
+        String name = searchFeatureFromClass_one(node, "name");
+        while (name==null&&node.hasFather()){
+            node = node.parent;
+            name = searchFeatureFromClass_one(node, "name");
+        }
+        return name;
     }
 
     // attribute格式 meta_name <name, level>
