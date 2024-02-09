@@ -2,6 +2,7 @@ package GUI.Panel;
 
 import OPcode.OPTreeNode;
 import Token.Token;
+import Token.TokenClass;
 import Token.TokenCommand;
 import Token.TokenFeature;
 
@@ -48,7 +49,7 @@ public class EventListModel extends DefaultListModel<EventCellData> {
 
     public void update(OPTreeNode node){
         currentLevel = 1;
-        if(Objects.equals(node.key, "classType")){
+        if(Objects.equals(node.key, TokenClass.TK_classType)){
             for(OPTreeNode treeNode : node.getChildren()){
                 postfixNode(treeNode);
             }
@@ -68,9 +69,9 @@ public class EventListModel extends DefaultListModel<EventCellData> {
         var cellData = new EventCellData();
         cellData.setTreeNode(node);
         switch (node.key){
-            case "className":
+            case TK_className:
                 break;
-            case "TK_Feature":
+            case Tk_feature:
                 if(node.value instanceof TokenFeature feature){
                     cellData.setLevel(currentLevel);
                     cellData.setFunc(feature.FeatureName);
@@ -79,7 +80,7 @@ public class EventListModel extends DefaultListModel<EventCellData> {
                     this.addElement(cellData);
                 }
                 break;
-            case "TK_COMMAND":
+            case TK_COMMAND:
                 if(node.value instanceof TokenCommand command){
                     cellData.setLevel(currentLevel);
                     cellData.setFunc(command.getCommandName());
@@ -88,7 +89,7 @@ public class EventListModel extends DefaultListModel<EventCellData> {
                     this.addElement(cellData);
                 }
                 break;
-            case "if": case "rif":
+            case TK_IF: case TK_RIF:
                 cellData.setLevel(currentLevel);
                 cellData.setFunc((String) node.value);
                 cellData.setType(DataType.LogicSymbol);
@@ -97,9 +98,9 @@ public class EventListModel extends DefaultListModel<EventCellData> {
                     postfixNode(cNode);
                 }
                 break;
-            case "expr":
+            case TK_expr:
                 parseExpr(node);
-             case "Logic": case "Block":
+            case TK_Block: case TK_Logic:
                 currentLevel+=1;
                 for(OPTreeNode exprC : node.getChildren()){
                     postfixNode(exprC);
@@ -109,15 +110,15 @@ public class EventListModel extends DefaultListModel<EventCellData> {
         }
     }
     private void parseExpr(OPTreeNode node){
-        assert node.key == "expr";
+        assert node.key == TokenClass.TK_expr;
         var cellData = new EventCellData();
         cellData.setTreeNode(node);
         for(OPTreeNode cNode : node.getChildren()){
             switch (cNode.key){
-                case "expr":
+                case TK_expr:
                     parseExpr(cNode);
                     break;
-                case "TK_COMMAND":
+                case TK_COMMAND:
                     if (cNode.value instanceof TokenCommand cToken) {
                         cellData.value += cToken.toCode();
                     }

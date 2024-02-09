@@ -199,7 +199,7 @@ public class ClassLexer {
                                     if(Constants.class_type.contains(word) && classType == null){
                                         classType = word;
                                         if(word.equals("detail"))isSourceDetail=true;
-                                        return StringToken(TokenClass.TK_classname, word);
+                                        return StringToken(TokenClass.TK_className, word);
                                     }
                                     CommandType commandType = checkWordType();
                                     if(commandType == CommandType.command){

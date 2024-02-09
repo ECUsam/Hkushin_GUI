@@ -3,9 +3,16 @@ package Token;
 @SuppressWarnings("unused")
 public
 enum TokenClass {
+    TK_fileNode,
+    TK_classNode,
+    // 逻辑类型
+    TK_Logic,
+    TK_Block,
+    TK_expr,
+    TK_classType,
+    TK_className,
     TK_COMMAND,
     TK_NAME,
-    TK_classname,
     TK_string,
     TK_comma,
     Tk_feature,

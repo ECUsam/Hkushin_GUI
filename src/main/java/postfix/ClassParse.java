@@ -91,15 +91,15 @@ public class ClassParse {
         //do{
             switch (currentToken.tokenType){
                 // TODO：统一节点的key值
-                case TK_classname:
+                case TK_className:
                     if(currentToken.string.equals("class"))classType = ClassType.valueOf("class_unit");
                     else classType = ClassType.valueOf(currentToken.string);
                     var tempClassType = currentToken.string;
-                    baseNode = new OPTreeNode("classType" ,classType.toString());
+                    baseNode = new OPTreeNode(TokenClass.TK_classType ,classType.toString());
                     currentNode = baseNode;
                     next();
                     if(currentToken.tokenType == TokenClass.TK_NAME){
-                        var classname = new OPTreeNode("className", currentToken.string);
+                        var classname = new OPTreeNode(TokenClass.TK_className, currentToken.string);
                         DataManger.dataMap.put(currentToken.string, baseNode);
                         List<String> data = new ArrayList<>();
                         data.add(path);
@@ -164,11 +164,11 @@ public class ClassParse {
                     break;
                     // 修改为了非硬编码，字符合集请查询ClassType
                 case TK_COMMAND, Tk_feature:
-                    OPTreeNode C_node = new OPTreeNode(currentToken.tokenType.toString(), currentToken);
+                    OPTreeNode C_node = new OPTreeNode(currentToken.tokenType, currentToken);
                     currentNode.addChild(C_node);
                     break;
                 case TK_IF: case TK_RIF:
-                    OPTreeNode if_node = new OPTreeNode(currentToken.string, currentToken.string);
+                    OPTreeNode if_node = new OPTreeNode(currentToken.tokenType, currentToken.string);
                     currentNode.addChild(if_node);
                     currentNode = if_node;
                     next();
@@ -186,7 +186,7 @@ public class ClassParse {
 //                    currentNode = currentNode.parent.parent;
                     next();
                     if(currentToken.tokenType == TokenClass.TK_IF || currentToken.tokenType == TokenClass.TK_RIF){
-                        OPTreeNode else_if_node = new OPTreeNode(currentToken.tokenType.toString(), "elseif");
+                        OPTreeNode else_if_node = new OPTreeNode(currentToken.tokenType, "elseif");
                         currentNode.addChild(else_if_node);
                         currentNode = else_if_node;
                         next();
@@ -197,7 +197,7 @@ public class ClassParse {
                         advance();
                     }
                     else if(currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE){
-                        OPTreeNode else_node = new OPTreeNode(currentToken.tokenType.toString(), "else");
+                        OPTreeNode else_node = new OPTreeNode(currentToken.tokenType, "else");
                         currentNode.addChild(else_node);
                         currentNode = else_node;
                         parseBlock();
@@ -206,7 +206,7 @@ public class ClassParse {
                     }else throw new ParseException(lexer.codeLine, currentToken.toString());
                     break;
                 case TK_WHILE:
-                    OPTreeNode while_node = new OPTreeNode(currentToken.string, currentToken.string);
+                    OPTreeNode while_node = new OPTreeNode(currentToken.tokenType, currentToken.string);
                     currentNode.addChild(while_node);
                     currentNode = while_node;
                     next();
@@ -217,7 +217,7 @@ public class ClassParse {
                     advance();
                     break;
                 case TK_explain_all:case TK_explain_line:
-                    currentNode.addChild(new OPTreeNode(currentToken.tokenType.toString(), currentToken.string));
+                    currentNode.addChild(new OPTreeNode(currentToken.tokenType, currentToken.string));
                     break;
             }
         //}while (currentToken.tokenType != TokenClass.TK_EOF);
@@ -261,7 +261,7 @@ public class ClassParse {
         }
         var temp = currentNode.key;
 
-        var LogicNode = new OPTreeNode("Logic");
+        var LogicNode = new OPTreeNode(TokenClass.TK_Logic);
         currentNode.addChild(LogicNode);
         currentNode = LogicNode;
 
@@ -275,7 +275,7 @@ public class ClassParse {
     private void parseLogicExprList(){
         do{
             if(checkCurrentTokenType(Constants.LogicSymbol)){
-                currentNode.addChild(new OPTreeNode("LogicSymbol", currentToken));
+                currentNode.addChild(new OPTreeNode(currentToken.tokenType, currentToken));
                 next();
             }
             parseExpr();
@@ -285,7 +285,7 @@ public class ClassParse {
     private void parseBlock(){
         int temp_level = tokenStack.toArray().length;
         var temp = currentNode.key;
-        var blockNode = new OPTreeNode("Block");
+        var blockNode = new OPTreeNode(TokenClass.TK_Block);
         currentNode.addChild(blockNode);
         currentNode = blockNode;
         // 现在指向‘{’
@@ -300,7 +300,7 @@ public class ClassParse {
     // 解析的内容 a>b 之类的,现在指向a
     // 发电机死了，沉痛怀念
     private void parseExpr() {
-        OPTreeNode exprNode = new OPTreeNode("expr");
+        OPTreeNode exprNode = new OPTreeNode(TokenClass.TK_expr);
         currentNode.addChild(exprNode);
         currentNode = exprNode;
         while (currentToken.tokenType != TokenClass.TK_close_par && !Constants.LogicSymbol.contains(currentToken.tokenType)) {
@@ -318,7 +318,7 @@ public class ClassParse {
             if(currentToken.tokenType == TokenClass.TK_at)
                 parseStringVar();
             if(currentToken.tokenType != TokenClass.TK_close_par)
-                currentNode.addChild(new OPTreeNode(currentToken.tokenType.toString(), currentToken));
+                currentNode.addChild(new OPTreeNode(currentToken.tokenType, currentToken));
             next();
         }
         currentNode = currentNode.parent;
@@ -467,27 +467,27 @@ class Tree2CodeTransformer{
     }
 
     public String Node2Code(OPTreeNode node){
-        if(!explainNeed&&(Objects.equals(node.key, "TK_explain_all")||Objects.equals(node.key, "TK_explain_line")))return "";
-        if(Objects.equals(node.key, "Block")){
-            for (int i = 0; i < level+1; i++) res.append("  ");
+        if(!explainNeed&&(Objects.equals(node.key, TokenClass.TK_explain_all)||Objects.equals(node.key, TokenClass.TK_explain_line)))return "";
+        if(Objects.equals(node.key, TokenClass.TK_Block)){
+            res.append("  ".repeat(Math.max(0, level + 1)));
             res.append("{\n");
         }
-        if(Objects.equals(node.key, "Logic"))res.append("(");
+        if(Objects.equals(node.key, TokenClass.TK_Logic))res.append("(");
         if(node.Tree2Code()!=null) {
-            if (node.parent!=null && !virtualKey.contains(node.parent.key) && !Objects.equals(node.key, "className") && !Objects.equals(node.key, "TK_explain_all"))
-                for (int i = 0; i < level; i++) res.append("  ");
+            if (node.parent!=null && !virtualKey.contains(node.parent.key.toString()) && !Objects.equals(node.key, TokenClass.TK_className) && !Objects.equals(node.key, TokenClass.TK_explain_all))
+                res.append("  ".repeat(Math.max(0, level)));
             res.append(node.Tree2Code());
-            if (spaceNeededKey.contains(node.key)) res.append(" ");
-            if(Objects.equals(node.key, "else"))res.append("\n");
+            if (spaceNeededKey.contains(node.key.toString())) res.append(" ");
+            if(Objects.equals(node.key, TokenClass.TK_ELSE))res.append("\n");
         }
 
-        if(Objects.equals(node.key, "className")){
+        if(Objects.equals(node.key, TokenClass.TK_className)){
             if(node.hasFather()){
                 res.append(": ").append(node.takeFather());
             }
             res.append("\n{");
         }
-        if(Objects.equals(node.key, "classType") && !node.checkHasClassName()){
+        if(Objects.equals(node.key, TokenClass.TK_classType) && !node.checkHasClassName()){
             res.append("\n{\n");
         }
         if(node.hasChild()){
@@ -497,16 +497,16 @@ class Tree2CodeTransformer{
             }
             level -= 1;
         }
-        if(Objects.equals(node.key, "TK_explain_all")||Objects.equals(node.key, "TK_explain_line"))res.append("\n");
-        if(Objects.equals(node.key, "Logic"))res.append(")");
-        if (enterNeededKey.contains(node.key)) {
+        if(Objects.equals(node.key, TokenClass.TK_explain_all)||Objects.equals(node.key, TokenClass.TK_explain_line))res.append("\n");
+        if(Objects.equals(node.key, TokenClass.TK_Logic))res.append(")");
+        if (enterNeededKey.contains(node.key.toString())) {
             res.append("\n");
         }
-        if(Objects.equals(node.key, "Block")){
-            for (int i = 0; i < level+1; i++) res.append("  ");
+        if(Objects.equals(node.key, TokenClass.TK_Block)){
+            res.append("  ".repeat(Math.max(0, level + 1)));
             res.append("}\n");
         }
-        if(Objects.equals(node.key, "classType"))
+        if(Objects.equals(node.key, TokenClass.TK_classType))
             res.append("}");
         return res.toString();
     }

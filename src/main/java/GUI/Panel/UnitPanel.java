@@ -11,6 +11,7 @@ import GUI.UI.RTree;
 import GUI.UI.ShadowBorder;
 import GUI.Utils;
 import OPcode.OPTreeNode;
+import Token.TokenClass;
 import Token.TokenFeature;
 import postfix.DataManger;
 import postfix.LogManager;
@@ -33,7 +34,7 @@ import java.nio.file.Path;
 import java.text.NumberFormat;
 import java.util.*;
 import java.util.List;
-
+import Token.TokenClass.*;
 
 class shared{
     static HashMap<String, JComponent> componentHashMap;
@@ -219,8 +220,7 @@ public class UnitPanel extends JPanel implements INTERFACE {
             return;
         }
         // 切换当前节点的显示
-        if (node.getUserObject() instanceof NodeData) {
-            NodeData nodeData = (NodeData) node.getUserObject();
+        if (node.getUserObject() instanceof NodeData nodeData) {
             nodeData.toggleDisplay();
         }
         // 递归遍历所有子节点
@@ -290,6 +290,7 @@ class basicSetting extends JPanel {
     }
 
     public void init() {
+        JPanel imagePanel = new JPanel();
         this.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTHWEST;
@@ -300,14 +301,20 @@ class basicSetting extends JPanel {
         headImage = new JLabel(new ImageIcon(createPatternPlaceholderImage(100 ,100 ,20)));
         charaImage = new JLabel(new ImageIcon(createPatternPlaceholderImage(60 ,60 ,10)));
 
-        gbc.gridwidth = 1;
+        gbc.gridwidth = 2;
         gbc.gridheight = 1;
-        adder(headImage, 0, 1);
-
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-        gbc.anchor = GridBagConstraints.SOUTHWEST;
-        adder(charaImage, 1, 1);
+//        adder(headImage, 0, 1);
+//
+//        gbc.gridwidth = 1;
+//        gbc.gridheight = 1;
+//        gbc.anchor = GridBagConstraints.SOUTHWEST;
+//        adder(charaImage, 2, 1);
+        imagePanel.setLayout(new GridLayout(1, 2));
+        headImage.setHorizontalAlignment(SwingConstants.CENTER); // 图像水平居中
+        imagePanel.add(headImage);
+        charaImage.setVerticalAlignment(SwingConstants.BOTTOM); // 图像垂直靠下
+        imagePanel.add(charaImage);
+        adder(imagePanel, 0, 1);
         gbc.anchor = GridBagConstraints.NORTHWEST;
         fatherButton = new JButton("本类");
         checkFather = false;
@@ -633,11 +640,11 @@ class basicSetting extends JPanel {
         // clearData(this);
         for(OPTreeNode node : OPTreeNode.getChildren()){
             // 名字
-            if(Objects.equals(node.key, "className")){
-                JTextField a = (JTextField) shared.componentHashMap.get(node.key);
+            if(Objects.equals(node.key, TokenClass.TK_className)){
+                JTextField a = (JTextField) shared.componentHashMap.get(node.key.toString());
                 if(a!=null) a.setText((String) node.value);
             }
-            if(Objects.equals(node.key, "Tk_feature")){
+            if(Objects.equals(node.key, TokenClass.Tk_feature)){
                 if(node.value instanceof TokenFeature value){
                     // 脸
                     if(Objects.equals(value.FeatureName, "face")){

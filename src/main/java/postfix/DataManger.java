@@ -3,6 +3,7 @@ package postfix;
 import Constants.Constants;
 import FileManager.PathManager;
 import GUI.Utils;
+import Token.TokenClass;
 import OPcode.OPTreeNode;
 import Token.TokenFeature;
 import Constants.Constants_GUI;
@@ -63,7 +64,7 @@ public class DataManger {
     }
 
     public static String searchFeatureFromClass_one(OPTreeNode classNode, String feaName){
-        if(!Objects.equals(classNode.key, "classType"))return null;
+        if(!Objects.equals(classNode.key, TokenClass.TK_classType))return null;
         for(OPTreeNode treeNode : classNode.getChildren()){
             var feature = treeNode.value;
             if(feature instanceof TokenFeature tokenFeature){
@@ -112,9 +113,9 @@ public class DataManger {
     }
 
     public static String getNameFromClassTypeTreeNode(OPTreeNode OPTreeNode){
-        if(!Objects.equals(OPTreeNode.key, "classType"))return null;
+        if(!Objects.equals(OPTreeNode.key, TokenClass.TK_classType))return null;
         for (OPTreeNode treeNode : OPTreeNode.getChildren()){
-            if(Objects.equals(treeNode.key, "className")){
+            if(Objects.equals(treeNode.key, TokenClass.TK_className)){
                 return (String) treeNode.value;
             }
         }

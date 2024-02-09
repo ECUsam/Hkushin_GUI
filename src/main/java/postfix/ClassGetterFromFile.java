@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import Constants.Constants_GUI;
 import FileManager.PathManager;
 import OPcode.OPTreeNode;
+import Token.TokenClass;
 
 import java.util.LinkedHashMap;
 import java.util.stream.Stream;
@@ -18,12 +19,10 @@ import java.util.stream.Stream;
 @SuppressWarnings("unused")
 public class ClassGetterFromFile {
     public String encoding;
-    private final PathManager pathManager;
     public OPTreeNode fileNode;
     // 代码 行数
     public LinkedHashMap<String, Integer> scriptClass = new LinkedHashMap<>();
     public ClassGetterFromFile(PathManager pathManager){
-        this.pathManager = pathManager;
         this.encoding = pathManager.encoding;
     }
     private int baseCodeLine = 1;
@@ -42,7 +41,7 @@ public class ClassGetterFromFile {
 
     // 代码块内注释保留
     public void File2Class(String filePath) {
-        fileNode = new OPTreeNode("fileNode");
+        fileNode = new OPTreeNode(TokenClass.TK_fileNode);
         try (
                 BufferedReader reader = Files.newBufferedReader(Paths.get(filePath), Charset.forName(encoding))
         ){
@@ -80,7 +79,7 @@ public class ClassGetterFromFile {
                         }
                         while (currentChar != '\n' && currentChar != '\r');
                         baseCodeLine+=1;
-                        fileNode.addChild(new OPTreeNode("explain", explain.toString()));
+                        fileNode.addChild(new OPTreeNode(TokenClass.TK_explain_line, explain.toString()));
                         int a = reader.read();
                         continue;
                     }
@@ -101,7 +100,7 @@ public class ClassGetterFromFile {
                         }
                         while (currentChar != '*' || ((char)reader.read()) != '/');
                         int a = reader.read();
-                        fileNode.addChild(new OPTreeNode("explain", explain.toString()));
+                        fileNode.addChild(new OPTreeNode(TokenClass.TK_explain_all, explain.toString()));
                         continue;
                     }else {
                         if(lookahead == '*') inExplain = true;
@@ -127,7 +126,7 @@ public class ClassGetterFromFile {
                 }
                 if( name_mattered && curly_num ==0){
                     scriptClass.put(classBuffer.toString(), baseCodeLine);
-                    fileNode.addChild(new OPTreeNode("classCode", classBuffer.toString()));
+                    fileNode.addChild(new OPTreeNode(TokenClass.TK_classNode, classBuffer.toString()));
                     baseCodeLine += classLine;
                     classLine = 0;
                     classBuffer.setLength(0);

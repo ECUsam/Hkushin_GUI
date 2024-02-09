@@ -2,6 +2,7 @@ package OPcode;
 
 import Constants.Constants;
 import Token.Token;
+import Token.TokenClass;
 import Token.TokenFeature;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -10,18 +11,18 @@ import java.util.Objects;
 
 @SuppressWarnings("unused")
 public class OPTreeNode {
-    public String key;
+    public TokenClass key;
     public Object value;
     private List<OPTreeNode> children;
     public OPTreeNode parent;
     private String father;
-    public OPTreeNode(String key, Object value) {
+    public OPTreeNode(TokenClass key, Object value) {
         this.key = key;
         this.value = value;
         this.children = new ArrayList<>();
         parent = null;
     }
-    public OPTreeNode(String key){
+    public OPTreeNode(TokenClass key){
         this.key = key;
         this.value = null;
         this.children = new ArrayList<>();
@@ -38,18 +39,18 @@ public class OPTreeNode {
     }
 
     public boolean checkHasClassName(){
-        if(!Objects.equals(key, "classType"))return false;
+        if(!Objects.equals(key, TokenClass.TK_classType))return false;
         for(OPTreeNode c : children){
-            if(Objects.equals(c.key, "className"))return true;
+            if(Objects.equals(c.key, TokenClass.TK_className))return true;
         }
         return false;
     }
 
     public String getName(){
-        if(!Objects.equals(key, "classType"))return null;
+        if(!Objects.equals(key, TokenClass.TK_classType))return null;
         if(children==null)return null;
         for(OPTreeNode node : children){
-            if(Objects.equals(node.key, "Tk_feature")){
+            if(Objects.equals(node.key, TokenClass.Tk_feature)){
                 TokenFeature tokenFeature = (TokenFeature)node.value;
                 if(Objects.equals(tokenFeature.FeatureName, "name"))return tokenFeature.string;
             }
