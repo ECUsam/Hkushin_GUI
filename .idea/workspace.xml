@@ -8,15 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/logfile.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/logfile.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/logfile.log.lck" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventCellData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventCellData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventListModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Panel/EventListModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/Panel/UnitPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/Panel/UnitPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/OPcode/OPTreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/OPcode/OPTreeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Token/TokenClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Token/TokenClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassGetterFromFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/ClassParse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/postfix/DataManger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/UI/EventListCellRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/UI/EventListCellRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/language/zh_functions.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language/zh_functions.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,10 +27,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="jar://C:/Program Files/Java/jdk-19/lib/src.zip!/java.base/java/lang/NullPointerException.java" root0="SKIP_INSPECTION" />
-    <setting file="jar://C:/Program Files/Java/jdk-19/lib/src.zip!/java.base/java/lang/String.java" root0="SKIP_INSPECTION" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -55,7 +47,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "last_opened_file_path": "D:/AJavadesu/Hkushin_GUI/src/main/resources",
-    "settings.editor.selected.configurable": "editor.preferences.tabs"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">

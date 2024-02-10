@@ -48,13 +48,13 @@ public class EventListModel extends DefaultListModel<EventCellData> {
     }
 
     public void update(OPTreeNode node){
-        currentLevel = 1;
+        currentLevel = 0;
         if(Objects.equals(node.key, TokenClass.TK_classType)){
             for(OPTreeNode treeNode : node.getChildren()){
                 postfixNode(treeNode);
             }
         }
-        currentLevel = 1;
+        currentLevel = 0;
         fireContentsChanged(this, 0, getSize() - 1);
     }
 
@@ -89,6 +89,13 @@ public class EventListModel extends DefaultListModel<EventCellData> {
                     this.addElement(cellData);
                 }
                 break;
+            case TK_and: case TK_or:
+                cellData.setLevel(currentLevel);
+                if(node.value instanceof Token token)
+                    cellData.setFunc(token.string);
+                cellData.setType(DataType.LogicSymbol);
+                this.addElement(cellData);
+                break;
             case TK_IF: case TK_RIF:
                 cellData.setLevel(currentLevel);
                 cellData.setFunc((String) node.value);
@@ -112,6 +119,7 @@ public class EventListModel extends DefaultListModel<EventCellData> {
     private void parseExpr(OPTreeNode node){
         assert node.key == TokenClass.TK_expr;
         var cellData = new EventCellData();
+        cellData.isSpacialType = true;
         cellData.setTreeNode(node);
         for(OPTreeNode cNode : node.getChildren()){
             switch (cNode.key){
@@ -122,7 +130,7 @@ public class EventListModel extends DefaultListModel<EventCellData> {
                     if (cNode.value instanceof TokenCommand cToken) {
                         cellData.value += cToken.toCode();
                     }
-
+                    break;
                 default :
                     if (cNode.value instanceof Token cToken) {
                         cellData.value+= cToken.string;

@@ -19,7 +19,7 @@ public class EventCellData{
     public String toString(){
         if(isSpacialType)return value;
         var res = new StringBuilder();
-        res.append(" ".repeat(Math.max(0, level)));
+        //res.append(" ".repeat(Math.max(0, level)));
         res.append(Constants_GUI.getFunction(func));
         res.append("  ");
         if(args!=null){

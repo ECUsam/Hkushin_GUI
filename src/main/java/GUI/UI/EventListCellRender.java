@@ -22,24 +22,26 @@ public class EventListCellRender extends DefaultListCellRenderer {
     public String marginText(String value, int space){
         String style2 = "px;'>";
         String style = "<div style='margin-left: ";
-        return style + space*10 + style2 +value+"</div>";
+        return style + space*8 + style2 +value+"</div>";
     }
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         //label.setPreferredSize(new Dimension(cellWidth, cellHeight));
+        String res = value.toString().replace("$", "<br>");
         if(value instanceof EventCellData e){
+            res = marginText(res, e.level);
             if(Objects.equals(e.func, "msg") && e.args.length==2){
                 // 没搜到 溯源，请
                 String name = DataManger.searchUnitNameFormFuncName(e.args[0]);
                 if(name!=null){
-                    label.setText("<html>" + value.toString().replace(e.args[0], name).replace("$", "<br>") + "</html>");
+                    label.setText("<html>" + res.replace(e.args[0], name) + "</html>");
                     return label;
                 }
             }
         }
-        label.setText("<html>" + value.toString().replace("$", "<br>") + "</html>");
+        label.setText("<html>" + res + "</html>");
         return label;
     }
 }
