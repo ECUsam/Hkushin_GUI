@@ -2,6 +2,8 @@ package GUI.Panel;
 
 import Constants.Constants_GUI;
 import OPcode.OPTreeNode;
+import Token.Token;
+import Token.TokenCommand;
 import lombok.Data;
 
 @Data
@@ -13,7 +15,23 @@ public class EventCellData{
     public String nodeKey;
     public OPTreeNode treeNode;
     public boolean isSpacialType = false;
-    public String value;
+    public String value="";
+
+    public void CommandTokenAdder( TokenCommand command){
+        this.setFunc(command.getCommandName());
+        this.setArgs(command.getFeatures());
+        var res = new StringBuilder();
+        res.append(Constants_GUI.getFunction(func));
+        res.append("(");
+        if(args!=null){
+            for(String arg : args){
+                res.append(arg);
+                res.append("  ");
+            }
+        }
+        res.append(")");
+        value+=res;
+    }
 
     @Override
     public String toString(){

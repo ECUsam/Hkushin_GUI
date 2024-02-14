@@ -1,5 +1,6 @@
 package GUI.Panel;
 
+import Constants.Constants_GUI;
 import OPcode.OPTreeNode;
 import Token.Token;
 import Token.TokenClass;
@@ -107,11 +108,23 @@ public class EventListModel extends DefaultListModel<EventCellData> {
                 break;
             case TK_expr:
                 parseExpr(node);
-            case TK_Block: case TK_Logic:
+                break;
+            case TK_Block:
                 currentLevel+=1;
                 for(OPTreeNode exprC : node.getChildren()){
                     postfixNode(exprC);
                 }
+                currentLevel-=1;
+                break;
+            case TK_Logic:
+                currentLevel+=1;
+                for(OPTreeNode exprC : node.getChildren()){
+                    postfixNode(exprC);
+                }
+                cellData.isSpacialType = true;
+                cellData.value = "则";
+                cellData.level = currentLevel;
+                this.addElement(cellData);
                 currentLevel-=1;
                 break;
         }
@@ -121,6 +134,7 @@ public class EventListModel extends DefaultListModel<EventCellData> {
         var cellData = new EventCellData();
         cellData.isSpacialType = true;
         cellData.setTreeNode(node);
+        cellData.level = currentLevel;
         for(OPTreeNode cNode : node.getChildren()){
             switch (cNode.key){
                 case TK_expr:
@@ -128,12 +142,28 @@ public class EventListModel extends DefaultListModel<EventCellData> {
                     break;
                 case TK_COMMAND:
                     if (cNode.value instanceof TokenCommand cToken) {
-                        cellData.value += cToken.toCode();
+                        cellData.CommandTokenAdder(cToken);
+                        cellData.value += " ";
                     }
+                    break;
+                case TK_NUM:
+                    if (cNode.value instanceof Token cToken) {
+                        if(cToken.toCode()!=null) {
+                            cellData.value += cToken.toCode();
+                            cellData.value += " ";
+                        }
+                    }
+                    break;
+                case TK_IF_LT_OR_EQ:case TK_IF_EQUAL:case TK_IF_GT_OR_EQ:case TK_NOT_EQ:
+                    cellData.value += Constants_GUI.getFunction(cNode.key.toString());
+                    cellData.value += " ";
                     break;
                 default :
                     if (cNode.value instanceof Token cToken) {
-                        cellData.value+= cToken.string;
+                        if(cToken.toCode()!=null) {
+                            cellData.value += cToken.toCode();
+                            cellData.value += " ";
+                        }
                     }
             }
         }

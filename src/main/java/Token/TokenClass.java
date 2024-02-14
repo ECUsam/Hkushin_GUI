@@ -58,5 +58,6 @@ enum TokenClass {
     TK_BREAK,
     divide_plus,
     TK_explain_line,
-    TK_explain_all
+    TK_explain_all,
+    TK_ELSEIF
 }

@@ -27,6 +27,7 @@ public class EventPanel extends JPanel implements INTERFACE {
     private JPanel contentPanel;
     private JSplitPane splitPane;
     private EventList ejList;
+    private INFORMATION_TYPE showWay = INFORMATION_TYPE.LIST_SHOW_WAY_FLIES;
 
     public EventPanel(){
         super();
@@ -86,7 +87,7 @@ public class EventPanel extends JPanel implements INTERFACE {
         tree.setCellRenderer(new UnitPanel.CustomTreeCellRenderer());
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
-        tree.setBackground(new Color(240, 240, 240));
+        //tree.setBackground(new Color(240, 240, 240));
     }
 
 
@@ -106,6 +107,21 @@ public class EventPanel extends JPanel implements INTERFACE {
         return scrollPane;
     }
 
+    private void treeUpdateRaw(){
+        root.removeAllChildren();
+        treeModel.reload();
+        for(var data : DataManger.classHashMap.entrySet()){
+            if("event".equals(data.getValue().get(1))){
+                OPTreeNode opTreeNode = DataManger.dataMap.get(data.getKey());
+                String name = DataManger.searchFeatureFromClass_one(opTreeNode, "name");
+                if(name!=null)root.add(new DefaultMutableTreeNode(new NodeData(data.getKey(), name)));
+                else root.add(new DefaultMutableTreeNode(new NodeData(data.getKey(), data.getKey())));
+            }
+        }
+        Utils.sortTree(root);
+        treeModel.reload();
+    }
+
     @Override
     public void update(INFORMATION_TYPE informationType, Object message) {
         if (informationType == INFORMATION_TYPE.NEW_PROJECT_CREATED){
@@ -120,6 +136,12 @@ public class EventPanel extends JPanel implements INTERFACE {
             }
             Utils.sortTree(root);
             treeModel.reload();
+        }
+        else if(informationType == INFORMATION_TYPE.LIST_SHOW_WAY_RAW){
+            showWay = informationType;
+            treeUpdateRaw();
+        }else if(informationType == INFORMATION_TYPE.LIST_SHOW_WAY_FLIES){
+            showWay = informationType;
         }
     }
 

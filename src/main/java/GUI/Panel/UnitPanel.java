@@ -50,8 +50,7 @@ public class UnitPanel extends JPanel implements INTERFACE {
     private JPanel contentPanel;
     private basicSetting basicSetting;
     private JSplitPane splitPane;
-
-
+    private INFORMATION_TYPE showWay = INFORMATION_TYPE.LIST_SHOW_WAY_FLIES;
 
     // 包私有
     public UnitPanel(){
@@ -182,21 +181,41 @@ public class UnitPanel extends JPanel implements INTERFACE {
         return null;
     }
 
+    private void treeUpdateFile(String message){
+        root.removeAllChildren();
+        for(var data : DataManger.classHashMap.entrySet()){
+            if("unit".equals(data.getValue().get(1))){
+                String rePath = PathManager.rePathString(data.getValue().get(0), message);
+                OPTreeNode opTreeNode = DataManger.dataMap.get(data.getKey());
+                String name = DataManger.searchFeatureFromClass_one(opTreeNode, "name");
+                if(name!=null)putRePath2Root(rePath, data.getKey(), name);
+                else putRePath2Root(rePath, data.getKey(), data.getKey());
+            }
+        }
+        Utils.sortTree(root);
+        treeModel.reload();
+        basicSetting.getAttrSet();
+    }
+
+    private void treeUpdateRaw(){
+        root.removeAllChildren();
+        for(var data : DataManger.classHashMap.entrySet()){
+            if("unit".equals(data.getValue().get(1))){
+                OPTreeNode opTreeNode = DataManger.dataMap.get(data.getKey());
+                String name = DataManger.searchFeatureFromClass_one(opTreeNode, "name");
+                if(name!=null)root.add(new DefaultMutableTreeNode(new NodeData(data.getKey(), name)));
+                else root.add(new DefaultMutableTreeNode(new NodeData(data.getKey(), data.getKey())));
+            }
+        }
+        Utils.sortTree(root);
+        treeModel.reload();
+        basicSetting.getAttrSet();
+    }
+
     @Override
     public void update(INFORMATION_TYPE informationType, Object message) {
         if(informationType == INFORMATION_TYPE.NEW_PROJECT_CREATED){
-            for(var data : DataManger.classHashMap.entrySet()){
-                if("unit".equals(data.getValue().get(1))){
-                    String rePath = PathManager.rePathString(data.getValue().get(0), (String) message);
-                    OPTreeNode opTreeNode = DataManger.dataMap.get(data.getKey());
-                    String name = DataManger.searchFeatureFromClass_one(opTreeNode, "name");
-                    if(name!=null)putRePath2Root(rePath, data.getKey(), name);
-                    else putRePath2Root(rePath, data.getKey(), data.getKey());
-                }
-            }
-            Utils.sortTree(root);
-            treeModel.reload();
-            basicSetting.getAttrSet();
+            treeUpdateFile((String) message);
         }else if(informationType == INFORMATION_TYPE.CLEAR_DATA){
             Enumeration<TreeNode> children = root.children();
             List<TreeNode> nodesToRemove = new ArrayList<>();
@@ -212,6 +231,11 @@ public class UnitPanel extends JPanel implements INTERFACE {
             toggleAllNodes(root);
             Utils.sortTree(root);
             treeModel.reload();
+        }else if(informationType == INFORMATION_TYPE.LIST_SHOW_WAY_FLIES){
+            showWay = informationType;
+        }else if(informationType == INFORMATION_TYPE.LIST_SHOW_WAY_RAW){
+            showWay = informationType;
+            treeUpdateRaw();
         }
     }
 
@@ -680,6 +704,8 @@ class basicSetting extends JPanel {
                             table.addNewData2Row(new Object[]{map.get(cons[0]).getKey(), Integer.parseInt( cons[1] ) });
                         }
                     }
+
+                    // if(Objects.equals(value.FeatureName, "skill"))
                     // 各个字段
                     var a = shared.componentHashMap.get(value.FeatureName);
                     if(a instanceof JTextField textField){
@@ -730,7 +756,7 @@ class skillPanel extends JPanel{
         gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.insets = new Insets(3, 2, 3, 2);
-        JLabel headText = new JLabel("技能");
+        JLabel headText = new JLabel(Constants_GUI.get("skill"));
         headText.setFont(Constants.fontB);
         adder(headText, 0, 0);
 
@@ -749,6 +775,31 @@ class skillPanel extends JPanel{
         this.add(component, gbc);
     }
 
+    private void skillAdder(OPTreeNode skillNode){
+        File backFile;
+        gbc.gridy = 1;
+        String[] icon = DataManger.searchFeatureFromClass_all(skillNode, "icon");
+        if(icon!=null){
+            String pattern = icon[0];
+            File patternFile = PathManager.getInstance().getDataFile("chip2", pattern);
+            if(patternFile==null)patternFile = PathManager.getInstance().getDataFile("chip", pattern);
+            if(patternFile==null)LogManager.addLog("错误：无法加载图片"+pattern);
+            if(icon.length == 2){
+                String back = icon[1];
+                backFile = PathManager.getInstance().getDataFile("icon", back);
+            }else {
+                backFile = Path.of(Constants.imagePathBase+"@dark.png").toFile();
+            }
+            try {
+                var iconImage = Utils.overlay2image(backFile, patternFile);
+                Icon iconLabel = new ImageIcon(iconImage);
+                JLabel skillLabel = new JLabel(iconLabel);
+                this.add(skillLabel);
+            }catch (Exception e){LogManager.addLog("错误：无法合成图片"+pattern);}
+        }
+        gbc.gridx++;
+    }
+
     public void clearData(){}
 
 }
@@ -756,8 +807,8 @@ class skillPanel extends JPanel{
 class AttrModel extends DefaultTableModel{
     public AttrModel(){
         super();
-        this.addColumn("类型");
-        this.addColumn("强度");
+        this.addColumn(Constants_GUI.get("attr_type"));
+        this.addColumn(Constants_GUI.get("attr_strength"));
     }
 
     @Override
@@ -767,16 +818,16 @@ class AttrModel extends DefaultTableModel{
                 return null;
             }
             int value = (int) super.getValueAt(row, column);
-            if(value==0)return "即死";
-            if (value == 1) return "激弱";
-            else if (value<=3)return "弱";
-            else if (value==4)return "微弱";
-            else if (value==5)return "普通";
-            else if (value==6)return "微强";
-            else if (value<=8)return "强";
-            else if (value==9)return "超强";
-            else if (value == 10) return "无敌";
-            else return "未知";
+            if(value==0)return Constants_GUI.get("weak0");
+            if (value == 1) return Constants_GUI.get("weak1");
+            else if (value<=3)return Constants_GUI.get("weak3");
+            else if (value==4)return Constants_GUI.get("weak4");
+            else if (value==5)return Constants_GUI.get("weak5");
+            else if (value==6)return Constants_GUI.get("weak6");
+            else if (value<=8)return Constants_GUI.get("weak8");
+            else if (value==9)return Constants_GUI.get("weak9");
+            else if (value == 10) return Constants_GUI.get("weak10");
+            else return Constants_GUI.get("unknown");
         }
         return super.getValueAt(row, column);
     }

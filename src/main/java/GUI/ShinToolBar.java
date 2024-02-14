@@ -98,11 +98,24 @@ public class ShinToolBar extends JMenuBar implements INTERFACE {
         showWays = buttonMaker(Constants_GUI.get("show_ways"));
         showWays.setForeground(Color.black);
         showOfFiles = JCMaker(Constants_GUI.get("show_of_files"));
-        showBoxGroup = new ButtonGroup();
-        showBoxGroup.add(showOfFiles);
+        showOfRaw = JCMaker(Constants_GUI.get("show_of_raw"));
         showOfFiles.setHorizontalAlignment(SwingConstants.LEFT);
+        showOfRaw.setHorizontalAlignment(SwingConstants.LEFT);
         showWays.setHorizontalAlignment(SwingConstants.LEFT);
         showWays.add(showOfFiles);
+        showWays.add(showOfRaw);
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(showOfFiles);
+        buttonGroup.add(showOfRaw);
+        showOfFiles.setSelected(true); // 设置showOfFiles为默认选中项
+
+        showOfRaw.addActionListener(e -> {
+            boolean isSelected = showOfRaw.isSelected();
+            INFORMATION information = INFORMATION.getInstance();
+            if(isSelected){
+                information.sendMessage(INFORMATION_TYPE.LIST_SHOW_WAY_RAW);
+            }
+        });
 
         showButton.add(showWays);
         this.add(showButton);

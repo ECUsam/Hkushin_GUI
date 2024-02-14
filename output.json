@@ -2,7 +2,7 @@
     "children": [
         {
             "value": "event_defdead",
-            "key": "className"
+            "key": "TK_className"
         },
         {
             "children": [
@@ -23,11 +23,11 @@
                                     "key": "TK_NUM"
                                 }
                             ],
-                            "key": "expr"
+                            "key": "TK_expr"
                         },
                         {
                             "value": "Token(type: TK_and, string: '&&')\n",
-                            "key": "LogicSymbol"
+                            "key": "TK_and"
                         },
                         {
                             "children": [
@@ -44,11 +44,11 @@
                                     "key": "TK_NUM"
                                 }
                             ],
-                            "key": "expr"
+                            "key": "TK_expr"
                         },
                         {
                             "value": "Token(type: TK_and, string: '&&')\n",
-                            "key": "LogicSymbol"
+                            "key": "TK_and"
                         },
                         {
                             "children": [
@@ -65,10 +65,10 @@
                                     "key": "TK_NUM"
                                 }
                             ],
-                            "key": "expr"
+                            "key": "TK_expr"
                         }
                     ],
-                    "key": "Logic"
+                    "key": "TK_Logic"
                 },
                 {
                     "children": [
@@ -84,27 +84,27 @@
                                             "value": "Token(type: TK_COMMAND, commandName: isEvent, feature: [])\n",
                                             "key": "TK_COMMAND"
                                         }],
-                                        "key": "expr"
+                                        "key": "TK_expr"
                                     }],
-                                    "key": "Logic"
+                                    "key": "TK_Logic"
                                 },
                                 {
                                     "children": [{
                                         "value": "Token(type: TK_COMMAND, commandName: dialog, feature: [全ての防衛施設が陥落し、防衛側の継戦が困難になりました。$残り時間500以下になると防衛側ユニットの移動速度が$大きく低下します。])\n",
                                         "key": "TK_COMMAND"
                                     }],
-                                    "key": "Block"
+                                    "key": "TK_Block"
                                 }
                             ],
                             "value": "if",
-                            "key": "if"
+                            "key": "TK_IF"
                         }
                     ],
-                    "key": "Block"
+                    "key": "TK_Block"
                 }
             ],
             "value": "if",
-            "key": "if"
+            "key": "TK_IF"
         },
         {
             "children": [
@@ -125,11 +125,11 @@
                                     "key": "TK_NUM"
                                 }
                             ],
-                            "key": "expr"
+                            "key": "TK_expr"
                         },
                         {
                             "value": "Token(type: TK_and, string: '&&')\n",
-                            "key": "LogicSymbol"
+                            "key": "TK_and"
                         },
                         {
                             "children": [
@@ -146,10 +146,10 @@
                                     "key": "TK_NUM"
                                 }
                             ],
-                            "key": "expr"
+                            "key": "TK_expr"
                         }
                     ],
-                    "key": "Logic"
+                    "key": "TK_Logic"
                 },
                 {
                     "children": [
@@ -162,13 +162,13 @@
                             "key": "TK_COMMAND"
                         }
                     ],
-                    "key": "Block"
+                    "key": "TK_Block"
                 }
             ],
             "value": "if",
-            "key": "if"
+            "key": "TK_IF"
         }
     ],
     "value": "event",
-    "key": "classType"
+    "key": "TK_classType"
 }

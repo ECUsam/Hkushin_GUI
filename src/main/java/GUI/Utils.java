@@ -1,8 +1,10 @@
 package GUI;
 
+import javax.imageio.ImageIO;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -118,6 +120,19 @@ public class Utils {
 
             return Integer.compare(fileName1.length(), fileName2.length());
         }
+    }
+
+    public static BufferedImage overlay2image(File backgroundFile, File patternFile) throws IOException {
+        // 读取背景图像和图案图像
+        BufferedImage background = ImageIO.read(backgroundFile);
+        BufferedImage pattern = ImageIO.read(patternFile);
+
+        BufferedImage resultImage = new BufferedImage(background.getWidth(), background.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = resultImage.createGraphics();
+        g.drawImage(background, 0, 0, null);
+        g.drawImage(pattern, 0, 0, null);
+        g.dispose();
+        return resultImage;
     }
 }
 

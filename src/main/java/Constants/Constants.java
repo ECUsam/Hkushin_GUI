@@ -17,6 +17,7 @@ public class Constants {
     public static final int GUI_width = 800;
     public static final int TabWidth = 80;
     public static final int TabHeight = 40;
+    public static final String imagePathBase = "src/main/resources/image/";
     public static final String FontName = "Microsoft YaHei";
     public static Font font = new Font("Microsoft YaHei", Font.PLAIN, 12);
     public static Font fontB = new Font("Microsoft YaHei", Font.BOLD, 12);

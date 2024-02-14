@@ -90,6 +90,11 @@ public class PathManager {
         return facePath.toFile();
     }
 
+    public File getDataFile(String dataType, String dataName){
+        Path dataPath = getDataNamePath(dataType).resolve(dataName);
+        return dataPath.toFile();
+    }
+
     public static String rePathString(String abPath, String basePathString){
         return Path.of(basePathString).relativize(Path.of(abPath)).toString();
     }

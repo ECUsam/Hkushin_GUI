@@ -10,7 +10,8 @@ import java.util.Objects;
 public class EventListCellRender extends DefaultListCellRenderer {
     private int cellWidth;
     private int cellHeight;
-
+    private final String space8 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    private final String NSpace10 = "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
     public EventListCellRender(){
         cellHeight = 25;
     }
@@ -29,7 +30,7 @@ public class EventListCellRender extends DefaultListCellRenderer {
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         //label.setPreferredSize(new Dimension(cellWidth, cellHeight));
-        String res = value.toString().replace("$", "<br>");
+        String res = value.toString().replace("$", NSpace10).replace("@", NSpace10);
         if(value instanceof EventCellData e){
             res = marginText(res, e.level);
             if(Objects.equals(e.func, "msg") && e.args.length==2){

@@ -18,7 +18,6 @@ public class RTree extends JTree {
         super(model);
     }
     public RTree(){
-
     }
 
     @Override

@@ -186,7 +186,7 @@ public class ClassParse {
 //                    currentNode = currentNode.parent.parent;
                     next();
                     if(currentToken.tokenType == TokenClass.TK_IF || currentToken.tokenType == TokenClass.TK_RIF){
-                        OPTreeNode else_if_node = new OPTreeNode(currentToken.tokenType, "elseif");
+                        OPTreeNode else_if_node = new OPTreeNode(TokenClass.TK_ELSEIF, "elseif");
                         currentNode.addChild(else_if_node);
                         currentNode = else_if_node;
                         next();
@@ -416,25 +416,25 @@ class Tree2CodeTransformer{
     private boolean explainNeed = true;
     // 我在干什么？
     private final List<String> spaceNeededKey = Arrays.asList(
-            "classType",
-            "className",
-            "if",
-            "rif",
-            "while",
-            "elseif",
-            "else"
+            "TK_classType",
+            "TK_className",
+            "TK_IF",
+            "TK_RIF",
+            "TK_WHILE",
+            "TK_ELSEIF",
+            "TK_ELSE"
     );
     private void setExplainNeed(boolean need){
         explainNeed = need;
     }
     private final List<String> enterNeededKey = Arrays.asList(
-            "Command", "Feature", "Logic", "className"
+            "TK_COMMAND", "TK_feature", "TK_Logic", "TK_className"
     );
     private final List<String> virtualKey = Arrays.asList(
-            "expr", "Logic"
+            "TK_expr", "TK_Logic"
     );
     private final List<String> logicKey = Arrays.asList(
-            "if", "rif", "while", "elseif", "else"
+            "TK_IF", "TK_RIF", "TK_WHILE", "TK_ELSEIF", "TK_ELSE"
     );
     private boolean curlyNeeded;
 
@@ -500,7 +500,8 @@ class Tree2CodeTransformer{
         if(Objects.equals(node.key, TokenClass.TK_explain_all)||Objects.equals(node.key, TokenClass.TK_explain_line))res.append("\n");
         if(Objects.equals(node.key, TokenClass.TK_Logic))res.append(")");
         if (enterNeededKey.contains(node.key.toString())) {
-            res.append("\n");
+            if(node.parent!=null&&node.parent.key!=TokenClass.TK_expr)
+                res.append("\n");
         }
         if(Objects.equals(node.key, TokenClass.TK_Block)){
             res.append("  ".repeat(Math.max(0, level + 1)));

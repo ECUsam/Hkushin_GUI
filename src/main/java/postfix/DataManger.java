@@ -76,6 +76,19 @@ public class DataManger {
         return null;
     }
 
+    public static String[] searchFeatureFromClass_all(OPTreeNode classNode, String feaName){
+        if(!Objects.equals(classNode.key, TokenClass.TK_classType))return null;
+        for(OPTreeNode treeNode : classNode.getChildren()){
+            var feature = treeNode.value;
+            if(feature instanceof TokenFeature tokenFeature){
+                if(Objects.equals(tokenFeature.FeatureName, feaName)){
+                    return tokenFeature.strings_feature;
+                }
+            }
+        }
+        return null;
+    }
+
     public static String searchUnitNameFormFuncName(String funcName){
         OPTreeNode node = dataMap.get(funcName);
         if (node==null)return null;
