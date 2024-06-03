@@ -1,9 +1,10 @@
 package OPcode;
 
 import Constants.Constants;
-import Token.Token;
-import Token.TokenClass;
-import Token.TokenFeature;
+import lombok.Getter;
+import postfix.Token.Token;
+import postfix.Token.TokenClass;
+import postfix.Token.TokenFeature;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.Objects;
 public class OPTreeNode {
     public TokenClass key;
     public Object value;
+    // 获取子节点列表
+    @Getter
     private List<OPTreeNode> children;
     public OPTreeNode parent;
     private String father;
@@ -75,11 +78,6 @@ public class OPTreeNode {
         return !children.isEmpty();
     }
 
-    // 获取子节点列表
-    public List<OPTreeNode> getChildren() {
-        return children;
-    }
-
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("value", value);
@@ -103,19 +101,19 @@ public class OPTreeNode {
         if(value instanceof Token)return ((Token) value).toCode();
         return (String) value;
     }
-    // 节点返回表达式字符串就可以
+    // 节点返回表达式字符串就可以， 没用
     @Deprecated
     public String toCode(){
         StringBuilder code = new StringBuilder();
         if(value instanceof Token){
             code.append(((Token) value).toCode());
-            if(!Objects.equals(this.parent.key, "expr")) code.append('\n');
+            if(!Objects.equals(this.parent.key, TokenClass.TK_expr)) code.append('\n');
         }else if(value!=null){
-            if(Objects.equals(key, "if"))code.append("(");
+            if(Objects.equals(key, TokenClass.TK_IF))code.append("(");
             code.append(value);
-            if(Objects.equals(this.key, "className")){code.append("{\n");}
+            if(Objects.equals(this.key, TokenClass.TK_className)){code.append("{\n");}
             code.append(" ");
-            if(Objects.equals(key, "classType")&&isNoNameType())code.append("\n{");
+            if(Objects.equals(key, TokenClass.TK_classType)&&isNoNameType())code.append("\n{");
         }
 
         for (OPTreeNode child : children) {

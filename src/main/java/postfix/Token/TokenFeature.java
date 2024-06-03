@@ -1,7 +1,6 @@
-package Token;
+package postfix.Token;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class TokenFeature extends Token {
 

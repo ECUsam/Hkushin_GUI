@@ -1,6 +1,4 @@
-package Token;
-
-import java.util.Objects;
+package postfix.Token;
 
 public class Token {
     public TokenClass tokenType;

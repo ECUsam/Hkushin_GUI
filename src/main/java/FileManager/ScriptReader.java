@@ -17,6 +17,7 @@ public class ScriptReader {
     public ScriptReader(String script_path){
         this.script_path = script_path;
         this.classParse = new ClassParse("null");
+        //x-SJIS_0213
         PathManager pathManager = new PathManager(PathManager.scriptPath_to_basePath(script_path).toString(), "x-SJIS_0213");
         this.pathManager = pathManager;
         this.classGetterFromFile = new ClassGetterFromFile(pathManager);

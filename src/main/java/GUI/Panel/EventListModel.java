@@ -2,10 +2,10 @@ package GUI.Panel;
 
 import Constants.Constants_GUI;
 import OPcode.OPTreeNode;
-import Token.Token;
-import Token.TokenClass;
-import Token.TokenCommand;
-import Token.TokenFeature;
+import postfix.Token.Token;
+import postfix.Token.TokenClass;
+import postfix.Token.TokenCommand;
+import postfix.Token.TokenFeature;
 
 import javax.swing.*;
 import java.util.Objects;

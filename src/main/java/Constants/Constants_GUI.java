@@ -56,7 +56,7 @@ public class Constants_GUI {
             config.store(output, "Config File");
             LogManager.addLog("Config saved to file.");
         } catch (IOException e) {
-            e.printStackTrace();
+            LogManager.addLog(e.toString());
         }
     }
 

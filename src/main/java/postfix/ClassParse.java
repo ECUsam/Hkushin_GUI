@@ -1,9 +1,9 @@
 package postfix;
 
 import Constants.Constants;
-import Token.TokenClass;
-import Token.Token;
-import Token.ClassType;
+import postfix.Token.TokenClass;
+import postfix.Token.Token;
+import postfix.Token.ClassType;
 import OPcode.*;
 import org.json.JSONObject;
 
@@ -90,6 +90,7 @@ public class ClassParse {
     private void parseCurrentToken(){
         //do{
             switch (currentToken.tokenType){
+
                 // TODO：统一节点的key值
                 case TK_className:
                     if(currentToken.string.equals("class"))classType = ClassType.valueOf("class_unit");
@@ -116,6 +117,7 @@ public class ClassParse {
                             data.set(3, currentToken.string);
                             if(DataManger.searchClass(currentToken.string))DataManger.classGetChildren(currentToken.string, tempParentName);
                             else DataManger.ThereIsOrphanFound(tempParentName, currentToken.string);
+
                             classname.getFather(currentToken.string);
                             next();
                         }
@@ -128,9 +130,11 @@ public class ClassParse {
                         if(DataManger.checkExist(tempClassType)){
                             Path path1 = Path.of(path);
                             baseNode = DataManger.dataMap.get(tempClassType);
+                            currentNode = baseNode;
                             tempClassType += ( "_"+path1.getFileName() );
                         }
                         DataManger.putValue(tempClassType, data);
+                        // 追记 不同的路径下的detail有对应的名称，但是全映射到同一个节点 我怎么会想出这么抽象的写法
                         DataManger.dataMap.put(tempClassType, baseNode);
                     }
                     assert currentToken.tokenType == TokenClass.TK_LEFT_CURLY_BRACE;
@@ -153,6 +157,8 @@ public class ClassParse {
                 case TK_close_par:
                     assert tokenStack.peek().tokenType == TokenClass.TK_close_par;
                     codeLevel -= 1;
+                    //System.out.println(lexer.source);
+
                     tokenStack.pop();
                     // SUS!!!!
                     // currentNode = currentNode.parent;
@@ -323,16 +329,6 @@ public class ClassParse {
         }
         currentNode = currentNode.parent;
     }
-
-    // TODO:递归的括号处理
-
-//    private void meetOpenPar(){
-//        var parNode = new TreeNode("open_par", "(");
-//        currentNode.addChild(parNode);
-//        currentNode = parNode;
-//        tokenStack.add(currentToken);
-//        codeLevel += 1;
-//    }
 
 
     private boolean checkCurrentTokenType(List<TokenClass> tokenClassList){

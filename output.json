@@ -1,8 +1,12 @@
 {
     "children": [
         {
-            "value": "event_defdead",
+            "value": "story_defdead",
             "key": "TK_className"
+        },
+        {
+            "value": "Token(type: Tk_feature, FeaName: fight, feature: [on])\n",
+            "key": "Tk_feature"
         },
         {
             "children": [
@@ -15,8 +19,8 @@
                                     "key": "TK_COMMAND"
                                 },
                                 {
-                                    "value": "Token(type: TK_IF_EQUAL, string: '==')\n",
-                                    "key": "TK_IF_EQUAL"
+                                    "value": "Token(type: TK_IF_GT, string: '>')\n",
+                                    "key": "TK_IF_GT"
                                 },
                                 {
                                     "value": "Token(type: TK_NUM, value: 0)\n",
@@ -26,8 +30,8 @@
                             "key": "TK_expr"
                         },
                         {
-                            "value": "Token(type: TK_and, string: '&&')\n",
-                            "key": "TK_and"
+                            "value": "Token(type: TK_or, string: '||')\n",
+                            "key": "TK_or"
                         },
                         {
                             "children": [
@@ -36,29 +40,8 @@
                                     "key": "TK_COMMAND"
                                 },
                                 {
-                                    "value": "Token(type: TK_IF_EQUAL, string: '==')\n",
-                                    "key": "TK_IF_EQUAL"
-                                },
-                                {
-                                    "value": "Token(type: TK_NUM, value: 0)\n",
-                                    "key": "TK_NUM"
-                                }
-                            ],
-                            "key": "TK_expr"
-                        },
-                        {
-                            "value": "Token(type: TK_and, string: '&&')\n",
-                            "key": "TK_and"
-                        },
-                        {
-                            "children": [
-                                {
-                                    "value": "Token(type: TK_NAME, string: 'defdead')\n",
-                                    "key": "TK_NAME"
-                                },
-                                {
-                                    "value": "Token(type: TK_IF_EQUAL, string: '==')\n",
-                                    "key": "TK_IF_EQUAL"
+                                    "value": "Token(type: TK_IF_GT, string: '>')\n",
+                                    "key": "TK_IF_GT"
                                 },
                                 {
                                     "value": "Token(type: TK_NUM, value: 0)\n",
@@ -71,97 +54,10 @@
                     "key": "TK_Logic"
                 },
                 {
-                    "children": [
-                        {
-                            "value": "Token(type: TK_COMMAND, commandName: set, feature: [defdead, 1])\n",
-                            "key": "TK_COMMAND"
-                        },
-                        {
-                            "children": [
-                                {
-                                    "children": [{
-                                        "children": [{
-                                            "value": "Token(type: TK_COMMAND, commandName: isEvent, feature: [])\n",
-                                            "key": "TK_COMMAND"
-                                        }],
-                                        "key": "TK_expr"
-                                    }],
-                                    "key": "TK_Logic"
-                                },
-                                {
-                                    "children": [{
-                                        "value": "Token(type: TK_COMMAND, commandName: dialog, feature: [全ての防衛施設が陥落し、防衛側の継戦が困難になりました。$残り時間500以下になると防衛側ユニットの移動速度が$大きく低下します。])\n",
-                                        "key": "TK_COMMAND"
-                                    }],
-                                    "key": "TK_Block"
-                                }
-                            ],
-                            "value": "if",
-                            "key": "TK_IF"
-                        }
-                    ],
-                    "key": "TK_Block"
-                }
-            ],
-            "value": "if",
-            "key": "TK_IF"
-        },
-        {
-            "children": [
-                {
-                    "children": [
-                        {
-                            "children": [
-                                {
-                                    "value": "Token(type: TK_NAME, string: 'defdead')\n",
-                                    "key": "TK_NAME"
-                                },
-                                {
-                                    "value": "Token(type: TK_IF_EQUAL, string: '==')\n",
-                                    "key": "TK_IF_EQUAL"
-                                },
-                                {
-                                    "value": "Token(type: TK_NUM, value: 1)\n",
-                                    "key": "TK_NUM"
-                                }
-                            ],
-                            "key": "TK_expr"
-                        },
-                        {
-                            "value": "Token(type: TK_and, string: '&&')\n",
-                            "key": "TK_and"
-                        },
-                        {
-                            "children": [
-                                {
-                                    "value": "Token(type: TK_COMMAND, commandName: getLimit, feature: [])\n",
-                                    "key": "TK_COMMAND"
-                                },
-                                {
-                                    "value": "Token(type: TK_IF_LT_OR_EQ, string: '<=')\n",
-                                    "key": "TK_IF_LT_OR_EQ"
-                                },
-                                {
-                                    "value": "Token(type: TK_NUM, value: 500)\n",
-                                    "key": "TK_NUM"
-                                }
-                            ],
-                            "key": "TK_expr"
-                        }
-                    ],
-                    "key": "TK_Logic"
-                },
-                {
-                    "children": [
-                        {
-                            "value": "Token(type: TK_COMMAND, commandName: set, feature: [defdead, 0])\n",
-                            "key": "TK_COMMAND"
-                        },
-                        {
-                            "value": "Token(type: TK_COMMAND, commandName: addTroop, feature: [class_kanraku, 1600, 1600, 0, blue])\n",
-                            "key": "TK_COMMAND"
-                        }
-                    ],
+                    "children": [{
+                        "value": "Token(type: TK_COMMAND, commandName: battleEvent, feature: [event_defdead])\n",
+                        "key": "TK_COMMAND"
+                    }],
                     "key": "TK_Block"
                 }
             ],
@@ -169,6 +65,6 @@
             "key": "TK_IF"
         }
     ],
-    "value": "event",
+    "value": "story",
     "key": "TK_classType"
 }

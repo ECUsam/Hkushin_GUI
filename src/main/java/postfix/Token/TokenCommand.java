@@ -1,4 +1,4 @@
-package Token;
+package postfix.Token;
 
 import java.util.Arrays;
 

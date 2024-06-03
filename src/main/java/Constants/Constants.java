@@ -1,7 +1,6 @@
 package Constants;
 
-import Token.TokenClass;
-import Token.TokenClass.*;
+import postfix.Token.TokenClass;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -11,7 +10,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Constants {
     public static final int EOZ = -1;   //文件末尾
-    public static final int POOL_SIZE = 10000;  //对象池大小 没用
     public static final String LAST_SELECTED_PATH_KEY = "lastSelectedPath";
     public static final int GUI_height = 800;
     public static final int GUI_width = 800;
@@ -91,10 +89,10 @@ public class Constants {
             '<',
             '&',
             '|',
-            '-',
-            '+',
+            //'-',
+            //'+',
             '\\',
-            '~',
+            //'~',
             ',',
             '\n',
             '!'
@@ -106,34 +104,39 @@ public class Constants {
             '(',
             ')',
             '=',
-            //':',
-            //' ',
-            //'\t',
-            //'\r',
-            //'>',
-            //'<',
-            //'&',
             '|',
-            //'-',
-            '+',
+            //'+',
             '\\',
             ','
-            //'\n'
+    );
+
+    public static final List<Character> special_char_not_space_for_msg = Arrays.asList(
+            //'{',
+            //'}',
+            '(',
+            ')',
+            //'=',
+            //'|',
+            //'+',
+            //'\\',
+            ','
+    );
+
+    public static final List<String> msg = Arrays.asList(
+            "msg",
+            "talk",
+            "chat"
     );
 
     public static final List<Character> special_char_not_space_feature = Arrays.asList(
             '{',
             '}',
             '=',
-            //':',
-            //' ',
             '\t',
             '\r',
             '>',
             '<',
-            //'&',
             '|',
-            //'-',
             '+',
             '\\',
             ',',
@@ -146,18 +149,14 @@ public class Constants {
             '(',
             ')',
             '=',
-            //':',
-            //'&',
             '|',
             '+',
-            //'-',
             '/',
             '%',
             ',',
             '<',
             '>',
             '*'
-            //'!'
     );
     //类名
     public static final List<String> class_type = Arrays.asList(
@@ -178,7 +177,8 @@ public class Constants {
             "context",
             "sound",
             "attribute",
-            "world"
+            "world",
+            "class_unit"
     );
     public static final List<String> complexClass = Arrays.asList(
       "story",

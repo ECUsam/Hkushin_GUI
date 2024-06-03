@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import Constants.Constants_GUI;
 import FileManager.PathManager;
 import OPcode.OPTreeNode;
-import Token.TokenClass;
+import postfix.Token.TokenClass;
 
 import java.util.LinkedHashMap;
 import java.util.stream.Stream;
@@ -53,6 +53,10 @@ public class ClassGetterFromFile {
             boolean name_mattered = false;
             int classLine = 0;
             boolean inExplain = false;
+            //System.out.println(filePath);
+            if(encoding.equals("utf-16le")){
+                reader.read();
+            }
             while ( (pointer = reader.read()) != -1 ){
                 char currentChar = (char) pointer;
                 allContextBuffer.append(currentChar);

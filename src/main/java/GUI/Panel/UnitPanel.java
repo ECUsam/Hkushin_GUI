@@ -11,8 +11,8 @@ import GUI.UI.RTree;
 import GUI.UI.ShadowBorder;
 import GUI.Utils;
 import OPcode.OPTreeNode;
-import Token.TokenClass;
-import Token.TokenFeature;
+import postfix.Token.TokenClass;
+import postfix.Token.TokenFeature;
 import postfix.DataManger;
 import postfix.LogManager;
 
@@ -34,7 +34,6 @@ import java.nio.file.Path;
 import java.text.NumberFormat;
 import java.util.*;
 import java.util.List;
-import Token.TokenClass.*;
 
 class shared{
     static HashMap<String, JComponent> componentHashMap;
@@ -108,9 +107,9 @@ public class UnitPanel extends JPanel implements INTERFACE {
             var filePath = pathManager.getFullPathFromTree(path);
             try {
                 boolean b = Utils.openFileManager(filePath);
-                if(!b)JOptionPane.showMessageDialog(null, "打开文件失败");
+                if(!b)JOptionPane.showMessageDialog(null, Constants_GUI.getDescription("open_file_error"));
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "打开文件失败");
+                JOptionPane.showMessageDialog(null,  Constants_GUI.getDescription("open_file_error"));
             }
         });
         popupMenu.add(menuItem1);
@@ -705,7 +704,13 @@ class basicSetting extends JPanel {
                         }
                     }
 
-                    // if(Objects.equals(value.FeatureName, "skill"))
+                    if(Objects.equals(value.FeatureName, "skill")){
+                        String[] skills = value.strings_feature;
+                        for(var skill : skills){
+                            OPTreeNode skillNode = DataManger.searchOPNodeFromName(skill);
+                            skillArea.skillAdder(skillNode);
+                        }
+                    }
                     // 各个字段
                     var a = shared.componentHashMap.get(value.FeatureName);
                     if(a instanceof JTextField textField){
@@ -775,11 +780,20 @@ class skillPanel extends JPanel{
         this.add(component, gbc);
     }
 
-    private void skillAdder(OPTreeNode skillNode){
+    // 不止一个图片 有伽马值 加后缀
+    public void skillAdder(OPTreeNode skillNode){
         File backFile;
         gbc.gridy = 1;
         String[] icon = DataManger.searchFeatureFromClass_all(skillNode, "icon");
         if(icon!=null){
+            String icon1 = null;
+            for(String icon2 : icon){
+                if(icon2.contains("*")){
+                    var icon2s = icon2.split("\\*");
+                    icon2 = icon2s[0];
+                    int gamma = Integer.parseInt(icon2s[1]);
+                }
+            }
             String pattern = icon[0];
             File patternFile = PathManager.getInstance().getDataFile("chip2", pattern);
             if(patternFile==null)patternFile = PathManager.getInstance().getDataFile("chip", pattern);

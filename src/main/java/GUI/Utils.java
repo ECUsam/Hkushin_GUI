@@ -134,5 +134,19 @@ public class Utils {
         g.dispose();
         return resultImage;
     }
+
+    public static BufferedImage overlay2image(File backgroundFile, File patternFile, int gamma) throws IOException {
+        // 读取背景图像和图案图像
+        BufferedImage background = ImageIO.read(backgroundFile);
+        BufferedImage pattern = ImageIO.read(patternFile);
+
+        BufferedImage resultImage = new BufferedImage(background.getWidth(), background.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = resultImage.createGraphics();
+
+        g.drawImage(background, 0, 0, null);
+        g.drawImage(pattern, 0, 0, null);
+        g.dispose();
+        return resultImage;
+    }
 }
 

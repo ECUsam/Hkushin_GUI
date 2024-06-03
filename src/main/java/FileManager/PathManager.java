@@ -1,6 +1,7 @@
 package FileManager;
 
 import OPcode.OPTreeNode;
+import lombok.Getter;
 import postfix.DataManger;
 
 import javax.swing.tree.TreePath;
@@ -22,23 +23,41 @@ public class PathManager {
     public String basePathString;
     public String encoding;
     private Path basePath;
+    @Getter
     private static PathManager instance;
-
+    //x-SJIS_0213
     public PathManager(String basePath) {
-        init(basePath, "x-SJIS_0213");
+        init(basePath);
         instance = this;
     }
 
-    public static PathManager getInstance() {
-        return instance;
+    private String checkEncode(){
+        Path script_path = get_to_scriptPath();
+        File directory = new File(String.valueOf(script_path));
+
+        File[] files = directory.listFiles();
+        boolean found = false;
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && file.getName().equals("unicode.txt")) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (found) {
+            return "utf-16le";
+        } else {
+            return "x-SJIS_0213";
+        }
     }
 
     public PathManager(String basePath, String encoding) {
-        init(basePath, encoding);
+        init(basePath);
         instance = this;
     }
 
-    private void init(String path, String encoding){
+    private void init(String path){
         Path testPath = Path.of(path);
         while(!checkIsBasicFolder(String.valueOf(testPath))){
             testPath = testPath.getParent();
@@ -48,7 +67,7 @@ public class PathManager {
         }
         basePath = testPath;
         basePathString = testPath.toString();
-        this.encoding = encoding;
+        this.encoding = checkEncode();
     }
 
     public String getFullPathFromTree(TreePath treePath){
@@ -176,10 +195,8 @@ public class PathManager {
 
     }
     public static void main(String[] args) {
-        boolean res = checkIsDataFolder(Paths.get("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版"));
-        Path path = findDataFolder("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版");
-        ScriptReader scriptReader = new ScriptReader("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版\\a_default\\script");
-        PathManager pathManager = new PathManager("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版");
+        ScriptReader scriptReader = new ScriptReader("E:\\download\\新约迫真战记―温暖神话ver0.561 完全汉化\\a_default\\script");
+
         scriptReader.readAll();
         for(Map.Entry<String, OPTreeNode> name : DataManger.dataMap.entrySet()){
             System.out.print(name.getKey()+"\n");

@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
+// 你就是test
 public class Main {
     public static void main(String[] args) throws IOException {
-        PathManager pathManager = new PathManager("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版", "x-SJIS_0213");
+        PathManager pathManager = new PathManager("E:\\download\\新約迫真戦記―ほのぼの神話ver0.50 豪華版", "utf-16");
         ClassGetterFromFile a = new ClassGetterFromFile(pathManager);
         //Ai戦闘制御_追加部分.dat
-        a.File2Class("D:\\新約迫真戦記―ほのぼの神話ver0.55 軽量版\\a_default\\script\\defense.dat");
+        a.File2Class("E:\\download\\新約迫真戦記―ほのぼの神話ver0.50 豪華版\\a_default\\script\\defense.dat");
         // 迭代器选择
         Iterator<Map.Entry<String, Integer>> iterator = a.scriptClass.entrySet().iterator();
         ClassParse c = new ClassParse("null", "");

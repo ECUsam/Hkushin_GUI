@@ -2,8 +2,7 @@ package GUI.Panel;
 
 import Constants.Constants_GUI;
 import OPcode.OPTreeNode;
-import Token.Token;
-import Token.TokenCommand;
+import postfix.Token.TokenCommand;
 import lombok.Data;
 
 @Data

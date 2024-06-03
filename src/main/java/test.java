@@ -1,18 +1,27 @@
-import javax.swing.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class test {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Test");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        String fullwidthString = "Oh yeah, $ I'm just waiting for $ next customers. @nisendoru_dead.wav";
+        String halfwidthString = fullwidthToHalfwidth(fullwidthString);
+        System.out.println(halfwidthString); // 输出：ABCDEFG
+    }
 
-        String value = "要缩进的部分文本";
+    public static String fullwidthToHalfwidth(String str) {
+        // 创建正则表达式匹配器
+        Pattern pattern = Pattern.compile("[Ａ-Ｚａ-ｚ]");
+        Matcher matcher = pattern.matcher(str);
 
-        // 创建一个带有HTML格式的JLabel
-        JLabel label = new JLabel();
-        label.setText("<html><div style='margin-left: 30px;'>" + value + "</div></html>");
+        // 使用匹配器进行替换
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            char fullwidthChar = matcher.group().charAt(0);
+            char halfwidthChar = (char) (fullwidthChar - 65248); // 全角字母与半角字母之间的 Unicode 编码差值为 65248
+            matcher.appendReplacement(sb, Character.toString(halfwidthChar));
+        }
+        matcher.appendTail(sb);
 
-        frame.getContentPane().add(label);
-        frame.pack();
-        frame.setVisible(true);
+        return sb.toString();
     }
 }

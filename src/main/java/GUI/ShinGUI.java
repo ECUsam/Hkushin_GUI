@@ -19,9 +19,9 @@ public class ShinGUI {
 
     public static void main(String[] args) {
         //实验
-
         UIPreProcessor.process();
         SwingUtilities.invokeLater(() -> application = new ShinGUI());
+
     }
     private ShinGUI(){
         initUI();

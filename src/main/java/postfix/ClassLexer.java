@@ -1,11 +1,12 @@
 package postfix;
 
-import Token.TokenFeature;
-import Token.TokenCommand;
-import Token.CommandType;
+import lombok.Getter;
+import postfix.Token.TokenFeature;
+import postfix.Token.TokenCommand;
+import postfix.Token.CommandType;
 import Constants.Constants;
-import Token.Token;
-import Token.TokenClass;
+import postfix.Token.Token;
+import postfix.Token.TokenClass;
 import Constants.Constants_GUI;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class ClassLexer {
     private StringReader stringReader;
     private BufferedReader bufferedReader;
     public int codeLine = 0;
+    @Getter
     private List<Token> tokenList;
     private boolean isSourceDetail = false;
     public Token currentToken;
@@ -196,6 +198,14 @@ public class ClassLexer {
                                 case "rif":
                                     return StringToken(TokenClass.TK_RIF, word);
                                 default:
+//                                    System.out.println(word);
+//                                    System.out.println(word.trim().equals("unit"));
+//                                    System.out.println("长度：" + word.length());
+//                                    for (int i = 0; i < word.length(); i++) {
+//                                        char c = word.charAt(i);
+//                                        System.out.println("字符 " + c + " 的 Unicode 编码点：" + (int) c);
+//                                    }
+
                                     if(Constants.class_type.contains(word) && classType == null){
                                         classType = word;
                                         if(word.equals("detail"))isSourceDetail=true;
@@ -221,9 +231,6 @@ public class ClassLexer {
         return NomToken(TokenClass.TK_EOF);
     }
 
-    public List<Token> getTokenList() {
-        return tokenList;
-    }
     public void printTokenList(){
         for (Token token : tokenList){
             System.out.print(token);
@@ -266,7 +273,19 @@ public class ClassLexer {
             if (currentChar == '\n') codeLine += 1;
             wordBuild.append(currentChar);
         }
-        assert wordBuild.length() != 0;
+        assert !wordBuild.isEmpty();
+        return wordBuild.toString();
+    }
+
+    private String getAnyWordFromStream_for_msg() throws IOException {
+        StringBuilder wordBuild = new StringBuilder();
+        wordBuild.append(currentChar);
+        while (!checkNextCharisSpecial_not_space_for_msg()){
+            currentChar = (char) bufferedReader.read();
+            if (currentChar == '\n') codeLine += 1;
+            wordBuild.append(currentChar);
+        }
+        assert !wordBuild.isEmpty();
         return wordBuild.toString();
     }
 
@@ -278,7 +297,7 @@ public class ClassLexer {
             if (currentChar == '\n') codeLine += 1;
             wordBuild.append(currentChar);
         }
-        assert wordBuild.length() != 0;
+        assert !wordBuild.isEmpty();
         return wordBuild.toString();
     }
 
@@ -346,6 +365,14 @@ public class ClassLexer {
         return isMatch;
     }
 
+    private boolean checkNextCharisSpecial_not_space_for_msg() throws IOException{
+        bufferedReader.mark(1);
+        char nextChar = (char) bufferedReader.read();
+        boolean isMatch = (Constants.special_char_not_space_for_msg.contains(nextChar));
+        bufferedReader.reset();
+        return isMatch;
+    }
+
     private boolean checkNextCharisSpecial_not_space_feature() throws IOException{
         bufferedReader.mark(1);
         char nextChar = (char) bufferedReader.read();
@@ -372,8 +399,6 @@ public class ClassLexer {
                 currentChar = (char) bufferedReader.read();
             }while (Constants.space_char.contains(currentChar));
         }
-//        if(checkNextChar(' '))skipSpace();
-//        else currentChar = (char) bufferedReader.read();
 
         if (currentChar == '(') return CommandType.command;
         else if (currentChar == '=') {
@@ -408,6 +433,7 @@ public class ClassLexer {
         }
     }
 
+
     private TokenCommand parseCommandToken(String word) throws IOException {
         //为什么检测了两遍？
         if(checkNextChar(')')){
@@ -428,9 +454,23 @@ public class ClassLexer {
         List<String> strings = new ArrayList<>();
         do {
             skip2AnyWord();
-            strings.add(getAnyWordFromStream());
+            String s;
+            if(Constants.msg.contains(word)){
+                s = getAnyWordFromStream_for_msg();
+            }else {
+                s = getAnyWordFromStream();
+            }
+            if (s.charAt(s.length()-1) == ' ' && checkNextChar(',')){
+                strings.add(s.trim());
+                continue;
+            }
+            strings.add(s);
             skipSpace();
+
         }while (checkNextChar(',') && (currentChar = (char) bufferedReader.read())==',');
+
+        skipSpace();
+
         currentChar = (char) bufferedReader.read();
         if (currentChar == '\n') codeLine += 1;
         assert currentChar==')': "Unexpected character: " + currentChar;
@@ -444,7 +484,8 @@ public class ClassLexer {
         skipSpaceWithoutEnter();
 
         if(currentChar == '@')return new TokenFeature(word);
-        if(isSourceDetail||(Objects.equals(classType, "scenario") && Objects.equals(word, "text"))){
+        if(isSourceDetail||(Objects.equals(classType, "scenario") && Objects.equals(word, "text"))
+        || (Objects.equals(classType, "power") && Objects.equals(word, "text"))){
             StringBuilder stringBuilder = new StringBuilder();
             skipSpace();
             while (currentChar!=';'){

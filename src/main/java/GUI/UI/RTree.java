@@ -1,10 +1,13 @@
 package GUI.UI;
 
+import GUI.Panel.UnitPanel;
+
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -18,6 +21,15 @@ public class RTree extends JTree {
         super(model);
     }
     public RTree(){
+    }
+
+    private void init(){
+        this.setRowHeight(25); // 设置行高
+        Font font = new Font("Microsoft YaHei", Font.PLAIN, 12);
+        this.setFont(font);
+        this.setRootVisible(false);
+        this.setCellRenderer(new CustomTreeCellRenderer());
+        this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
     }
 
     @Override
